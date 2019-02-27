@@ -85,7 +85,7 @@ public class FenetreParametre extends JFrame implements ActionListener {
 		algo2.addActionListener(this);
 		panneauResoudre.add(algo2);
 		
-		algo3 = new JRadioButton("algo 2"); 
+		algo3 = new JRadioButton("algo 3"); 
 		algo3.setSelected(false);
 		algo3.setBounds(20,140,90,20);
 		algo3.addActionListener(this);
