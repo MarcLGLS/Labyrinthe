@@ -60,7 +60,7 @@ public class Case extends JPanel {
 
 		murs[n] = b;
 
-		int t = ((n+2)>3)? n+2 : 1;
+		int t = ((n+2)>3)? 1 : n+2;
 
 		voisins[n].modifVoisin(t, b);
 
@@ -72,7 +72,7 @@ public class Case extends JPanel {
 
 		for(int i = 0; i < b.length; i++){
 
-			int t = ((i+2)>3)? i+2 : 1;
+			int t = ((i+2)>3)? 1 : i+2;
 
 			voisins[i].modifVoisin(t, b);
 
