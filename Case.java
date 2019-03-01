@@ -7,7 +7,6 @@ import java.awt.*;
 
 public class Case  { 
 	private boolean murs[]; 
-	private Image image;
 	
 	public Case(boolean murs[]) {
 		this.murs = new boolean[4]; 
