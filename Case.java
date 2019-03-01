@@ -10,6 +10,7 @@ public class Case extends JPanel {
 
 	private boolean murs[] = new boolean[4];
 	private Case[] voisins = new Case[4];
+	private boolean estArriveee  = false;
 
 	public Case(boolean avecMurs) {
 
@@ -69,6 +70,14 @@ public class Case extends JPanel {
 
 		murs = b;
 
+		for(int i = 0; i < b.length; i++){
+
+			int t = ((i+2)>3)? i+2 : 1;
+
+			voisins[i].modifVoisin(t, b);
+
+		}
+
 	}
 
 	public void modifVoisin(int n, boolean b){
@@ -80,6 +89,18 @@ public class Case extends JPanel {
 	public void setVoisins(Case[] c){
 
 		voisins = c;
+
+	}
+
+	public boolean estArrivee(){
+
+		return this.estArrivee;
+
+	}
+
+	public boolean setArrivee(){
+
+		this.estArrivee = true;
 
 	}
 
