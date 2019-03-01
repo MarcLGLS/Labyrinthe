@@ -22,27 +22,38 @@ public class Grille {
 		
 		for(int x=0; x<this.taille[0];x++) {
 			for(int y = 0; y<this.taille[1]; y++) {
-				this.grille[x][y] = new Case(t);
+				this.grille[x][y] = new Case(true);
 				visite[x][y] = false; 
 			}
 		}
 
 	// selection du case en bordure au hasard
 		int a = (int)(Math.random() * (this.taille[1]+1));
-		double position[] = {0,a}; 
-		double position1[] = {0,0};
+		int position[] = {0,a}; 
+		int position1[] = {0,0};
 		visite[0][a] = true; 
 		boolean finie = false;
-		boolean t1 = {false,true,false,true};
+		boolean t1[] = {false,true,false,true};
 		grille[0][a].setMurs(t1);
 		
 		while( finie == false) {
 			// choix position case adjacente
-			for(int i =0; i<2;i++) {
 				do{
-					position1[i]= position[i] +(int)(3*Math.random())-1;
-				}while(position1[i]<0 || position1[i]>= this.taille[i] || position1[i] == position[i]) ;
-			}
+					if((int)(2*Math.random())==0) {
+						position1[0]= position[0] +(int)(3*Math.random())-1;
+					} else {
+						position1[1] = position[1] + (int)(3*Math.random())-1;
+					}
+				}while(position1[0]<0 || position1[0]>= this.taille[0] || position1[0] == position[0] ||position1[1]<0 || position1[1]>= this.taille[1] || position1[1] == position[1] || visite[position1[0] || position1[1]] == true );
+				
+				position[0] = position1[0];
+				position[1] = position1[1];
+			// choix mur à détruire bout de code à compléter !!!!!!!!!!!!!!!!
+			
+				grille[positon[0]][position[1]]; 
+				
+			
+			visite[position[0]][position[1]] = true;
 			
 			
 			// verification labyrinthe complète
