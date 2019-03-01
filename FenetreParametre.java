@@ -12,6 +12,7 @@ public class FenetreParametre extends JFrame implements ActionListener {
 	private JButton boutonGenerer;
 	private JButton boutonResoudre;
 	private JTextField valeurDensite;
+    private JTextField valeurTaille;
 	private JRadioButton algo1;
 	private JRadioButton algo2;
 	private JRadioButton algo3;
@@ -46,6 +47,7 @@ public class FenetreParametre extends JFrame implements ActionListener {
 		generation.setBounds(20,20,80,35);
 		generation.setForeground(Color.white);
 		panneauGenerer.add(generation);
+        
 		
 		JLabel densite = new JLabel("Densite =");
 		densite.setBounds(20,50,80,35);
@@ -55,6 +57,24 @@ public class FenetreParametre extends JFrame implements ActionListener {
 		valeurDensite = new JTextField(" ");
 		valeurDensite.setBounds(20,80,60,30);
 		panneauGenerer.add(valeurDensite);
+        String densiteDefinie = valeurDensite.getText();
+        System.out.println(densiteDefinie);
+        
+        
+        
+        JLabel taille = new JLabel("Taille =");
+		taille.setBounds(90,50,80,35);
+		taille.setForeground(Color.white);
+		panneauGenerer.add(taille);
+		
+		valeurTaille = new JTextField(" ");
+		valeurTaille.setBounds(90,80,60,30);
+		panneauGenerer.add(valeurTaille);
+        String tailleDefinie = valeurTaille.getText();
+        System.out.println(tailleDefinie);
+        
+        
+        
 		
 		algo1 = new JRadioButton("algo 1"); 
 		algo1.setSelected(false);
@@ -85,7 +105,7 @@ public class FenetreParametre extends JFrame implements ActionListener {
 		algo2.addActionListener(this);
 		panneauResoudre.add(algo2);
 		
-		algo3 = new JRadioButton("algo 2"); 
+		algo3 = new JRadioButton("algo 3"); 
 		algo3.setSelected(false);
 		algo3.setBounds(20,140,90,20);
 		algo3.addActionListener(this);
