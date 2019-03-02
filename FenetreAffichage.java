@@ -14,18 +14,36 @@ public class FenetreAffichage extends JFrame {
 
 	public FenetreAffichage(Grille grille) {
 		this.grille = grille;
+		int largeur = grille.getLargeur();
+    int hauteur = grille.getHauteur();
+    Case[][] tableau = grille.getTableau();
+
 
 		this.setTitle("Affichage Labyrinthe");
 		this.setSize(600,600);
 		this.setLocation(700,200);
-		this.setResizable(false);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		JPanel affichage = new JPanel();
-		affichage.setBounds(0,0,500,500);
-		affichage.setLayout(null);
+		JPanel racine = new JPanel();
+		affichage.setLayout(new BorderLayout());
 		affichage.setBackground(Color.white);
 
-		this.add(affichage);
+		JPanel labyrinthe = new JPanel();
+		labyrinthe.setLayout(new GridLayout(largeur, hauteur));
+
+		for(int i = 0; i < largeur; i ++){
+
+			for(int j = 0; j< hauteur; j++){
+
+				labyrinthe.add(Case[i][j]);
+
+			}
+
+		}
+
+		racine.add(labyrinthe, BorderLayout.CENTER);
+
+		this.setContentPane(racine);
 		this.setVisible(false);
 
 	}
