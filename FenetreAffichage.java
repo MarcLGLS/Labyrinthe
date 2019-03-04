@@ -25,8 +25,8 @@ public class FenetreAffichage extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		JPanel racine = new JPanel();
-		affichage.setLayout(new BorderLayout());
-		affichage.setBackground(Color.white);
+		racine.setLayout(new BorderLayout());
+		racine.setBackground(Color.white);
 
 		JPanel labyrinthe = new JPanel();
 		labyrinthe.setLayout(new GridLayout(largeur, hauteur));
@@ -35,7 +35,7 @@ public class FenetreAffichage extends JFrame {
 
 			for(int j = 0; j< hauteur; j++){
 
-				labyrinthe.add(Case[i][j]);
+				labyrinthe.add(tableau[i][j]);
 
 			}
 
@@ -44,7 +44,7 @@ public class FenetreAffichage extends JFrame {
 		racine.add(labyrinthe, BorderLayout.CENTER);
 
 		this.setContentPane(racine);
-		this.setVisible(false);
+		this.setVisible(true);
 
 	}
 }

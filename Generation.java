@@ -1,10 +1,10 @@
 
 public abstract class Generation{
 
-  private Grille grille;
+  protected Grille maGrille;
 
-  public void generer();
+  public abstract void generer();
 
-  public void toString();
+  //public void toString();
 
 }

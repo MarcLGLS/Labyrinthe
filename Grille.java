@@ -4,7 +4,7 @@
 */
 
 public class Grille {
-	private Case grille[][];
+	private Case tableau[][];
 	private int largeur, hauteur;
 
 	public Grille(int l, int h) {
@@ -12,15 +12,29 @@ public class Grille {
 		largeur = l;
 		hauteur = h;
 
-		grille = new Case[largeur][hauteur];
+		tableau = new Case[largeur][hauteur];
 	}
 
 
 	public void remplir(boolean avecMurs){
 
-		for(Case c : grille){
+		for(int i = 0; i < tableau.length; i++){
 
-			c = new Case(avecMurs);
+			for(int j = 0; j < tableau[0].length; j++){
+
+				tableau[i][j] = new Case(avecMurs);
+
+			}
+
+		}
+
+		for(int i = 0; i < tableau.length; i++){
+
+			for(int j = 0; j < tableau[0].length; j++){
+
+				
+
+			}
 
 		}
 
@@ -40,7 +54,7 @@ public class Grille {
 
 	public Case[][] getTableau(){
 
-		return this.grille;		
+		return this.tableau;
 	}
 
 }

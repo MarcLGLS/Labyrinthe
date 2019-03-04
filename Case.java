@@ -10,7 +10,7 @@ public class Case extends JPanel {
 
 	private boolean murs[] = new boolean[4];
 	private Case[] voisins = new Case[4];
-	private boolean estArriveee  = false;
+	private boolean estArrivee  = false;
 
 	public Case(boolean avecMurs) {
 
@@ -32,19 +32,26 @@ public class Case extends JPanel {
 
 	public void paint(Graphics g){
 
+		super.paintComponent(g);
+
+		Graphics2D g2 = (Graphics2D) g;
+
+	  g2.setStroke(new BasicStroke(1));
+
+
 		g.setColor(Color.white);
 
 		g.drawRect(0,0, this.getWidth(), this.getHeight());
 
-		g.setColor(Color.black);
+		g2.setColor(Color.BLACK);
 
-		if(murs[0] == true) g.drawLine(0,0,this.getWidth(), this.getHeight());
+		if(murs[0] == true) g2.drawLine(0,0,this.getWidth(), this.getHeight());
 
-		if(murs[1] == true) g.drawLine(0,0,this.getWidth(), 0);
+		if(murs[1] == true) g2.drawLine(0,0,this.getWidth(), 0);
 
-		if(murs[2] == true) g.drawLine(this.getWidth(),0,this.getWidth(), this.getHeight());
+		if(murs[2] == true) g2.drawLine(this.getWidth(),0,this.getWidth(), this.getHeight());
 
-		if(murs[3] == true) g.drawLine(this.getWidth(), this.getHeight(), this.getHeight(),0);
+		if(murs[3] == true) g2.drawLine(this.getWidth(), this.getHeight(), this.getHeight(),0);
 
 
 	}
@@ -74,7 +81,7 @@ public class Case extends JPanel {
 
 			int t = ((i+2)>3)? 1 : i+2;
 
-			voisins[i].modifVoisin(t, b);
+			voisins[i].modifVoisin(t, b[i]);
 
 		}
 
@@ -98,7 +105,7 @@ public class Case extends JPanel {
 
 	}
 
-	public boolean setArrivee(){
+	public void setArrivee(){
 
 		this.estArrivee = true;
 
