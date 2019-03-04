@@ -18,11 +18,9 @@ public class Case extends JPanel {
 		this.setLayout(null);
 
 
-		for(boolean b : murs){
+		for(int i =0; i < murs.length; i++){
 
-			if(avecMurs == true) b = true;
-
-			if(avecMurs == false) b = false;
+			murs[i] = avecMurs;
 
 		}
 
@@ -30,28 +28,29 @@ public class Case extends JPanel {
 
 	}
 
-	public void paint(Graphics g){
+	public void paintComponent(Graphics g){
 
 		super.paintComponent(g);
 
 		Graphics2D g2 = (Graphics2D) g;
 
-	  g2.setStroke(new BasicStroke(1));
+	  g2.setStroke(new BasicStroke(3));
 
+		g2.setColor(Color.white);
 
-		g.setColor(Color.white);
+		System.out.println("w :" + getWidth() + " h : " + getHeight());
 
-		g.drawRect(0,0, this.getWidth(), this.getHeight());
+		g2.fillRect(0,0,getWidth(), getHeight());
 
-		g2.setColor(Color.BLACK);
+		g2.setColor(Color.black);
 
-		if(murs[0] == true) g2.drawLine(0,0,this.getWidth(), this.getHeight());
+		if(murs[0] == true) g2.drawLine(0,0,0, this.getHeight());
 
 		if(murs[1] == true) g2.drawLine(0,0,this.getWidth(), 0);
 
 		if(murs[2] == true) g2.drawLine(this.getWidth(),0,this.getWidth(), this.getHeight());
 
-		if(murs[3] == true) g2.drawLine(this.getWidth(), this.getHeight(), this.getHeight(),0);
+		if(murs[3] == true) g2.drawLine(this.getWidth(), this.getHeight(), 0, this.getHeight());
 
 
 	}
@@ -69,7 +68,7 @@ public class Case extends JPanel {
 
 		int t = ((n+2)>3)? 1 : n+2;
 
-		voisins[n].modifVoisin(t, b);
+		if(voisins[n] != null) voisins[n].modifVoisin(t, b);
 
 	}
 
@@ -81,7 +80,7 @@ public class Case extends JPanel {
 
 			int t = ((i+2)>3)? 1 : i+2;
 
-			voisins[i].modifVoisin(t, b[i]);
+			if(voisins[i] != null) voisins[i].modifVoisin(t, b[i]);
 
 		}
 

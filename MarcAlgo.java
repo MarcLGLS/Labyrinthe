@@ -22,7 +22,7 @@ public class MarcAlgo extends Generation{
       	Case[][] tableau = maGrille.getTableau();
 
   	// selection du case en bordure au hasard
-    /*
+
     	int a = (int)(Math.random() * (hauteur+1));
       a = 0;
   		int position[] = {0,a};
@@ -66,7 +66,7 @@ public class MarcAlgo extends Generation{
 
 
 			i++;
-    }*/
+    }
 
 
   }
