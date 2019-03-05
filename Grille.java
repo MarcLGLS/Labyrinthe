@@ -44,7 +44,7 @@ public class Grille {
 
 				}
 
-				if(i == tableau.length-1){
+				if(i == largeur -1){
 
 						vois[2] = null;
 				}else{
@@ -63,7 +63,7 @@ public class Grille {
 
 				}
 
-				if(j == tableau[0].length-1){
+				if(j == hauteur-1){
 
 					vois[3] = null;
 

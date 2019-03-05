@@ -11,12 +11,15 @@ public class Case extends JPanel {
 	private boolean murs[] = new boolean[4];
 	private Case[] voisins = new Case[4];
 	private boolean estArrivee  = false;
+	public int x, y;
 
 	public Case(boolean avecMurs) {
 
 	 	super();
 		this.setLayout(null);
 
+		this.x = x;
+		this.y = y;
 
 		for(int i =0; i < murs.length; i++){
 
@@ -38,9 +41,11 @@ public class Case extends JPanel {
 
 		g2.setColor(Color.white);
 
-		System.out.println("w :" + getWidth() + " h : " + getHeight());
+		//System.out.println("w :" + getWidth() + " h : " + getHeight());
 
 		g2.fillRect(0,0,getWidth(), getHeight());
+
+
 
 		g2.setColor(Color.black);
 
@@ -66,7 +71,7 @@ public class Case extends JPanel {
 
 		murs[n] = b;
 
-		int t = ((n+2)>3)? 1 : n+2;
+		int t = ((n+2)>3)? n-2 : n+2;
 
 		if(voisins[n] != null) voisins[n].modifVoisin(t, b);
 
@@ -78,7 +83,7 @@ public class Case extends JPanel {
 
 		for(int i = 0; i < b.length; i++){
 
-			int t = ((i+2)>3)? 1 : i+2;
+			int t = ((i+2)>3)? i-2 : i+2;
 
 			if(voisins[i] != null) voisins[i].modifVoisin(t, b[i]);
 
