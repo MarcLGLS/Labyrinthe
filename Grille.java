@@ -4,7 +4,7 @@
 */
 
 public class Grille {
-	private Case tableau[][];
+	public Case tableau[][];
 	private int largeur, hauteur;
 
 	public Grille(int l, int h) {

@@ -39,7 +39,7 @@ public class MarcAlgo extends Generation{
 	// début remplissage de la grille
 		int i = 0;
 
-  		while( i< 15) {
+  		while( i< 25) {
 
   			// choix de la case adjacente
 
@@ -49,16 +49,21 @@ public class MarcAlgo extends Generation{
   					} else {
   						position1[1] = position[1] + (int)(3*Math.random())-1;
   					}
+  					System.out.println("MARC !! ");
   				}while(position1[0]<0 || position1[0]>= largeur || position1[0] == position[0] ||position1[1]<0 || position1[1]>= hauteur || position1[1] == position[1] || visite[position1[0]][ position1[1]] == true );
-
-
+				
+				
   				position[0] = position1[0];
   				position[1] = position1[1];
-
+				
   			// choix mur à détruire bout de code à compléter !!!!!!!!!!!!!!!!
-
-
-
+			maGrille.tableau[position[0]][position[1]].setMurs(0,false);
+			maGrille.tableau[position[0]][position[1]].setMurs(1,false);
+			maGrille.tableau[position[0]][position[1]].setMurs(2,false);
+			maGrille.tableau[position[0]][position[1]].setMurs(3,false);
+	
+			System.out.println("test"+i+" !! ");
+			
 
   			visite[position[0]][position[1]] = true;
 
