@@ -25,13 +25,14 @@ public class FenetreAffichage extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		JPanel racine = new JPanel();
-		BorderLayout layout = new BorderLayout();
-		layout.setHgap(0);
-		racine.setLayout(layout);
-		racine.setBackground(Color.green);
+		BorderLayout racineLayout = new BorderLayout();
+		racineLayout.setVgap(10);
+		racineLayout.setHgap(10);
+		racine.setLayout(racineLayout);
+		racine.setBackground(Color.white);
 
 		JPanel labyrinthe = new JPanel();
-		labyrinthe.setBackground(Color.green);
+		labyrinthe.setBackground(Color.white);
 		labyrinthe.setLayout(new GridLayout(hauteur,largeur));
 
 		for(int i = 0; i < hauteur; i ++){
@@ -45,6 +46,10 @@ public class FenetreAffichage extends JFrame {
 		}
 
 		racine.add(labyrinthe, BorderLayout.CENTER);
+
+		JTextField info = new JTextField("La case d'arrivée est la case rouge");
+
+		racine.add(info, BorderLayout.SOUTH);
 
 		this.setContentPane(racine);
 		this.setVisible(true);

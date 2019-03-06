@@ -37,14 +37,15 @@ public class Case extends JPanel {
 
 		Graphics2D g2 = (Graphics2D) g;
 
-	  g2.setStroke(new BasicStroke(3));
+	  g2.setStroke(new BasicStroke(5));
 
-		g2.setColor(Color.white);
+		if(estArrivee == false) g2.setColor(Color.white);
+
+		else g2.setColor(Color.red);
 
 		//System.out.println("w :" + getWidth() + " h : " + getHeight());
 
 		g2.fillRect(0,0,getWidth(), getHeight());
-
 
 
 		g2.setColor(Color.black);
@@ -100,6 +101,12 @@ public class Case extends JPanel {
 	public void setVoisins(Case[] c){
 
 		voisins = c;
+
+	}
+
+	public Case[] getVoisins(){
+
+		return voisins;
 
 	}
 
