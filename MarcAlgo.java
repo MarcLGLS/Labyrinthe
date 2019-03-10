@@ -1,19 +1,30 @@
 
 
 public class MarcAlgo extends Generation{
-
+	private boolean[][] visite;
+  
   public MarcAlgo(Grille g){
 
     this.maGrille = g;
+    
+    // initialisation + remplissage du tableau visite par des false 
+    this.visite = new boolean[maGrille.getLargeur()][maGrille.getHauteur()];
+    for(int y =0; y< maGrille.getHauteur(); y++) {
+		for(int x =0; x < maGrille.getLargeur(); x++) {
+			this.visite[x][y] = false; 
+		}
+		
+	}
+	
+	
+    
+
 
   }
 
   public void generer(){
 
-		int largeur = maGrille.getLargeur();
-		int hauteur = maGrille.getHauteur();
 
-		boolean[][] visite = new boolean[largeur][hauteur];
 
 	// initialisation de la grille ( remplissage en entier = choix case de départ)
 
@@ -21,32 +32,87 @@ public class MarcAlgo extends Generation{
 
       	Case[][] tableau = maGrille.getTableau();
 
+
         
 
   	// selection du case en bordure au hasard
 
-    	int a = (int)(Math.random() * (hauteur+1));
+    	int a = (int)(Math.random() * (maGrille.getLargeur()+1));
     	
   		int position[] = {0,a};
-  		int position1[] = {1,a};
+  		int position1[] = {0,a};
   		visite[0][a] = true;
   		boolean finie = false;
   	// tableau représentant l'état de la case départ
   		boolean depart[] = {false,true,true,true};
   		tableau[0][a].setMurs(depart);
+		
+		f(position1);
+	
+	// on continue à créer des serpents tant que grille pas remplie
+		int z =0;
+	while(z<7) {
+		// choix case déja visité
+		int x; 
+		int y; 
+		do {
+			x = (int)(Math.random()*(maGrille.getLargeur()+1));
+			y = (int)(Math.random()*(maGrille.getHauteur()+1));
+		} while(this.visite[x][y] == false);
+		
+		int position3[] = {x,y};
+		
+		f(position3);
+		z++;
+		
+	}
+		
+		
+		
+	
 
 
 
-	// début remplissage de la grille
-		int i = 0;
 
-  		while( i< 100) {
-                                              
+
+  }
+
+  //méthode vérifiant si l'intégralité du labyrinthe a été visité, renvoie true si labyrinthe complet et false si incomplet
+  public boolean finie() {
+	boolean finie = true;
+  			for(int x=0; x<maGrille.getLargeur();x++) {
+  				for(int y = 0; y<maGrille.getHauteur(); y++) {
+  					if(this.visite[x][y] == false){
+  						finie = false;
+  					}
+  				}
+  			}
+	return finie;
+  }
+  
+  
+  public void f(int a[]) {
+	    int largeur = maGrille.getLargeur();
+		int hauteur = maGrille.getHauteur();
+	  	// début remplissage de la grille
+		int position[] = {a[0],a[1]};
+		int position1[] = {a[0],a[1]};
+		int i =0;
+		boolean bloque = false;
+  		while( bloque == false) {
+             // initialisation
+             
+                
   			// choix de la case adjacente
 				int tour = 0;
+				
+				
   				do{
+					
 					position1[0] = position[0];
 					position1[1] = position[1];
+
+
   					if((int)(2*Math.random())==0) {
   						position1[0]= position[0] +(int)(3*Math.random())-1;
   						// position1[0] = position[0]+1;
@@ -59,14 +125,17 @@ public class MarcAlgo extends Generation{
   					
   					if(tour >40) {
 						System.out.println("Je suis bloqué, sortez moi de cette boucle");
+						bloque = true;
 						break;
 					}
 					
 					
   				}while(position1[0]<0 || position1[0]>= largeur ||position1[1]<0 || position1[1]>= hauteur || visite[position1[0]][ position1[1]] == true);
-			
+					
+					
 			// destruction du mur choix. 
-			if( position[0] > position1[0]) {
+			if(bloque == false) {
+			if( position[0] > position1[0] ) {
 				maGrille.tableau[position[0]][position[1]].setMurs(0,false);
 				maGrille.tableau[position1[0]][position1[1]].setMurs(2,false);
 				System.out.println("Je casse le mur 0 et 2");
@@ -99,32 +168,19 @@ public class MarcAlgo extends Generation{
 	
 			System.out.println("test"+i+"/ x="+position1[0]+"  y="+position1[1]+"  ");
 			System.out.println("***********");
-			
+		
 			position[0] = position1[0];
   			position[1] = position1[1];
   			visite[position[0]][position[1]] = true;
-
+		}
 
 
 
 
 			i++;
     }
-
-
-  }
-
-  //méthode vérifiant si l'intégralité du labyrinthe a été visité, renvoie true si labyrinthe complet et false si incomplet
-  public boolean finie(boolean visite[][]) {
-	boolean finie = true;
-  			for(int x=0; x<maGrille.getLargeur();x++) {
-  				for(int y = 0; y<maGrille.getHauteur(); y++) {
-  					if(visite[x][y] == false){
-  						finie = false;
-  					}
-  				}
-  			}
-	return finie;
+	  
+  
   }
 
 
