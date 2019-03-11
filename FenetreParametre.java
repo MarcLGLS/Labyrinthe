@@ -62,9 +62,9 @@ public class FenetreParametre extends JFrame implements ActionListener {
 
 
 
-		String[] listeAlgoGen = { "Algo1", "Algo2", "Algo3", "Algo4", "Algo5" };
+		String[] listeAlgoGen = { "ArbreBinaire", "UniciteChemin", "MarcAlgo", "Algo4", "Algo5" };
 		algoGen = new JComboBox<String>(listeAlgoGen);
-		algoGen.setSelectedIndex(4);
+		algoGen.setSelectedIndex(0);
 		algoGen.setBounds(20,145,90,30);
 		algoGen.addActionListener(this);
 		commande.add(algoGen);
@@ -81,9 +81,9 @@ public class FenetreParametre extends JFrame implements ActionListener {
 		resoudre.setFont(font);
 		commande.add(resoudre);
 
-		String[] listeAlgoRes = { "Algo1", "Algo2", "Algo3", "Algo4", "Algo5" };
+		String[] listeAlgoRes = { "ArbreBinaire", "MarcAlgo", "uniciteChemin", "Algo4", "Algo5" };
 		algoRes = new JComboBox<String>(listeAlgoRes);
-		algoRes.setSelectedIndex(4);
+		algoRes.setSelectedIndex(0);
 		algoRes.setBounds(20,320,90,30);
 		algoRes.addActionListener(this);
 		commande.add(algoRes);
@@ -103,13 +103,28 @@ public class FenetreParametre extends JFrame implements ActionListener {
 
 
 	public void actionPerformed(ActionEvent e) {
-
+  
+        
 		if(e.getSource() == boutonGenerer) {
 
 			Grille grille = new Grille(20,20);
 			//Generation algo = new ArbreBinaire(grille);
-            Generation algo = new uniciteChemin(grille);
-			algo.generer();
+			if(algoGen.getSelectedIndex()==0) {
+				System.out.println("arbrebinaire");
+				Generation algo = new ArbreBinaire(grille);
+				algo.generer();
+				
+			}
+			if(algoGen.getSelectedIndex()==1) {
+				Generation algo = new MarcAlgo(grille);
+				algo.generer();
+			}
+			if(algoGen.getSelectedIndex()==2) {
+				Generation algo = new uniciteChemin(grille);
+				algo.generer();
+			}
+            
+			
 			affichage = new FenetreAffichage(grille);
 
 		}
