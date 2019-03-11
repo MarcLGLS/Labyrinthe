@@ -37,7 +37,7 @@ public class MarcAlgo extends Generation{
 
   	// selection du case en bordure au hasard
 
-    	int a = (int)(Math.random() * (maGrille.getLargeur()+1));
+    	int a = (int)(Math.random() * (maGrille.getLargeur()));
     	
   		int position[] = {0,a};
   		int position1[] = {0,a};
@@ -51,22 +51,25 @@ public class MarcAlgo extends Generation{
 	
 	// on continue à créer des serpents tant que grille pas remplie
 		int z =0;
-	while(z<7) {
+		
+	do {
 		// choix case déja visité
 		int x; 
 		int y; 
 		do {
-			x = (int)(Math.random()*(maGrille.getLargeur()+1));
-			y = (int)(Math.random()*(maGrille.getHauteur()+1));
+			x = (int)(Math.random()*(maGrille.getLargeur()));
+			y = (int)(Math.random()*(maGrille.getHauteur()));
 		} while(this.visite[x][y] == false);
-		
+		System.out.println("********************* début nouvelle boucle"+(z+1)+" !!");
+		System.out.println(" x = "+x+" ///  y="+y+"  ");
 		int position3[] = {x,y};
 		
 		f(position3);
 		z++;
 		
-	}
-		
+	} while(finie()==false);
+
+	arrivee();
 		
 		
 	
@@ -123,7 +126,7 @@ public class MarcAlgo extends Generation{
   					}
   					tour ++;
   					
-  					if(tour >40) {
+  					if(tour >50) {
 						System.out.println("Je suis bloqué, sortez moi de cette boucle");
 						bloque = true;
 						break;
@@ -176,13 +179,17 @@ public class MarcAlgo extends Generation{
 
 
 
-
+			
 			i++;
     }
 	  
   
   }
-
+	public void arrivee() {
+		int y = (int)(Math.random()*maGrille.getHauteur()); 
+		maGrille.tableau[maGrille.getLargeur()-1][y].setMurs(2,false);
+		maGrille.tableau[maGrille.getLargeur()-1][y].setArrivee();
+	}
 
 
 }

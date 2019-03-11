@@ -115,11 +115,11 @@ public class FenetreParametre extends JFrame implements ActionListener {
 				algo.generer();
 				
 			}
-			if(algoGen.getSelectedIndex()==1) {
+			if(algoGen.getSelectedIndex()==2) {
 				Generation algo = new MarcAlgo(grille);
 				algo.generer();
 			}
-			if(algoGen.getSelectedIndex()==2) {
+			if(algoGen.getSelectedIndex()==1) {
 				Generation algo = new uniciteChemin(grille);
 				algo.generer();
 			}
