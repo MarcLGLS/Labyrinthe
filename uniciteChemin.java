@@ -23,7 +23,7 @@ public class uniciteChemin extends Generation{
     
     //ArrayList<Arete> lesAretes = new ArrayList<Arete>();
     //ArrayList<Case> lesSommets= new ArrayList<Case>();
-    zone maZone=null;// = new zone(lesAretes, lesSommets);
+    Zone maZone = new Zone();//(lesAretes, lesSommets);
     
     if(largeur>1 && hauteur>1){//sécurité bug 
     while(maZone.lesSommets.size()<largeur*hauteur){

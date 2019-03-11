@@ -1,7 +1,14 @@
 import java.util.ArrayList;
-public class zone{
+public class Zone{
  private ArrayList<Arete> lesAretes = new ArrayList<Arete>();
   ArrayList<Case> lesSommets= new ArrayList<Case>();
+  
+  public Zone(){
+      
+      lesAretes = new ArrayList<Arete>();
+      lesSommets = new ArrayList<Case>();
+      
+  }
  
  public void addSommet(Case s) { lesSommets.add(s); }
  
