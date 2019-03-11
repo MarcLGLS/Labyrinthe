@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 public class Zone{
- private ArrayList<Arete> lesAretes = new ArrayList<Arete>();
+  ArrayList<Arete> lesAretes = new ArrayList<Arete>();
   ArrayList<Case> lesSommets= new ArrayList<Case>();
   
   public Zone(){
