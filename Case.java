@@ -11,7 +11,7 @@ public class Case extends JPanel {
 	private boolean murs[] = new boolean[4];
 	private Case[] voisins = new Case[4];
 	private boolean estArrivee  = false;
-	public int x, y;
+	public int x, y, z;
 
 	public Case(boolean avecMurs) {
 
@@ -20,6 +20,7 @@ public class Case extends JPanel {
 
 		this.x = x;
 		this.y = y;
+        this.z = z;
 
 		for(int i =0; i < murs.length; i++){
 
