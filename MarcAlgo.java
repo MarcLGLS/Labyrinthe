@@ -24,7 +24,7 @@ public class MarcAlgo extends Generation{
 
   public void generer(){
 
-
+		long heure1 = System.currentTimeMillis();
 
 	// initialisation de la grille ( remplissage en entier = choix case de départ)
 
@@ -60,8 +60,7 @@ public class MarcAlgo extends Generation{
 			x = (int)(Math.random()*(maGrille.getLargeur()));
 			y = (int)(Math.random()*(maGrille.getHauteur()));
 		} while(this.visite[x][y] == false);
-		System.out.println("********************* début nouvelle boucle"+(z+1)+" !!");
-		System.out.println(" x = "+x+" ///  y="+y+"  ");
+		
 		int position3[] = {x,y};
 		
 		f(position3);
@@ -70,13 +69,15 @@ public class MarcAlgo extends Generation{
 	} while(finie()==false);
 
 	arrivee();
+	
 		
 		
 	
 
 
 
-
+	long heure2 = System.currentTimeMillis();
+	System.out.println("Temps = "+(heure2-heure1)+"  ms / nombre de serpent"+z+" !!" );
 
   }
 
@@ -115,19 +116,15 @@ public class MarcAlgo extends Generation{
 					position1[0] = position[0];
 					position1[1] = position[1];
 
-
   					if((int)(2*Math.random())==0) {
   						position1[0]= position[0] +(int)(3*Math.random())-1;
-  						// position1[0] = position[0]+1;
   					} else {
-						// position1[1] = position[1]+1;
   						position1[1] = position[1] + (int)(3*Math.random())-1;
-  					
   					}
+  					
   					tour ++;
   					
   					if(tour >50) {
-						System.out.println("Je suis bloqué, sortez moi de cette boucle");
 						bloque = true;
 						break;
 					}
@@ -136,31 +133,27 @@ public class MarcAlgo extends Generation{
   				}while(position1[0]<0 || position1[0]>= largeur ||position1[1]<0 || position1[1]>= hauteur || visite[position1[0]][ position1[1]] == true);
 					
 					
-			// destruction du mur choix. 
+			// Destruction des murs 
 			if(bloque == false) {
+				
 			if( position[0] > position1[0] ) {
 				maGrille.tableau[position[0]][position[1]].setMurs(0,false);
 				maGrille.tableau[position1[0]][position1[1]].setMurs(2,false);
-				System.out.println("Je casse le mur 0 et 2");
 			}
 			
 			if(position[0] < position1[0]) {
 				maGrille.tableau[position[0]][position[1]].setMurs(2,false);
 				maGrille.tableau[position1[0]][position1[1]].setMurs(0,false);
-				System.out.println("Je casse le mur 0 et 2");
 			}
 			
 			if( position[1] > position1[1]) {
 				maGrille.tableau[position1[0]][position1[1]].setMurs(3,false);
 				maGrille.tableau[position[0]][position[1]].setMurs(1,false);
-				System.out.println("Je casse le mur 1 et 3");
 			}
 			
 			if( position[1] < position1[1]) {
 				maGrille.tableau[position1[0]][position1[1]].setMurs(1,false);
 				maGrille.tableau[position[0]][position[1]].setMurs(3,false);
-				System.out.println("Je casse le mur 1 et 3");
-				
 			}
 				
 			
@@ -169,8 +162,7 @@ public class MarcAlgo extends Generation{
 				
   		
 	
-			System.out.println("test"+i+"/ x="+position1[0]+"  y="+position1[1]+"  ");
-			System.out.println("***********");
+			
 		
 			position[0] = position1[0];
   			position[1] = position1[1];
@@ -191,5 +183,6 @@ public class MarcAlgo extends Generation{
 		maGrille.tableau[maGrille.getLargeur()-1][y].setArrivee();
 	}
 
-
+	
 }
+

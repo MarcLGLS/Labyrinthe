@@ -107,7 +107,7 @@ public class FenetreParametre extends JFrame implements ActionListener {
         
 		if(e.getSource() == boutonGenerer) {
 
-			Grille grille = new Grille(20,20);
+			Grille grille = new Grille(100,100);
 			//Generation algo = new ArbreBinaire(grille);
 			if(algoGen.getSelectedIndex()==0) {
 				System.out.println("arbrebinaire");
