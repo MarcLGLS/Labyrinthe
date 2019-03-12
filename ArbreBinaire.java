@@ -1,10 +1,16 @@
 
 
-public class ArbreBinaire extends Generation{
+public class ArbreBinaire extends Generation implements Runnable{
 
   public ArbreBinaire(Grille g){
 
     this.maGrille = g;
+
+  }
+
+  public void run(){
+
+    generer();
 
   }
 
@@ -17,8 +23,7 @@ public class ArbreBinaire extends Generation{
 
     Case[][] tableau = maGrille.getTableau();
 
-    int bias = 0;
-    //(int) (Math.random() * 4);
+    int bias = (int) (Math.random() * 4);
 
     int ximp = 0, yimp = 0;
 
@@ -47,6 +52,8 @@ public class ArbreBinaire extends Generation{
 
       for(int x = 0; x < largeur; x++){
 
+        maGrille.attendreEtape();
+
         if(x == ximp && y == yimp) continue;
 
         int creuser;
@@ -58,7 +65,13 @@ public class ArbreBinaire extends Generation{
         } while (tableau[x][y].getVoisins()[creuser] == null);
 
         tableau[x][y].setMurs(creuser, false);
+        System.out.println("x : " + x + " y :" + y + " " + creuser);
 
+        synchronized(maGrille){
+
+  				maGrille.notifyAll();
+
+  			}
 
       }
 

@@ -6,7 +6,7 @@ import java.awt.*;
 import javax.swing.*;
 
 
-public class Case extends JPanel {
+public class Case {
 
 	private boolean murs[] = new boolean[4];
 	private Case[] voisins = new Case[4];
@@ -14,9 +14,6 @@ public class Case extends JPanel {
 	public int x, y, z;
 
 	public Case(boolean avecMurs) {
-
-	 	super();
-		this.setLayout(null);
 
 		this.x = x;
 		this.y = y;
@@ -31,10 +28,10 @@ public class Case extends JPanel {
 		for(Case c : voisins) c = null;
 
 	}
-
+/*
 	public void paintComponent(Graphics g){
 
-		super.paintComponent(g);
+		setOpaque(true);
 
 		Graphics2D g2 = (Graphics2D) g;
 
@@ -42,12 +39,14 @@ public class Case extends JPanel {
 
 		if(estArrivee == false) g2.setColor(Color.white);
 
-		else g2.setColor(Color.red);
+		else {
+			g2.setColor(Color.red);
+			System.out.println("arrivée");
+		}
 
-		//System.out.println("w :" + getWidth() + " h : " + getHeight());
+		System.out.println("w :" + getWidth() + " h : " + getHeight());
 
 		g2.fillRect(0,0,getWidth(), getHeight());
-
 
 		g2.setColor(Color.black);
 
@@ -61,6 +60,7 @@ public class Case extends JPanel {
 
 
 	}
+	*/
 
 
 	public boolean[] getMurs(){

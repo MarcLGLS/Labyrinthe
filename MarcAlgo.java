@@ -1,26 +1,22 @@
 
 
-public class MarcAlgo extends Generation{
+public class MarcAlgo extends Generation implements Runnable{
 	private boolean[][] visite;
-  
+
   public MarcAlgo(Grille g){
 
     this.maGrille = g;
-    
-    // initialisation + remplissage du tableau visite par des false 
+
+    // initialisation + remplissage du tableau visite par des false
     this.visite = new boolean[maGrille.getLargeur()][maGrille.getHauteur()];
-    for(int y =0; y< maGrille.getHauteur(); y++) {
-		for(int x =0; x < maGrille.getLargeur(); x++) {
-			this.visite[x][y] = false; 
-		}
-		
-	}
-	
-	
-    
 
+	  }
 
-  }
+	    public void run(){
+
+				generer();
+
+			}
 
   public void generer(){
 
@@ -30,49 +26,53 @@ public class MarcAlgo extends Generation{
 
   		maGrille.remplir(true);
 
-      	Case[][] tableau = maGrille.getTableau();
+    	Case[][] tableau = maGrille.getTableau();
 
 
-        
+
 
   	// selection du case en bordure au hasard
 
     	int a = (int)(Math.random() * (maGrille.getLargeur()));
-    	
+
   		int position[] = {0,a};
   		int position1[] = {0,a};
   		visite[0][a] = true;
   		boolean finie = false;
   	// tableau représentant l'état de la case départ
   		boolean depart[] = {false,true,true,true};
+
+
   		tableau[0][a].setMurs(depart);
-		
+
 		f(position1);
-	
+
 	// on continue à créer des serpents tant que grille pas remplie
 		int z =0;
-		
+
 	do {
 		// choix case déja visité
-		int x; 
-		int y; 
+
+		int x;
+		int y;
 		do {
 			x = (int)(Math.random()*(maGrille.getLargeur()));
 			y = (int)(Math.random()*(maGrille.getHauteur()));
 		} while(this.visite[x][y] == false);
-		
+
 		int position3[] = {x,y};
-		
+
 		f(position3);
 		z++;
-		
+
+
 	} while(finie()==false);
 
 	arrivee();
-	
-		
-		
-	
+
+
+
+
 
 
 
@@ -93,8 +93,8 @@ public class MarcAlgo extends Generation{
   			}
 	return finie;
   }
-  
-  
+
+
   public void f(int a[]) {
 	    int largeur = maGrille.getLargeur();
 		int hauteur = maGrille.getHauteur();
@@ -105,14 +105,16 @@ public class MarcAlgo extends Generation{
 		boolean bloque = false;
   		while( bloque == false) {
              // initialisation
-             
-                
+
+						 maGrille.attendreEtape();
   			// choix de la case adjacente
 				int tour = 0;
-				
-				
+
+
   				do{
-					
+
+
+
 					position1[0] = position[0];
 					position1[1] = position[1];
 
@@ -121,49 +123,54 @@ public class MarcAlgo extends Generation{
   					} else {
   						position1[1] = position[1] + (int)(3*Math.random())-1;
   					}
-  					
+
   					tour ++;
-  					
+
   					if(tour >50) {
 						bloque = true;
 						break;
 					}
-					
-					
+
+					synchronized(maGrille){
+
+						maGrille.notifyAll();
+
+					}
+
   				}while(position1[0]<0 || position1[0]>= largeur ||position1[1]<0 || position1[1]>= hauteur || visite[position1[0]][ position1[1]] == true);
-					
-					
-			// Destruction des murs 
+
+
+			// Destruction des murs
 			if(bloque == false) {
-				
+
 			if( position[0] > position1[0] ) {
 				maGrille.tableau[position[0]][position[1]].setMurs(0,false);
 				maGrille.tableau[position1[0]][position1[1]].setMurs(2,false);
 			}
-			
+
 			if(position[0] < position1[0]) {
 				maGrille.tableau[position[0]][position[1]].setMurs(2,false);
 				maGrille.tableau[position1[0]][position1[1]].setMurs(0,false);
 			}
-			
+
 			if( position[1] > position1[1]) {
 				maGrille.tableau[position1[0]][position1[1]].setMurs(3,false);
 				maGrille.tableau[position[0]][position[1]].setMurs(1,false);
 			}
-			
+
 			if( position[1] < position1[1]) {
 				maGrille.tableau[position1[0]][position1[1]].setMurs(1,false);
 				maGrille.tableau[position[0]][position[1]].setMurs(3,false);
 			}
-				
-			
-				
-  				
-				
-  		
-	
-			
-		
+
+
+
+
+
+
+
+
+
 			position[0] = position1[0];
   			position[1] = position1[1];
   			visite[position[0]][position[1]] = true;
@@ -171,18 +178,23 @@ public class MarcAlgo extends Generation{
 
 
 
-			
+
 			i++;
+
+			synchronized(maGrille){
+
+				maGrille.notifyAll();
+
+			}
     }
-	  
-  
+
+
   }
 	public void arrivee() {
-		int y = (int)(Math.random()*maGrille.getHauteur()); 
+		int y = (int)(Math.random()*maGrille.getHauteur());
 		maGrille.tableau[maGrille.getLargeur()-1][y].setMurs(2,false);
 		maGrille.tableau[maGrille.getLargeur()-1][y].setArrivee();
 	}
 
-	
-}
 
+}
