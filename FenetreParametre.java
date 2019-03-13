@@ -112,7 +112,7 @@ public class FenetreParametre extends JFrame implements ActionListener {
 
 		if(e.getSource() == boutonGenerer) {
 
-<<<<<<< HEAD
+
 			int x = Integer.parseInt(tailleX.getText().trim());
 			int y = Integer.parseInt(tailleY.getText().trim());
 
@@ -120,10 +120,10 @@ public class FenetreParametre extends JFrame implements ActionListener {
 
 			Generation algo = null;
 
-=======
-			Grille grille = new Grille(10,10);
+
+
 			//Generation algo = new ArbreBinaire(grille);
->>>>>>> 5a102802b4b5b8aa8651406cdad9173c2cffb72c
+
 			if(algoGen.getSelectedIndex()==0) {
 				System.out.println("arbrebinaire");
 				algo = new ArbreBinaire(grille);
@@ -132,7 +132,7 @@ public class FenetreParametre extends JFrame implements ActionListener {
 			}
 			if(algoGen.getSelectedIndex()==2) {
 				algo = new MarcAlgo(grille);
-		
+
 			}
 
 		/*	if(algoGen.getSelectedIndex()==1) {

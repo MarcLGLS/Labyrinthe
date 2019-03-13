@@ -18,6 +18,7 @@ public class ArbreBinaire extends Generation implements Runnable{
 
     maGrille.remplir(true);
 
+    System.out.println("d1");
     int largeur = maGrille.getLargeur();
     int hauteur = maGrille.getHauteur();
 
@@ -47,7 +48,7 @@ public class ArbreBinaire extends Generation implements Runnable{
     tableau[ximp][yimp].setMurs(bias, false);
     tableau[ximp][yimp].setArrivee();
 
-
+System.out.println("d2");
     for(int y = 0; y < hauteur; y++){
 
       for(int x = 0; x < largeur; x++){
@@ -67,9 +68,12 @@ public class ArbreBinaire extends Generation implements Runnable{
         tableau[x][y].setMurs(creuser, false);
         System.out.println("x : " + x + " y :" + y + " " + creuser);
 
+        System.out.println("d3");
+
         synchronized(maGrille){
 
   				maGrille.notifyAll();
+          System.out.println("d4");
 
   			}
 

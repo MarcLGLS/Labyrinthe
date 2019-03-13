@@ -5,11 +5,12 @@
 
 // Chargement des bibliotheques Swing, AWT
 import javax.swing.*;
+import javax.swing.event.*;
 import java.awt.*;
 import java.awt.event.*;
 
 
-public class FenetreAffichage extends JFrame implements ActionListener{
+public class FenetreAffichage extends JFrame implements ActionListener, ChangeListener{
 
 	private Grille grille;
 	private JButton boutonEtape;
@@ -17,9 +18,13 @@ public class FenetreAffichage extends JFrame implements ActionListener{
 	private PanelLabyrinthe lab;
 
   private Timer timerEtape;
+	private int tempsEtape;
+
+	private JSlider tempsAttente;
 
   private JButton play;
   private JButton pause;
+
 
 	public FenetreAffichage(Grille grille) {
 		this.grille = grille;
@@ -57,21 +62,33 @@ public class FenetreAffichage extends JFrame implements ActionListener{
 
 		}*/
 
+		JPanel panelControle = new JPanel();
+
+
 
     play = new JButton("Go !");
     play.addActionListener(this);
-    racine.add(play, BorderLayout.WEST);
+    panelControle.add(play);
 
     pause = new JButton("Pause !");
     pause.addActionListener(this);
-    racine.add(pause, BorderLayout.EAST);
+    panelControle.add(pause);
 
     timerEtape = null;
 
 		boutonEtape = new JButton("Prochaine etape");
 		boutonEtape.addActionListener(this);
+		panelControle.add(boutonEtape);
 
-		racine.add(boutonEtape, BorderLayout.NORTH);
+		tempsAttente = new JSlider(1, 500, 200);
+		tempsEtape = 200;
+		tempsAttente.setPaintLabels(true);
+		tempsAttente.setPaintTicks(true);
+		tempsAttente.addChangeListener(this);
+		panelControle.add(tempsAttente);
+
+
+		racine.add(panelControle, BorderLayout.NORTH);
 
 		racine.add(lab, BorderLayout.CENTER);
 
@@ -86,7 +103,6 @@ public class FenetreAffichage extends JFrame implements ActionListener{
 
 	public void actionPerformed(ActionEvent e){
 
-    System.out.println(e.getSource());
 
 		if(e.getSource() == boutonEtape){
 
@@ -106,7 +122,7 @@ public class FenetreAffichage extends JFrame implements ActionListener{
 
     if(e.getSource() == play && timerEtape == null){
 
-      timerEtape = new Timer(200, this);
+      timerEtape = new Timer(tempsEtape, this);
       timerEtape.start();
 
     }
@@ -132,7 +148,26 @@ public class FenetreAffichage extends JFrame implements ActionListener{
 
       }
 
+
+
     }
+
+	}
+
+	public void stateChanged(ChangeEvent e){
+
+
+		if(e.getSource() == tempsAttente){
+
+			tempsEtape = tempsAttente.getValue();
+
+			if(timerEtape != null){
+
+				timerEtape.setDelay(tempsEtape);
+
+			}
+
+		}
 
 	}
 

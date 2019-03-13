@@ -6,6 +6,7 @@
 public class Grille {
 	public Case tableau[][];
 	private int largeur, hauteur;
+	private boolean nouvEtape = false;
 
 	public Grille(int l, int h) {
 
@@ -13,6 +14,8 @@ public class Grille {
 		hauteur = h;
 
 		tableau = new Case[largeur][hauteur];
+
+		remplir(true);
 	}
 
 
@@ -96,6 +99,31 @@ public class Grille {
 	public Case[][] getTableau(){
 
 		return this.tableau;
+	}
+
+	public synchronized void attendreEtape(){
+
+		try{
+
+			while(nouvEtape == false) wait();
+
+		}catch(InterruptedException e) {e.printStackTrace();}
+
+
+		nouvEtape = false;
+
+	}
+
+	public synchronized void attendreFenetre(){
+
+		try{
+
+			while(nouvEtape == true) wait();
+
+		}catch(InterruptedException e) {e.printStackTrace();}
+
+		nouvEtape = true;
+
 	}
 
 }
