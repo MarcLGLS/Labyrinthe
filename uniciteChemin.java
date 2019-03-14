@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-public class uniciteChemin extends Generation{
+public abstract class uniciteChemin extends Generation{
 
   public uniciteChemin(Grille g){
 
@@ -36,7 +36,7 @@ public class uniciteChemin extends Generation{
     boolean continuer = true;
     int nbc = 0;
     
-    
+    System.out.println("le programme passe par le debut ");
     if(largeur>1 && hauteur>1){//sécurité bug 
     while(continuer && nbc < (hauteur)*(largeur)-1){
         //while(Case c : maZone.lesAretes){//tant que toutes les cases du tableau ne sont pas dans la liste
@@ -50,7 +50,7 @@ public class uniciteChemin extends Generation{
                     if(tableau[xa][ya].getMurs()[dir]==true && tableau[xa][ya].getVoisins()[dir].z != tableau[xa][ya].z){
                         tableau[xa][ya].setMurs(dir,false);
                         nbc=nbc+1;
-                            System.out.println("le programme passe par là et xa = "+xa+" et ya = "+ya);
+                            
                         
                         if(dir==0 && ya>0){
                             tableau[xa][ya].z=tableau[xa][ya-1].z;
