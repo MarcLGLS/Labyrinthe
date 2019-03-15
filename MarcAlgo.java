@@ -44,7 +44,8 @@ public class MarcAlgo extends Generation implements Runnable{
 
 
   		tableau[0][a].setMurs(depart);
-
+  		// PROBLEME A GERER !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		// maGrille.getTableau()[0][a].setEtat(Depart);
 		f(position1);
 
 	// on continue à créer des serpents tant que grille pas remplie
