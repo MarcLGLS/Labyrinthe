@@ -18,7 +18,6 @@ public class ArbreBinaire extends Generation implements Runnable{
 
     maGrille.remplir(true);
 
-    System.out.println("d1");
     int largeur = maGrille.getLargeur();
     int hauteur = maGrille.getHauteur();
 
@@ -46,9 +45,11 @@ public class ArbreBinaire extends Generation implements Runnable{
     }
 
     tableau[ximp][yimp].setMurs(bias, false);
-    tableau[ximp][yimp].setArrivee();
+    tableau[ximp][yimp].setEtat(Case.EtatCase.Arrivee);
 
-System.out.println("d2");
+    int dernierX = 0;
+    int dernierY = 0;
+
     for(int y = 0; y < hauteur; y++){
 
       for(int x = 0; x < largeur; x++){
@@ -56,6 +57,10 @@ System.out.println("d2");
         maGrille.attendreEtape();
 
         if(x == ximp && y == yimp) continue;
+
+        tableau[dernierX][dernierY].setEtat(Case.EtatCase.Normal);
+
+        tableau[x][y].setEtat(Case.EtatCase.Selection);
 
         int creuser;
 
@@ -68,18 +73,19 @@ System.out.println("d2");
         tableau[x][y].setMurs(creuser, false);
         System.out.println("x : " + x + " y :" + y + " " + creuser);
 
-        System.out.println("d3");
+        maGrille.finEtape();
 
-        synchronized(maGrille){
-
-  				maGrille.notifyAll();
-          System.out.println("d4");
-
-  			}
+        dernierX = x;
+        dernierY = y;
 
       }
 
     }
+
+    maGrille.attendreEtape();
+    tableau[dernierX][dernierY].setEtat(Case.EtatCase.Normal);
+    maGrille.geneEstFinie();
+    maGrille.finEtape();
 
   }
 

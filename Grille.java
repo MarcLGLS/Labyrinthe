@@ -4,9 +4,13 @@
 */
 
 public class Grille {
-	public Case tableau[][];
+	private Case tableau[][];
 	private int largeur, hauteur;
 	private boolean nouvEtape = false;
+
+	private boolean geneFinie = false;
+	private boolean resoDebut = false;
+	private boolean resoFinie = false;
 
 	public Grille(int l, int h) {
 
@@ -122,8 +126,26 @@ public class Grille {
 
 		}catch(InterruptedException e) {e.printStackTrace();}
 
-		nouvEtape = true;
+		if(geneFinie == false || (resoDebut == true && resoFinie == false)){
+
+			nouvEtape = true;
+
+		}
+
 
 	}
+
+	public synchronized void finEtape(){
+
+		this.notifyAll();
+
+	}
+
+	public void geneEstFinie(){
+
+		this.geneFinie = true;
+
+	}
+
 
 }

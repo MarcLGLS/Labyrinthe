@@ -38,6 +38,15 @@ public class PanelLabyrinthe extends JPanel {
         int actuelX = largCase * x;
         int actuelY = hautCase * y;
 
+        if(tableau[x][y].getEtat() == Case.EtatCase.Normal) g2.setColor(Color.white);
+        if(tableau[x][y].getEtat() == Case.EtatCase.Selection) g2.setColor(Color.orange);
+        if(tableau[x][y].getEtat() == Case.EtatCase.Arrivee) g2.setColor(Color.red);
+        if(tableau[x][y].getEtat() == Case.EtatCase.Depart) g2.setColor(Color.green);
+
+        g2.fillRect(actuelX, actuelY, largCase, hautCase);
+
+        g2.setColor(Color.black);
+
         boolean[] murs = tableau[x][y].getMurs();
 
         if(murs[0] == true) g2.drawLine(actuelX, actuelY, actuelX, actuelY + hautCase);

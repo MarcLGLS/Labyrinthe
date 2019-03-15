@@ -72,6 +72,9 @@ public class MarcAlgo extends Generation implements Runnable{
 
 
 
+	maGrille.attendreEtape();
+	maGrille.geneEstFinie();
+	maGrille.finEtape();
 
 
 
@@ -86,8 +89,10 @@ public class MarcAlgo extends Generation implements Runnable{
 	boolean finie = true;
   			for(int x=0; x<maGrille.getLargeur();x++) {
   				for(int y = 0; y<maGrille.getHauteur(); y++) {
-  					if(this.visite[x][y] == false){
+						maGrille.getTableau()[x][y].setEtat(Case.EtatCase.Normal);
+						if(this.visite[x][y] == false){
   						finie = false;
+
   					}
   				}
   			}
@@ -103,6 +108,9 @@ public class MarcAlgo extends Generation implements Runnable{
 		int position1[] = {a[0],a[1]};
 		int i =0;
 		boolean bloque = false;
+
+		maGrille.getTableau()[position[0]][position[1]].setEtat(Case.EtatCase.Normal);
+
   		while( bloque == false) {
              // initialisation
 
@@ -131,11 +139,7 @@ public class MarcAlgo extends Generation implements Runnable{
 						break;
 					}
 
-					synchronized(maGrille){
 
-						maGrille.notifyAll();
-
-					}
 
   				}while(position1[0]<0 || position1[0]>= largeur ||position1[1]<0 || position1[1]>= hauteur || visite[position1[0]][ position1[1]] == true);
 
@@ -144,23 +148,23 @@ public class MarcAlgo extends Generation implements Runnable{
 			if(bloque == false) {
 
 			if( position[0] > position1[0] ) {
-				maGrille.tableau[position[0]][position[1]].setMurs(0,false);
-				maGrille.tableau[position1[0]][position1[1]].setMurs(2,false);
+				maGrille.getTableau()[position[0]][position[1]].setMurs(0,false);
+				maGrille.getTableau()[position1[0]][position1[1]].setMurs(2,false);
 			}
 
 			if(position[0] < position1[0]) {
-				maGrille.tableau[position[0]][position[1]].setMurs(2,false);
-				maGrille.tableau[position1[0]][position1[1]].setMurs(0,false);
+				maGrille.getTableau()[position[0]][position[1]].setMurs(2,false);
+				maGrille.getTableau()[position1[0]][position1[1]].setMurs(0,false);
 			}
 
 			if( position[1] > position1[1]) {
-				maGrille.tableau[position1[0]][position1[1]].setMurs(3,false);
-				maGrille.tableau[position[0]][position[1]].setMurs(1,false);
+				maGrille.getTableau()[position1[0]][position1[1]].setMurs(3,false);
+				maGrille.getTableau()[position[0]][position[1]].setMurs(1,false);
 			}
 
 			if( position[1] < position1[1]) {
-				maGrille.tableau[position1[0]][position1[1]].setMurs(1,false);
-				maGrille.tableau[position[0]][position[1]].setMurs(3,false);
+				maGrille.getTableau()[position1[0]][position1[1]].setMurs(1,false);
+				maGrille.getTableau()[position[0]][position[1]].setMurs(3,false);
 			}
 
 
@@ -172,8 +176,11 @@ public class MarcAlgo extends Generation implements Runnable{
 
 
 			position[0] = position1[0];
-  			position[1] = position1[1];
-  			visite[position[0]][position[1]] = true;
+  		position[1] = position1[1];
+
+			maGrille.getTableau()[position1[0]][position1[1]].setEtat(Case.EtatCase.Selection);
+  		visite[position[0]][position[1]] = true;
+
 		}
 
 
@@ -181,19 +188,15 @@ public class MarcAlgo extends Generation implements Runnable{
 
 			i++;
 
-			synchronized(maGrille){
-
-				maGrille.notifyAll();
-
-			}
+			maGrille.finEtape();
     }
 
 
   }
 	public void arrivee() {
 		int y = (int)(Math.random()*maGrille.getHauteur());
-		maGrille.tableau[maGrille.getLargeur()-1][y].setMurs(2,false);
-		maGrille.tableau[maGrille.getLargeur()-1][y].setArrivee();
+		maGrille.getTableau()[maGrille.getLargeur()-1][y].setMurs(2,false);
+		maGrille.getTableau()[maGrille.getLargeur()-1][y].setArrivee();
 	}
 
 

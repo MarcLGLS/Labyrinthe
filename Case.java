@@ -13,6 +13,8 @@ public class Case {
 	private boolean estArrivee  = false;
 	public int x, y, z;
 
+	private EtatCase etat;
+
 	public Case(boolean avecMurs) {
 
 		this.x = x;
@@ -26,6 +28,8 @@ public class Case {
 		}
 
 		for(Case c : voisins) c = null;
+
+		this.etat = EtatCase.Normal;
 
 	}
 /*
@@ -120,6 +124,31 @@ public class Case {
 	public void setArrivee(){
 
 		this.estArrivee = true;
+
+	}
+
+	public enum EtatCase{
+
+		Normal,
+		Selection,
+		Arrivee,
+		Depart;
+
+	}
+
+	public EtatCase getEtat(){
+
+		return this.etat;
+
+	}
+
+	public void setEtat(EtatCase et){
+
+		if(this.etat != EtatCase.Arrivee || this.etat != EtatCase.Depart){
+
+			this.etat = et;
+
+		}
 
 	}
 

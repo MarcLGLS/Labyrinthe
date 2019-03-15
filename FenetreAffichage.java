@@ -104,7 +104,7 @@ public class FenetreAffichage extends JFrame implements ActionListener, ChangeLi
 	public void actionPerformed(ActionEvent e){
 
 
-		if(e.getSource() == boutonEtape){
+		if(e.getSource() == boutonEtape || e.getSource() == timerEtape){
 
 			grille.attendreFenetre();
 
@@ -112,11 +112,7 @@ public class FenetreAffichage extends JFrame implements ActionListener, ChangeLi
 			racine.repaint();
 
 			this.setContentPane(racine);
-			synchronized(grille){
-
-				grille.notifyAll();
-
-			}
+			grille.finEtape();
 
 		}
 
@@ -134,23 +130,6 @@ public class FenetreAffichage extends JFrame implements ActionListener, ChangeLi
 
     }
 
-    if(e.getSource() == timerEtape){
-
-      grille.attendreFenetre();
-
-      racine.revalidate();
-      racine.repaint();
-
-      this.setContentPane(racine);
-      synchronized(grille){
-
-        grille.notifyAll();
-
-      }
-
-
-
-    }
 
 	}
 
