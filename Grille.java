@@ -5,6 +5,7 @@
 
 public class Grille {
 	private Case tableau[][];
+	private Case tableauSecours[][];
 	private int largeur, hauteur;
 	private boolean nouvEtape = false;
 
@@ -18,6 +19,7 @@ public class Grille {
 		hauteur = h;
 
 		tableau = new Case[largeur][hauteur];
+		tableauSecours = new Case[largeur][hauteur];
 
 		remplir(true);
 	}
@@ -144,6 +146,36 @@ public class Grille {
 	public void geneEstFinie(){
 
 		this.geneFinie = true;
+
+		for(int i =0; i < tableau.length; i++){
+
+			for(int j = 0; j < tableau[0].length; j++){
+
+					tableauSecours[i][j] = tableau[i][j];
+
+			}
+
+		}
+
+	}
+
+	public void reinitialiser(){
+
+		for(int i =0; i < tableau.length; i++){
+
+			for(int j = 0; j < tableau[0].length; j++){
+
+					tableau[i][j] = tableauSecours[i][j];
+
+			}
+
+		}
+
+	}
+
+	public boolean verifGene(){
+
+		return this.geneFinie;
 
 	}
 

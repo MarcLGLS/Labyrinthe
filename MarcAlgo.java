@@ -42,10 +42,14 @@ public class MarcAlgo extends Generation implements Runnable{
   	// tableau représentant l'état de la case départ
   		boolean depart[] = {false,true,true,true};
 
-
+			maGrille.attendreEtape();
   		tableau[0][a].setMurs(depart);
   		// PROBLEME A GERER !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 		maGrille.getTableau()[0][a].setEtat(Case.EtatCase.Depart);
+		System.out.println(maGrille.getTableau()[0][a].getEtat());
+
+		maGrille.finEtape();
 		f(position1);
 
 	// on continue à créer des serpents tant que grille pas remplie
@@ -197,7 +201,7 @@ public class MarcAlgo extends Generation implements Runnable{
 	public void arrivee() {
 		int y = (int)(Math.random()*maGrille.getHauteur());
 		maGrille.getTableau()[maGrille.getLargeur()-1][y].setMurs(2,false);
-		maGrille.getTableau()[maGrille.getLargeur()-1][y].setArrivee();
+		maGrille.getTableau()[maGrille.getLargeur()-1][y].setEtat(Case.EtatCase.Arrivee);
 	}
 
 

@@ -21,6 +21,7 @@ public class FenetreParametre extends JFrame implements ActionListener {
 	private Thread algoGene;
 	private Thread algoReso;
 
+	private Grille grille;
 
 	private FenetreAffichage affichage;
 
@@ -116,7 +117,7 @@ public class FenetreParametre extends JFrame implements ActionListener {
 			int x = Integer.parseInt(tailleX.getText().trim());
 			int y = Integer.parseInt(tailleY.getText().trim());
 
-			Grille grille = new Grille(x,y);
+			grille = new Grille(x,y);
 
 			Generation algo = null;
 
@@ -135,10 +136,10 @@ public class FenetreParametre extends JFrame implements ActionListener {
 
 			}
 
-			if(algoGen.getSelectedIndex()==1) {
+		/*	if(algoGen.getSelectedIndex()==1) {
 				algo = new uniciteChemin(grille);
 
-			}
+			} */
 
 
 			affichage = new FenetreAffichage(grille);
@@ -146,6 +147,19 @@ public class FenetreParametre extends JFrame implements ActionListener {
 			algoGene = new Thread(algo);
 			algoGene.start();
 
+
+		}
+
+		if(e.getSource() == boutonResoudre && grille.verifGene() == true){
+
+			Resolution algo = null;
+
+
+			algo = new ResolutionDroite(grille);
+
+			grille.reinitialiser();
+			algoReso = new Thread(algo);
+			algoReso.start();
 
 		}
 
