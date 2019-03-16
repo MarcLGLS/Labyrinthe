@@ -1,20 +1,20 @@
 public class Arete { //implementsComparable<Arete> 
     
- Carré sommet1;
- Carré sommet2;
+ Case sommet1;
+ Case sommet2;
 
 
-public Arete(Carré sommet1, Carré sommet2){
+public Arete(Case sommet1, Case sommet2){
  this.sommet1 = sommet1;
  this.sommet2 = sommet2;
 }
 
 
- public Carré getDepuis(){
+ public Case getDepuis(){
       return sommet1;
       }
       
- public Carré getVers(){
+ public Case getVers(){
      return sommet2;
      }
  //public boolean equals(Object o){ /* … */ }
