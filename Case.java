@@ -72,6 +72,12 @@ public class Case {
 		return this.murs;
 
 	}
+	
+	public boolean getMurs(int i) {
+		
+		return this.murs[i]; 
+		
+	}
 
 	public void setMurs(int n, boolean b){
 
@@ -96,6 +102,9 @@ public class Case {
 		}
 
 	}
+	
+	
+	
 
 	public void modifVoisin(int n, boolean b){
 
@@ -131,6 +140,7 @@ public class Case {
 
 		Normal,
 		Selection,
+		Chemin,
 		Arrivee,
 		Depart;
 
