@@ -92,10 +92,12 @@ public class FenetreAffichage extends JFrame implements ActionListener, ChangeLi
 
 		racine.add(lab, BorderLayout.CENTER);
 
-		JTextField info = new JTextField("La case d'arrivée est la case rouge");
-
+		JTextField info = new JTextField("La case d'arrivée est la case rouge.");
+		
 		racine.add(info, BorderLayout.SOUTH);
+		
 
+		
 		this.setContentPane(racine);
 		this.setVisible(true);
 

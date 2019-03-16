@@ -3,9 +3,13 @@ import java.util.*;
 public class ResolutionDroite extends Resolution{
 	private LinkedList<Case> chemin;
 	private int position;
+	private int x;
+	private int y;
+	
 	public ResolutionDroite(Grille g){
 	this.maGrille = g;
 	this.chemin = new LinkedList<Case>();
+	
 	}
 
 	public void run(){
@@ -16,11 +20,8 @@ public class ResolutionDroite extends Resolution{
 
 	public void resoudre() {
 	  // détermination case départ
-	  int x =0;
-	  int y =0;
 
-
-		  for(x =0; x < maGrille.getLargeur() ; x++) {
+		  for(this.x =0; this.x < maGrille.getLargeur() ; this.x++) {
 				for(y = 0; y < maGrille.getHauteur(); y++) {
 					System.out.println("x = "+x+"  /  y = "+y+" !!");
 
@@ -33,7 +34,7 @@ public class ResolutionDroite extends Resolution{
 
 	  System.out.println(" La case départ est : x = "+x+" //  y = "+y+" !!");
 
-	  f(0,0);
+	  f(x,y);
 
 	  System.out.println(" Algo finie");
 
@@ -42,19 +43,22 @@ public class ResolutionDroite extends Resolution{
 	}
 
 	public void f(int x, int y) {
-
+		int x1 = this.x;
+		int y1 = this.y; 
+		
 		do {
 			maGrille.attendreEtape();
-		maGrille.getTableau()[x][y].setEtat(Case.EtatCase.Chemin);
+		maGrille.getTableau()[x1][y1].setEtat(Case.EtatCase.Chemin);
 		// AVANCEMENT
+		
 		// cas continuer tout droit
 
-		if(maGrille.getTableau()[x][y].getMurs(droite()) == true && maGrille.getTableau()[x][y].getMurs(gauche()) == true && maGrille.getTableau()[x][y].getMurs(this.position) == false ) {
+		if(maGrille.getTableau()[x1][y1].getMurs(droite()) == true && maGrille.getTableau()[x1][y1].getMurs(gauche()) == true && maGrille.getTableau()[x1][y1].getMurs(this.position) == false ) {
 
 				chemin.add(maGrille.getTableau()[avancement(x,y)[0]][avancement(x,y)[1]]);
 		}
 		// cas cul de sac faire demi tour
-		if(maGrille.getTableau()[x][y].getMurs(droite()) == true && maGrille.getTableau()[x][y].getMurs(gauche()) == true && maGrille.getTableau()[x][y].getMurs(this.position) == true ) {
+		if(maGrille.getTableau()[x1][y1].getMurs(droite()) == true && maGrille.getTableau()[x1][y1].getMurs(gauche()) == true && maGrille.getTableau()[x1][y1].getMurs(this.position) == true ) {
 				// faire demi tour
 				this.position = gauche();
 				this.position = gauche();
@@ -62,13 +66,13 @@ public class ResolutionDroite extends Resolution{
 		}
 
 		// cas chemin à droite
-		if( maGrille.getTableau()[x][y].getMurs(droite()) == false && maGrille.getTableau()[x][y].getMurs(gauche()) == true && maGrille.getTableau()[x][y].getMurs(this.position) == true ) {
+		if( maGrille.getTableau()[x1][y1].getMurs(droite()) == false && maGrille.getTableau()[x1][y1].getMurs(gauche()) == true && maGrille.getTableau()[x1][y1].getMurs(this.position) == true ) {
 				this.position= droite();
 				chemin.add(maGrille.getTableau()[avancement(x,y)[0]][avancement(x,y)[1]]);
 		}
 
 		// cas chemin à gauche
-		if(maGrille.getTableau()[x][y].getMurs(droite()) == true && maGrille.getTableau()[x][y].getMurs(gauche()) == false && maGrille.getTableau()[x][y].getMurs(this.position) == true ) {
+		if(maGrille.getTableau()[x1][y1].getMurs(droite()) == true && maGrille.getTableau()[x1][y1].getMurs(gauche()) == false && maGrille.getTableau()[x1][y1].getMurs(this.position) == true ) {
 				this.position= gauche();
 				chemin.add(maGrille.getTableau()[avancement(x,y)[0]][avancement(x,y)[1]]);
 

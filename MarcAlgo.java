@@ -3,102 +3,78 @@
 public class MarcAlgo extends Generation implements Runnable{
 	private boolean[][] visite;
 
-  public MarcAlgo(Grille g){
+	public MarcAlgo(Grille g){
 
-    this.maGrille = g;
-
-    // initialisation + remplissage du tableau visite par des false
-    this.visite = new boolean[maGrille.getLargeur()][maGrille.getHauteur()];
+		this.maGrille = g;
+		this.visite = new boolean[maGrille.getLargeur()][maGrille.getHauteur()];
 
 	  }
 
-	    public void run(){
+	 public void run(){
 
-				generer();
+		generer();
 
-			}
+		}
 
-  public void generer(){
+	public void generer(){
 
-		long heure1 = System.currentTimeMillis();
+  		maGrille.remplir(true); // remplissage de la grille entierement par des murs
+    	Case[][] tableau = maGrille.getTableau(); // création d'un tableau de case associée à grille
 
-	// initialisation de la grille ( remplissage en entier = choix case de départ)
-
-  		maGrille.remplir(true);
-
-    	Case[][] tableau = maGrille.getTableau();
-
-
-
-
-  	// selection du case en bordure au hasard
-
+		// selection de la position case de départ et création de celle-ci
     	int a = (int)(Math.random() * (maGrille.getLargeur()));
-
   		int position[] = {0,a};
   		int position1[] = {0,a};
   		visite[0][a] = true;
-  		boolean finie = false;
-  	// tableau représentant l'état de la case départ
-  		boolean depart[] = {false,true,true,true};
-
-			maGrille.attendreEtape();
-  		tableau[0][a].setMurs(depart);
-  		// PROBLEME A GERER !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-		maGrille.getTableau()[0][a].setEtat(Case.EtatCase.Depart);
-		System.out.println(maGrille.getTableau()[0][a].getEtat());
-
+  		boolean depart[] = {false,true,true,true};// tableau représentant l'état de la case départ
+		
+		maGrille.attendreEtape();
+		
+  		tableau[0][a].setMurs(depart);// affectation des murs de la case départ
+		maGrille.getTableau()[0][a].setEtat(Case.EtatCase.Depart);// affectation de l'état Depart de la case
+		
+		
+		
 		maGrille.finEtape();
-		f(position1);
+		
+		f(position1);// réalisation du premier chemin à partir de la case départ
 
-	// on continue à créer des serpents tant que grille pas remplie
-		int z =0;
-
-	do {
-		// choix case déja visité
-
-		int x;
-		int y;
+		// création de nouveaux chemins à partir de case déjà visitée tant que la grille n'est pas totalement visitée		
 		do {
-			x = (int)(Math.random()*(maGrille.getLargeur()));
-			y = (int)(Math.random()*(maGrille.getHauteur()));
-		} while(this.visite[x][y] == false);
+			
+			int x;
+			int y;
+			
+			// détermination de coordonnées d'une case déjà visitée 
+			do {
+				x = (int)(Math.random()*(maGrille.getLargeur()));
+				y = (int)(Math.random()*(maGrille.getHauteur()));
+			} while(this.visite[x][y] == false);
+			
 
-		int position3[] = {x,y};
+			int position2[] = {x,y};
+			f(position2); // création d'un nouveau chemin à partir d'une case de coordonnées déterminées précédamment 	
 
-		f(position3);
-		z++;
+		} while(finie()==false);
 
+		arrivee(); // création de la case arrivée du labyrinthe
 
-	} while(finie()==false);
-
-	arrivee();
-
-
-
-	maGrille.attendreEtape();
-	maGrille.geneEstFinie();
-	maGrille.finEtape();
-
-
-
-
-	long heure2 = System.currentTimeMillis();
-	System.out.println("Temps = "+(heure2-heure1)+"  ms / nombre de serpent"+z+" !!" );
+		maGrille.attendreEtape();	
+		maGrille.geneEstFinie();
+		maGrille.finEtape();
 
   }
 
   //méthode vérifiant si l'intégralité du labyrinthe a été visité, renvoie true si labyrinthe complet et false si incomplet
-  public boolean finie() {
-	boolean finie = true;
-  			for(int x=0; x<maGrille.getLargeur();x++) {
-  				for(int y = 0; y<maGrille.getHauteur(); y++) {
-						maGrille.getTableau()[x][y].setEtat(Case.EtatCase.Normal);
-						if(this.visite[x][y] == false){
-  						finie = false;
-
-  					}
+	public boolean finie() {
+		boolean finie = true;
+  		for(int x=0; x<maGrille.getLargeur();x++) {
+  			for(int y = 0; y<maGrille.getHauteur(); y++) {
+				maGrille.getTableau()[x][y].setEtat(Case.EtatCase.Normal);
+				if(this.visite[x][y] == false){
+  				finie = false;
+  				}
+  				
   				}
   			}
 	return finie;
@@ -120,6 +96,8 @@ public class MarcAlgo extends Generation implements Runnable{
              // initialisation
 
 						 maGrille.attendreEtape();
+						 
+				long heure1 = System.currentTimeMillis(); // H1 ..............................;;;
   			// choix de la case adjacente
 				int tour = 0;
 
@@ -185,6 +163,10 @@ public class MarcAlgo extends Generation implements Runnable{
 
 			maGrille.getTableau()[position1[0]][position1[1]].setEtat(Case.EtatCase.Selection);
   		visite[position[0]][position[1]] = true;
+  		
+  		long heure2 = System.currentTimeMillis();  // H2 ..................................
+		this.temps.add(heure2-heure1);
+		
 
 		}
 
@@ -203,6 +185,7 @@ public class MarcAlgo extends Generation implements Runnable{
 		maGrille.getTableau()[maGrille.getLargeur()-1][y].setMurs(2,false);
 		maGrille.getTableau()[maGrille.getLargeur()-1][y].setEtat(Case.EtatCase.Arrivee);
 	}
+	
 
 
 }
