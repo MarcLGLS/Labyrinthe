@@ -15,8 +15,8 @@ public class FenetreParametre extends JFrame implements ActionListener {
 	private JTextField tailleY;
 	private JComboBox<String> algoGen;
 	private JComboBox<String> algoRes;
-	public Generation algo; 
-	
+	public Generation algo;
+
 	private Generation[] gen = new Generation[5];
 
 	private Thread algoGene;
@@ -147,7 +147,7 @@ public class FenetreParametre extends JFrame implements ActionListener {
 
 			algoGene = new Thread(algo);
 			algoGene.start();
-			
+
 
 		}
 
@@ -156,7 +156,7 @@ public class FenetreParametre extends JFrame implements ActionListener {
 			Resolution algo = null;
 
 
-			algo = new ResolutionDroite(grille);
+			algo = new RechercheLargeur(grille);
 
 			grille.reinitialiser();
 			algoReso = new Thread(algo);

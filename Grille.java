@@ -179,5 +179,18 @@ public class Grille {
 
 	}
 
+	public void debutReso(){
+
+
+		resoDebut = true;
+
+	}
+
+	public void finReso(){
+
+		resoFinie = true;
+
+	}
+
 
 }

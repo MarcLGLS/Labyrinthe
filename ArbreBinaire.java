@@ -71,7 +71,7 @@ public class ArbreBinaire extends Generation implements Runnable{
         } while (tableau[x][y].getVoisins()[creuser] == null);
 
         tableau[x][y].setMurs(creuser, false);
-        System.out.println("x : " + x + " y :" + y + " " + creuser);
+        //System.out.println("x : " + x + " y :" + y + " " + creuser);
 
         maGrille.finEtape();
 
