@@ -83,7 +83,11 @@ public class ArbreBinaire extends Generation implements Runnable{
     }
 
     maGrille.attendreEtape();
+
     tableau[dernierX][dernierY].setEtat(Case.EtatCase.Normal);
+
+    tableau[(int) (Math.random() * largeur)][(int) (Math.random() * hauteur)].setEtat(Case.EtatCase.Depart);
+
     maGrille.geneEstFinie();
     maGrille.finEtape();
 

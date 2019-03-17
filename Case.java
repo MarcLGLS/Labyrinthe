@@ -72,11 +72,11 @@ public class Case {
 		return this.murs;
 
 	}
-	
+
 	public boolean getMurs(int i) {
-		
-		return this.murs[i]; 
-		
+
+		return this.murs[i];
+
 	}
 
 	public void setMurs(int n, boolean b){
@@ -102,9 +102,9 @@ public class Case {
 		}
 
 	}
-	
-	
-	
+
+
+
 
 	public void modifVoisin(int n, boolean b){
 
@@ -154,7 +154,7 @@ public class Case {
 
 	public void setEtat(EtatCase et){
 
-		if(this.etat != EtatCase.Arrivee || this.etat != EtatCase.Depart){
+		if((this.etat != EtatCase.Arrivee) == true && (this.etat != EtatCase.Depart) == true){
 
 			this.etat = et;
 

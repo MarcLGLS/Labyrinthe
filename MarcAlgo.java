@@ -1,4 +1,4 @@
-
+import java.util.*;
 
 public class MarcAlgo extends Generation implements Runnable{
 	private boolean[][] visite;
@@ -7,6 +7,8 @@ public class MarcAlgo extends Generation implements Runnable{
 
 		this.maGrille = g;
 		this.visite = new boolean[maGrille.getLargeur()][maGrille.getHauteur()];
+
+		temps = new LinkedList<Long>();
 
 	  }
 
@@ -22,44 +24,44 @@ public class MarcAlgo extends Generation implements Runnable{
     	Case[][] tableau = maGrille.getTableau(); // création d'un tableau de case associée à grille
 
 		// selection de la position case de départ et création de celle-ci
-    	int a = (int)(Math.random() * (maGrille.getLargeur()));
+    	int a = (int)(Math.random() * (maGrille.getHauteur()));
   		int position[] = {0,a};
   		int position1[] = {0,a};
   		visite[0][a] = true;
   		boolean depart[] = {false,true,true,true};// tableau représentant l'état de la case départ
-		
+
 		maGrille.attendreEtape();
-		
+
   		tableau[0][a].setMurs(depart);// affectation des murs de la case départ
-		maGrille.getTableau()[0][a].setEtat(Case.EtatCase.Depart);// affectation de l'état Depart de la case
-		
-		
-		
+		tableau[0][a].setEtat(Case.EtatCase.Depart);// affectation de l'état Depart de la case
+
+
+
 		maGrille.finEtape();
-		
+
 		f(position1);// réalisation du premier chemin à partir de la case départ
 
-		// création de nouveaux chemins à partir de case déjà visitée tant que la grille n'est pas totalement visitée		
+		// création de nouveaux chemins à partir de case déjà visitée tant que la grille n'est pas totalement visitée
 		do {
-			
+
 			int x;
 			int y;
-			
-			// détermination de coordonnées d'une case déjà visitée 
+
+			// détermination de coordonnées d'une case déjà visitée
 			do {
 				x = (int)(Math.random()*(maGrille.getLargeur()));
 				y = (int)(Math.random()*(maGrille.getHauteur()));
 			} while(this.visite[x][y] == false);
-			
+
 
 			int position2[] = {x,y};
-			f(position2); // création d'un nouveau chemin à partir d'une case de coordonnées déterminées précédamment 	
+			f(position2); // création d'un nouveau chemin à partir d'une case de coordonnées déterminées précédamment
 
 		} while(finie()==false);
 
 		arrivee(); // création de la case arrivée du labyrinthe
 
-		maGrille.attendreEtape();	
+		maGrille.attendreEtape();
 		maGrille.geneEstFinie();
 		maGrille.finEtape();
 
@@ -74,7 +76,7 @@ public class MarcAlgo extends Generation implements Runnable{
 				if(this.visite[x][y] == false){
   				finie = false;
   				}
-  				
+
   				}
   			}
 	return finie;
@@ -96,7 +98,7 @@ public class MarcAlgo extends Generation implements Runnable{
              // initialisation
 
 						 maGrille.attendreEtape();
-						 
+
 				long heure1 = System.currentTimeMillis(); // H1 ..............................;;;
   			// choix de la case adjacente
 				int tour = 0;
@@ -163,10 +165,10 @@ public class MarcAlgo extends Generation implements Runnable{
 
 			maGrille.getTableau()[position1[0]][position1[1]].setEtat(Case.EtatCase.Selection);
   		visite[position[0]][position[1]] = true;
-  		
+
   		long heure2 = System.currentTimeMillis();  // H2 ..................................
-		this.temps.add(heure2-heure1);
-		
+			temps.add(heure2-heure1);
+
 
 		}
 
@@ -185,7 +187,7 @@ public class MarcAlgo extends Generation implements Runnable{
 		maGrille.getTableau()[maGrille.getLargeur()-1][y].setMurs(2,false);
 		maGrille.getTableau()[maGrille.getLargeur()-1][y].setEtat(Case.EtatCase.Arrivee);
 	}
-	
+
 
 
 }
