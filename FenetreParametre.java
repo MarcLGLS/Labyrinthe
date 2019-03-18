@@ -137,10 +137,10 @@ public class FenetreParametre extends JFrame implements ActionListener {
 
 			}
 
-		/*	if(algoGen.getSelectedIndex()==1) {
+			if(algoGen.getSelectedIndex()==1) {
 				algo = new uniciteChemin(grille);
 
-			} */
+			} 
 
 
 			affichage = new FenetreAffichage(grille);
