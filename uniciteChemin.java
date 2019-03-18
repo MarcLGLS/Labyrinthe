@@ -42,8 +42,8 @@ public class uniciteChemin extends Generation implements Runnable{
     int ya=0; //coordonnee aléatoire dans le tableau
 
 
-    Zone maZone = new Zone();//(lesAretes, lesSommets);
-    ArrayList<Zone> lz = new ArrayList<Zone>(); // liste de zones
+    //Zone maZone = new Zone();//(lesAretes, lesSommets);
+    //ArrayList<Zone> lz = new ArrayList<Zone>(); // liste de zones
     boolean continuer = true;
     int nbc = 0;
 
@@ -135,12 +135,12 @@ public class uniciteChemin extends Generation implements Runnable{
                         if(tableau[0][0].z != tableau[k][l].z){
                             m++;
                         }
-                        for(Arete a : al){
+                        /*for(Arete a : al){
                         if(a.sommet1.z != a.sommet2.z){
                             a.sommet1.z = a.sommet2.z;
                             //System.out.println("Sommet 1 = "+a.sommet1.z+" et sommet 2 = "+a.sommet2.z);
                         }
-                    }
+                        }*/
                         
                     }
                     }
