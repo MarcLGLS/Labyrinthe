@@ -19,7 +19,7 @@ public class Case {
 
 		this.x = x;
 		this.y = y;
-        this.z = z;
+        this.z = -1;
 
 		for(int i =0; i < murs.length; i++){
 

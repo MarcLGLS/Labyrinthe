@@ -42,8 +42,8 @@ public class uniciteChemin extends Generation implements Runnable{
     int ya=0; //coordonnee aléatoire dans le tableau
 
 
-    Zone maZone = new Zone();//(lesAretes, lesSommets);
-    ArrayList<Zone> lz = new ArrayList<Zone>(); // liste de zones
+  //  Zone maZone = new Zone();//(lesAretes, lesSommets);
+    //ArrayList<Zone> lz = new ArrayList<Zone>(); // liste de zones
     boolean continuer = true;
     int nbc = 0;
 
@@ -60,7 +60,7 @@ public class uniciteChemin extends Generation implements Runnable{
                     if((dir==0 && xa>0) || (dir==2 && xa<tableau[ya].length-1) || (dir==1 && ya>0) || (dir==3 && ya<tableau[xa].length-1)){//voisins existent
                     if(tableau[xa][ya].getMurs()[dir]==true  && tableau[xa][ya].getVoisins()[dir].z != tableau[xa][ya].z){
                         tableau[xa][ya].setMurs(dir,false);
-                        System.out.println("dir = "+dir+" xa = "+xa+" ya = "+ya);
+                      //  System.out.println("dir = "+dir+" xa = "+xa+" ya = "+ya);
                         nbc=nbc+1;
 
 
@@ -80,7 +80,7 @@ public class uniciteChemin extends Generation implements Runnable{
 
                         }*/
 
-                        
+
 
                         if(dir==0 && xa>0){
                             tableau[xa][ya].z=tableau[xa-1][ya].z;
@@ -114,19 +114,19 @@ public class uniciteChemin extends Generation implements Runnable{
                             a.sommet1.z = a.sommet2.z;
                         }
                     }*/
-                    
-                    
+
+
                     for(int k =0; k<tableau.length; k++){
                     for(int l =0; l<tableau[k].length; l++){
                         if(tableau[k][l].z==f){
                             tableau[k][l].z=tableau[xa][ya].z;
                         }
-                        
+
                     }}
-                    
-                    
-                    
-                    
+
+
+
+
 
                     int m=0;
 
@@ -135,17 +135,17 @@ public class uniciteChemin extends Generation implements Runnable{
                         if(tableau[0][0].z != tableau[k][l].z){
                             m++;
                         }
-                        for(Arete a : al){
+                        /*for(Arete a : al){
                         if(a.sommet1.z != a.sommet2.z){
                             a.sommet1.z = a.sommet2.z;
                             //System.out.println("Sommet 1 = "+a.sommet1.z+" et sommet 2 = "+a.sommet2.z);
                         }
-                    }
-                        
+                    }*/
+
                     }
                     }
                     continuer = (m>0);
-                    System.out.println("continuer = "+continuer+" car m = "+m);
+                    //System.out.println("continuer = "+continuer+" car m = "+m);
 
 
 
@@ -161,5 +161,6 @@ public class uniciteChemin extends Generation implements Runnable{
             }
         }}*/
     System.out.println("Labyrinthe généré ");
+    maGrille.geneEstFinie();
 }
 }
