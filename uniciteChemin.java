@@ -48,12 +48,13 @@ public class uniciteChemin extends Generation implements Runnable{
     int nbc = 0;
 
     if(largeur>1 && hauteur>1){//sécurité bug
-    while(continuer && nbc < (hauteur)*(largeur)){
+    while(continuer /*&& nbc < (hauteur)*(largeur)*/){
         //while(Case c : maZone.lesAretes){//tant que toutes les cases du tableau ne sont pas dans la liste
             dir=(int)(Math.random()*4);
 
             xa=(int)(Math.random()*(largeur));
             ya=(int)(Math.random()*(hauteur));
+            int f = tableau[xa][ya].z;
 
 
                     if((dir==0 && xa>0) || (dir==2 && xa<tableau[ya].length-1) || (dir==1 && ya>0) || (dir==3 && ya<tableau[xa].length-1)){//voisins existent
@@ -79,7 +80,7 @@ public class uniciteChemin extends Generation implements Runnable{
 
                         }*/
 
-
+                        
 
                         if(dir==0 && xa>0){
                             tableau[xa][ya].z=tableau[xa-1][ya].z;
@@ -114,6 +115,18 @@ public class uniciteChemin extends Generation implements Runnable{
                         }
                     }*/
                     
+                    
+                    for(int k =0; k<tableau.length; k++){
+                    for(int l =0; l<tableau[k].length; l++){
+                        if(tableau[k][l].z==f){
+                            tableau[k][l].z=tableau[xa][ya].z;
+                        }
+                        
+                    }}
+                    
+                    
+                    
+                    
 
                     int m=0;
 
@@ -131,8 +144,8 @@ public class uniciteChemin extends Generation implements Runnable{
                         
                     }
                     }
-                    continuer = (m>4);
-                    //System.out.println("continuer = "+continuer+" car m = "+m);
+                    continuer = (m>0);
+                    System.out.println("continuer = "+continuer+" car m = "+m);
 
 
 
@@ -141,12 +154,12 @@ public class uniciteChemin extends Generation implements Runnable{
 
     }
     }
-    for(int k =0; k<tableau.length; k++){
+    /*for(int k =0; k<tableau.length; k++){
         for(int l =0; l<tableau[k].length; l++){
             if(tableau[k][l].getMurs()[0]==true && tableau[k][l].getMurs()[1]==true && tableau[k][l].getMurs()[2]==true && tableau[k][l].getMurs()[3]==true){
                 tableau[k][l].setMurs((int)(Math.random()*4),false);
             }
-        }}
+        }}*/
     System.out.println("Labyrinthe généré ");
 }
 }
