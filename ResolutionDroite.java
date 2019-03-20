@@ -59,7 +59,7 @@ public class ResolutionDroite extends Resolution{
 			y1=this.y;
 			System.out.println("aaa x1 ="+x1+" / y1 ="+y1+"  /this.position =="+this.position+" !!");
 		maGrille.attendreEtape();
-		maGrille.getTableau()[x1][y1].setEtat(Case.EtatCase.Chemin);
+		
 		// AVANCEMENT
 		
 		// cas continuer tout droit
@@ -133,12 +133,15 @@ public class ResolutionDroite extends Resolution{
 		
 		
 		System.out.println("bbb"+i+" !!");
+		
 		maGrille.getTableau()[x1][y1].setEtat(Case.EtatCase.Chemin);
-		maGrille.getTableau()[this.x][this.y].setEtat(Case.EtatCase.Selection);
-
+		
+		if(maGrille.getTableau()[this.x][this.y].getEtat() != Case.EtatCase.Arrivee) {
+			maGrille.getTableau()[this.x][this.y].setEtat(Case.EtatCase.Selection);
+		}
 		maGrille.finEtape();
 		i++;
-	}while(maGrille.getTableau()[x][y].getEtat() != Case.EtatCase.Arrivee);
+	}while(maGrille.getTableau()[this.x][this.y].getEtat() != Case.EtatCase.Arrivee);
 	//maGrille.getTableau()[x][y].getEtat() != Case.EtatCase.Arrivee
 
 	}
