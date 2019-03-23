@@ -142,7 +142,23 @@ public class ResolutionDroite extends Resolution{
 		maGrille.finEtape();
 		i++;
 	}while(maGrille.getTableau()[this.x][this.y].getEtat() != Case.EtatCase.Arrivee);
-	//maGrille.getTableau()[x][y].getEtat() != Case.EtatCase.Arrivee
+	
+	// création d'une LinkedList enlevant les cases non unique + cul de sac  ;
+	LinkedList<Case> cheminPur = new LinkedList<Case>(); 
+	for(Case c : this.chemin) {
+		if(cheminPur.contains(c) ==false && c.culDeSac() == false ) {
+			cheminPur.add(c);
+		
+		} else {
+		
+			c.setEtat(Case.EtatCase.Normal); 
+		} 
+		
+	}
+	
+	
+
+	
 
 	}
 
@@ -179,4 +195,5 @@ public class ResolutionDroite extends Resolution{
 		}
 		
 	}
+	
 }

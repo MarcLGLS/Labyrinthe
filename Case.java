@@ -95,6 +95,39 @@ public class Case {
 		return voisins;
 
 	}
+	
+	//Retourne true si la case est un cul de sac
+	
+	public boolean culDeSac() {
+		boolean culDeSac =false;
+		
+		if(this.murs[0] == false && this.murs[1] == true && this.murs[2] == true && this.murs[3] == true) {
+			culDeSac = true;
+		} else if(this.murs[0] == true && this.murs[1] == false && this.murs[2] == true && this.murs[3] == true) {
+			culDeSac = true;
+		} else if(this.murs[0] == true && this.murs[1] == true && this.murs[2] == false && this.murs[3] == true) {
+			culDeSac = true;
+		} else if(this.murs[0] == true && this.murs[1] == true && this.murs[2] == true && this.murs[3] == false) {
+			culDeSac = true;
+		}
+		return culDeSac;
+		
+	}
+	
+	//Retourne true si la case est une intersection
+	public boolean intersection() {
+		boolean intersection = false;
+		int trou =0;
+		for(int i =0; i<4; i++) {
+			if(this.murs[i] == false) {
+				trou++;
+			}
+		}
+		if(trou >1) {
+			intersection = true;
+		}
+		return intersection;
+	}
 
 	/*
 	Énumération utilisée pour connaître l'état de la case. Chaque état modifie l'affichage de cette case.
