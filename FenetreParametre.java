@@ -140,7 +140,7 @@ public class FenetreParametre extends JFrame implements ActionListener {
 			if(algoGen.getSelectedIndex()==1) {
 				algo = new uniciteChemin(grille);
 
-			} 
+			}
 
 
 			affichage = new FenetreAffichage(grille);
@@ -154,17 +154,22 @@ public class FenetreParametre extends JFrame implements ActionListener {
 		if(e.getSource() == boutonResoudre && grille.verifGene() == true){
 
 			Resolution algo = null;
-			
+
 			if(algoRes.getSelectedIndex()==0) {
 				System.out.println("ResolutionDroite");
 				algo = new ResolutionDroite(grille);
 			}
-			
+
 			if(algoRes.getSelectedIndex()==1) {
 				System.out.println("RechercheLargeur");
 				algo = new RechercheLargeur(grille);
 			}
-			
+
+			if(algoRes.getSelectedIndex()==2) {
+				System.out.println("RechercheProfondeur");
+				algo = new RechercheProfondeur(grille);
+			}
+
 
 			grille.reinitialiser();
 			algoReso = new Thread(algo);

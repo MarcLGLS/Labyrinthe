@@ -121,7 +121,7 @@ public class ArbreBinaire extends Generation implements Runnable{
         h2 = System.currentTimeMillis();
 
         //On ajoute ce temps de boucle au temps total de l'algo.
-        temps.add(h2-h1);
+        //super.temps.add(h2-h1);
 
         //on indique qu'une etape vient de se finir, la fenetre va donc pourvoir se redessiner.
         maGrille.finEtape();
