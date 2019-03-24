@@ -47,8 +47,10 @@ public class MarcAlgo extends Generation implements Runnable{
 			int x;
 			int y;
 
-			// détermination de coordonnées d'une case déjà visitée
+			
+			
 			do {
+				
 				x = (int)(Math.random()*(maGrille.getLargeur()));
 				y = (int)(Math.random()*(maGrille.getHauteur()));
 			} while(this.visite[x][y] == false);
@@ -119,7 +121,7 @@ public class MarcAlgo extends Generation implements Runnable{
 
   					tour ++;
 
-  					if(tour >50) {
+  					if(tour >10) {
 						bloque = true;
 						break;
 					}

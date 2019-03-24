@@ -20,22 +20,27 @@ public class ResolutionDroite extends Resolution{
 
 	public void resoudre() {
 	  // détermination case départ
-
+		int xd =0;
+		int yd =0;
+		maGrille.debutReso();
 		  for(this.x =0; this.x < maGrille.getLargeur() ; this.x++) {
 				for(y = 0; y < maGrille.getHauteur(); y++) {
 					System.out.println("x = "+x+"  /  y = "+y+" !!");
 
-					if(maGrille.getTableau()[x][y].getEtat() == Case.EtatCase.Depart) break;
+					if(maGrille.getTableau()[x][y].getEtat() == Case.EtatCase.Depart){
+						xd=x;
+						yd=y;
+					}
 
 				}
 		  }
 
 
 
-	  System.out.println(" La case départ est : x = "+x+" //  y = "+y+" !!");
-
-	  f(x,y);
-
+	  System.out.println(" La case départ est : x = "+xd+" //  y = "+yd+" !!");
+		this.position = 2;
+	  f(xd,yd);
+		maGrille.finReso();
 	  System.out.println(" Algo finie");
 
 
@@ -43,47 +48,117 @@ public class ResolutionDroite extends Resolution{
 	}
 
 	public void f(int x, int y) {
-		int x1 = this.x;
-		int y1 = this.y; 
 		
+		int x1 = x;
+		int y1 = y;
+		this.x=x;
+		this.y = y;
+		int i =0;
 		do {
-			maGrille.attendreEtape();
-		maGrille.getTableau()[x1][y1].setEtat(Case.EtatCase.Chemin);
+			x1=this.x;
+			y1=this.y;
+			System.out.println("aaa x1 ="+x1+" / y1 ="+y1+"  /this.position =="+this.position+" !!");
+		maGrille.attendreEtape();
+		
 		// AVANCEMENT
 		
 		// cas continuer tout droit
 
 		if(maGrille.getTableau()[x1][y1].getMurs(droite()) == true && maGrille.getTableau()[x1][y1].getMurs(gauche()) == true && maGrille.getTableau()[x1][y1].getMurs(this.position) == false ) {
-
-				chemin.add(maGrille.getTableau()[avancement(x,y)[0]][avancement(x,y)[1]]);
+				avancement(x1,y1);
+				System.out.println("x = "+this.x+" //  y = "+this.y+"  ");
+				chemin.add(maGrille.getTableau()[this.x][this.y]);
+				System.out.println("tout droit");
 		}
+		
 		// cas cul de sac faire demi tour
-		if(maGrille.getTableau()[x1][y1].getMurs(droite()) == true && maGrille.getTableau()[x1][y1].getMurs(gauche()) == true && maGrille.getTableau()[x1][y1].getMurs(this.position) == true ) {
+		else if(maGrille.getTableau()[x1][y1].getMurs(droite()) == true && maGrille.getTableau()[x1][y1].getMurs(gauche()) == true && maGrille.getTableau()[x1][y1].getMurs(this.position) == true ) {
 				// faire demi tour
 				this.position = gauche();
 				this.position = gauche();
-				chemin.add(maGrille.getTableau()[avancement(x,y)[0]][avancement(x,y)[1]]);
+				avancement(x1,y1);
+				System.out.println("x = "+this.x+" //  y = "+this.y+"  ");
+				chemin.add(maGrille.getTableau()[this.x][this.y]);
+				System.out.println("demi tour");
 		}
 
 		// cas chemin à droite
-		if( maGrille.getTableau()[x1][y1].getMurs(droite()) == false && maGrille.getTableau()[x1][y1].getMurs(gauche()) == true && maGrille.getTableau()[x1][y1].getMurs(this.position) == true ) {
+		else if( maGrille.getTableau()[x1][y1].getMurs(droite()) == false && maGrille.getTableau()[x1][y1].getMurs(gauche()) == true && maGrille.getTableau()[x1][y1].getMurs(this.position) == true ) {
 				this.position= droite();
-				chemin.add(maGrille.getTableau()[avancement(x,y)[0]][avancement(x,y)[1]]);
+				avancement(x1,y1);
+				System.out.println("x = "+this.x+" //  y = "+this.y+"  ");
+				chemin.add(maGrille.getTableau()[this.x][this.y]);
+				System.out.println("droite");
 		}
 
 		// cas chemin à gauche
-		if(maGrille.getTableau()[x1][y1].getMurs(droite()) == true && maGrille.getTableau()[x1][y1].getMurs(gauche()) == false && maGrille.getTableau()[x1][y1].getMurs(this.position) == true ) {
+		else if(maGrille.getTableau()[x1][y1].getMurs(droite()) == true && maGrille.getTableau()[x1][y1].getMurs(gauche()) == false && maGrille.getTableau()[x1][y1].getMurs(this.position) == true ) {
 				this.position= gauche();
-				chemin.add(maGrille.getTableau()[avancement(x,y)[0]][avancement(x,y)[1]]);
+				avancement(x1,y1);
+				System.out.println("x = "+this.x+" //  y = "+this.y+"  ");
+				chemin.add(maGrille.getTableau()[this.x][this.y]);
+				System.out.println("gauche");
 
 		}
+		
+		// cas intersection en T
+		else if(maGrille.getTableau()[x1][y1].getMurs(droite()) == false && maGrille.getTableau()[x1][y1].getMurs(gauche()) == false) {
+				this.position= droite();
+				avancement(x1,y1);
+				System.out.println("x = "+this.x+" //  y = "+this.y+"  ");
+				chemin.add(maGrille.getTableau()[this.x][this.y]);
+				System.out.println("on tourne à droite suite à une intersection en T");
 
-		maGrille.getTableau()[x][y].setEtat(Case.EtatCase.Selection);
+		}
+		
+		//cas intersection en L(tout droit et à gauche)
+		else if(maGrille.getTableau()[x1][y1].getMurs(gauche()) == false && maGrille.getTableau()[x1][y1].getMurs(this.position) == false) {
+				avancement(x1,y1);
+				System.out.println("x = "+this.x+" //  y = "+this.y+"  ");
+				chemin.add(maGrille.getTableau()[this.x][this.y]);
+				System.out.println("on tourne à droite suite à une intersection L (tout droit/ gauche)");
 
+		}
+		
+				//cas intersection en L(tout droit et à droite)
+		else if(maGrille.getTableau()[x1][y1].getMurs(droite()) == false && maGrille.getTableau()[x1][y1].getMurs(this.position) == false) {
+				this.position = droite();
+				avancement(x1,y1);
+				System.out.println("x = "+this.x+" //  y = "+this.y+"  ");
+				chemin.add(maGrille.getTableau()[this.x][this.y]);
+				System.out.println("on tourne à droite suite à une intersection L (tout droit/ droite)");
+
+		}
+		
+		
+		
+		System.out.println("bbb"+i+" !!");
+		
+		maGrille.getTableau()[x1][y1].setEtat(Case.EtatCase.Chemin);
+		
+		if(maGrille.getTableau()[this.x][this.y].getEtat() != Case.EtatCase.Arrivee) {
+			maGrille.getTableau()[this.x][this.y].setEtat(Case.EtatCase.Selection);
+		}
 		maGrille.finEtape();
+		i++;
+	}while(maGrille.getTableau()[this.x][this.y].getEtat() != Case.EtatCase.Arrivee);
+	
+	// création d'une LinkedList enlevant les cases non unique + cul de sac  ;
+	LinkedList<Case> cheminPur = new LinkedList<Case>(); 
+	for(Case c : this.chemin) {
+		if(cheminPur.contains(c) ==false && c.culDeSac() == false ) {
+			cheminPur.add(c);
+		
+		} else {
+		
+			c.setEtat(Case.EtatCase.Normal); 
+		} 
+		
+	}
+	
+	
 
-	}while(maGrille.getTableau()[x][y].getEtat() != Case.EtatCase.Arrivee);
-
+	
 
 	}
 
@@ -105,20 +180,20 @@ public class ResolutionDroite extends Resolution{
 		return gauche;
 	}
 
-	public int[] avancement(int x, int y) {
+	public void avancement(int x1, int y1) {
 		if(this.position == 0) {
-			x =x-1;
+			this.x =x1-1;
 		}
 		if(this.position == 1) {
-			y =y-1;
+			this.y =y1-1;
 		}
 		if(this.position == 2) {
-			x =x+1;
+			this.x =x1+1;
 		}
 		if(this.position == 3) {
-			y =y+1;
+			this.y =y1+1;
 		}
-		int position1[] = {x,y};
-		return position1;
+		
 	}
+	
 }

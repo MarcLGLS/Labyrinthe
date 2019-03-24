@@ -2,83 +2,52 @@
 *
 *
 */
-import java.awt.*;
-import javax.swing.*;
-
 
 public class Case {
 
-	private boolean murs[] = new boolean[4];
-	private Case[] voisins = new Case[4];
-	private boolean estArrivee  = false;
-	public int x, y, z;
+	private boolean murs[] = new boolean[4]; //Tableau des murs
+	private Case[] voisins = new Case[4]; //Tableau des voisins
+	public int z; //Attribut de la zone
 
-	private EtatCase etat;
+	private EtatCase etat; //Etat de la case
 
 	public Case(boolean avecMurs) {
 
-		this.x = x;
-		this.y = y;
-        this.z = -1;
+      this.z = -1; //On met l'attribut de la zone à -1 pour être sur de ne pas dessiner les zones si ce n'est pas nécessaire.
 
 		for(int i =0; i < murs.length; i++){
 
+			//On remplit le tableau de murs avec le boolean passé en parametre, la case est aisin complétement ouverte (sans murs) ou complétement fermée.
 			murs[i] = avecMurs;
 
 		}
 
+		/*
+		On met tous les voisins de la case à null, c'est la grille qui se charge de les attribués. Si une case est sur un bord du labyrinthen, certains de ces voisins sont nulls.
+		On fait attention dans les algorithmes utilisant les voisins d'une case à ne pas tenter d'accéder aux voisins qui sont nulls.
+		*/
+
 		for(Case c : voisins) c = null;
 
-		this.etat = EtatCase.Normal;
+		this.etat = EtatCase.Normal; // L'état de base de la case est l'état Normal.
 
 	}
-/*
-	public void paintComponent(Graphics g){
-
-		setOpaque(true);
-
-		Graphics2D g2 = (Graphics2D) g;
-
-	  g2.setStroke(new BasicStroke(5));
-
-		if(estArrivee == false) g2.setColor(Color.white);
-
-		else {
-			g2.setColor(Color.red);
-			System.out.println("arrivée");
-		}
-
-		System.out.println("w :" + getWidth() + " h : " + getHeight());
-
-		g2.fillRect(0,0,getWidth(), getHeight());
-
-		g2.setColor(Color.black);
-
-		if(murs[0] == true) g2.drawLine(0,0,0, this.getHeight());
-
-		if(murs[1] == true) g2.drawLine(0,0,this.getWidth(), 0);
-
-		if(murs[2] == true) g2.drawLine(this.getWidth(),0,this.getWidth(), this.getHeight());
-
-		if(murs[3] == true) g2.drawLine(this.getWidth(), this.getHeight(), 0, this.getHeight());
 
 
-	}
-	*/
-
-
+	//Retourne le tableau de murs
 	public boolean[] getMurs(){
 
 		return this.murs;
 
 	}
-
+	//Retourne un mur particulier
 	public boolean getMurs(int i) {
 
 		return this.murs[i];
 
 	}
 
+	//Modifie un mur particulier et les murs des voisins accordément.
 	public void setMurs(int n, boolean b){
 
 		murs[n] = b;
@@ -89,6 +58,7 @@ public class Case {
 
 	}
 
+	//Modifie tous les murs d'un coup avec un tableau
 	public void setMurs(boolean[] b){
 
 		murs = b;
@@ -105,37 +75,63 @@ public class Case {
 
 
 
-
+	//Méthode utilisée pour modifier un mur quand une case voisine a eu son mur de modifié.
 	public void modifVoisin(int n, boolean b){
 
 		murs[n] = b;
 
 	}
 
+	//Assigne tous les voisins
 	public void setVoisins(Case[] c){
 
 		voisins = c;
 
 	}
 
+	//Récupère tous les voisins
 	public Case[] getVoisins(){
 
 		return voisins;
 
 	}
-
-	public boolean estArrivee(){
-
-		return this.estArrivee;
-
+	
+	//Retourne true si la case est un cul de sac
+	
+	public boolean culDeSac() {
+		boolean culDeSac =false;
+		
+		if(this.murs[0] == false && this.murs[1] == true && this.murs[2] == true && this.murs[3] == true) {
+			culDeSac = true;
+		} else if(this.murs[0] == true && this.murs[1] == false && this.murs[2] == true && this.murs[3] == true) {
+			culDeSac = true;
+		} else if(this.murs[0] == true && this.murs[1] == true && this.murs[2] == false && this.murs[3] == true) {
+			culDeSac = true;
+		} else if(this.murs[0] == true && this.murs[1] == true && this.murs[2] == true && this.murs[3] == false) {
+			culDeSac = true;
+		}
+		return culDeSac;
+		
+	}
+	
+	//Retourne true si la case est une intersection
+	public boolean intersection() {
+		boolean intersection = false;
+		int trou =0;
+		for(int i =0; i<4; i++) {
+			if(this.murs[i] == false) {
+				trou++;
+			}
+		}
+		if(trou >1) {
+			intersection = true;
+		}
+		return intersection;
 	}
 
-	public void setArrivee(){
-
-		this.estArrivee = true;
-
-	}
-
+	/*
+	Énumération utilisée pour connaître l'état de la case. Chaque état modifie l'affichage de cette case.
+	*/
 	public enum EtatCase{
 
 		Normal,
@@ -146,12 +142,14 @@ public class Case {
 
 	}
 
+	//Retourne l'état
 	public EtatCase getEtat(){
 
 		return this.etat;
 
 	}
 
+	//Modifie l'état de la case. Si celle ci est une case départ ou arrivée son état ne peut plus être modifié.
 	public void setEtat(EtatCase et){
 
 		if((this.etat != EtatCase.Arrivee) == true && (this.etat != EtatCase.Depart) == true){

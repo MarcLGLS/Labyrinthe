@@ -17,6 +17,8 @@ public class FenetreAffichage extends JFrame implements ActionListener, ChangeLi
 	private JPanel racine;
 	private PanelLabyrinthe lab;
 
+	private JLabel infoTps;
+
   private Timer timerEtape;
 	private int tempsEtape;
 
@@ -87,6 +89,9 @@ public class FenetreAffichage extends JFrame implements ActionListener, ChangeLi
 		tempsAttente.addChangeListener(this);
 		panelControle.add(tempsAttente);
 
+		infoTps = new JLabel();
+
+		racine.add(infoTps, BorderLayout.WEST);
 
 		racine.add(panelControle, BorderLayout.NORTH);
 
@@ -103,6 +108,20 @@ public class FenetreAffichage extends JFrame implements ActionListener, ChangeLi
 
 	}
 
+	public void paint(Graphics g){
+
+		String txt = new String();
+
+		txt += ("Temps generation : " + Long.toString(grille.getTempsGene()) + "ms.");
+
+		txt += ("Temps resolution : " + Long.toString(grille.getTempsReso()) + "ms.");
+
+		infoTps.setText(txt);
+
+		super.paint(g);
+
+	}
+
 	public void actionPerformed(ActionEvent e){
 
 
@@ -110,7 +129,7 @@ public class FenetreAffichage extends JFrame implements ActionListener, ChangeLi
 
 			grille.attendreFenetre();
 
-			lab.repaint();
+			repaint();
 
 			grille.finEtape();
 

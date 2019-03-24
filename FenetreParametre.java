@@ -88,7 +88,7 @@ public class FenetreParametre extends JFrame implements ActionListener {
 		resoudre.setFont(font);
 		commande.add(resoudre);
 
-		String[] listeAlgoRes = { "ArbreBinaire", "MarcAlgo", "uniciteChemin", "Algo4", "Algo5" };
+		String[] listeAlgoRes = { "ResolutionDroite", "RechercheLargeur", "AlgoEmilien", "Algo4", "Algo5" };
 		algoRes = new JComboBox<String>(listeAlgoRes);
 		algoRes.setSelectedIndex(0);
 		algoRes.setBounds(20,320,90,30);
@@ -140,7 +140,7 @@ public class FenetreParametre extends JFrame implements ActionListener {
 			if(algoGen.getSelectedIndex()==1) {
 				algo = new uniciteChemin(grille);
 
-			} 
+			}
 
 
 			affichage = new FenetreAffichage(grille);
@@ -155,8 +155,21 @@ public class FenetreParametre extends JFrame implements ActionListener {
 
 			Resolution algo = null;
 
+			if(algoRes.getSelectedIndex()==0) {
+				System.out.println("ResolutionDroite");
+				algo = new ResolutionDroite(grille);
+			}
 
-			algo = new RechercheLargeur(grille);
+			if(algoRes.getSelectedIndex()==1) {
+				System.out.println("RechercheLargeur");
+				algo = new RechercheLargeur(grille);
+			}
+
+			if(algoRes.getSelectedIndex()==2) {
+				System.out.println("RechercheProfondeur");
+				algo = new RechercheProfondeur(grille);
+			}
+
 
 			grille.reinitialiser();
 			algoReso = new Thread(algo);
