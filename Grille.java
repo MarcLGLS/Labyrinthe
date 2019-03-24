@@ -10,6 +10,9 @@ public class Grille {
 
 	private boolean nouvEtape = false;//Indique si une nouvelle étape à été effectuée par le labyrinthe.
 
+	private long tempsGeneration;
+	private long tempsResolution;
+
 	/*
 	Booleens utilisés pour savoir où se situe le programme.
 	*/
@@ -24,6 +27,9 @@ public class Grille {
 
 		tableau = new Case[largeur][hauteur];
 		tableauSecours = new Case[largeur][hauteur];
+
+		tempsGeneration = 0;
+		tempsResolution = 0;
 
 		remplir(true); //On remplit le labyrinthe avec des cases fermées.
 	}
@@ -229,6 +235,30 @@ public class Grille {
 	public void finReso(){
 
 		resoFinie = true;
+
+	}
+
+	public void ajouterTempsGene(long l){
+
+		tempsGeneration += l;
+
+	}
+
+	public void ajouterTempsReso(long l){
+
+		tempsResolution += l;
+
+	}
+
+	public long getTempsGene(){
+
+		return tempsGeneration;
+
+	}
+
+	public long getTempsReso(){
+
+		return tempsResolution;
 
 	}
 

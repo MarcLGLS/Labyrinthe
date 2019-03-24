@@ -82,7 +82,7 @@ public class ArbreBinaire extends Generation implements Runnable{
 
         maGrille.attendreEtape(); //Methode synchrone utilisee pour attendre que la fenetre se mette a jour avant de modifier la grille.
 
-        h1 = System.currentTimeMillis(); // debut du chrono
+        h1 = System.nanoTime(); // debut du chrono
 
         if(x == ximp && y == yimp) continue; //case dans le coin, impossible d'y casser des murs, on passe au tour de boucle suivant
 
@@ -118,10 +118,13 @@ public class ArbreBinaire extends Generation implements Runnable{
         //System.out.println("x : " + x + " y :" + y + " " + creuser);
 
         //Fin du chrono
-        h2 = System.currentTimeMillis();
+        h2 = System.nanoTime();
+
+        long tot = h2-h1;
+        System.out.println(tot);
 
         //On ajoute ce temps de boucle au temps total de l'algo.
-        //super.temps.add(h2-h1);
+        maGrille.ajouterTempsGene(h2-h1);
 
         //on indique qu'une etape vient de se finir, la fenetre va donc pourvoir se redessiner.
         maGrille.finEtape();
