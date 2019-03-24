@@ -160,6 +160,10 @@ public class uniciteChemin extends Generation implements Runnable{
                 tableau[k][l].setMurs((int)(Math.random()*4),false);
             }
         }}*/
+        
+        
+    tableau[0][(int)(Math.random()*hauteur)].setEtat(Case.EtatCase.Depart);
+    tableau[largeur-1][(int)(Math.random()*hauteur)].setEtat(Case.EtatCase.Arrivee);
     System.out.println("Labyrinthe généré ");
     maGrille.geneEstFinie();
 }
