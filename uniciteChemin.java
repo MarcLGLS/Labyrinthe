@@ -1,6 +1,3 @@
-//PROBLEME LOGIQUE : lorsqu'on recopie une case pour créer une zone, on modifie une case et aps toute la zone
-
-
 import java.util.ArrayList;
 public class uniciteChemin extends Generation implements Runnable{
 

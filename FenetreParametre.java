@@ -69,7 +69,7 @@ public class FenetreParametre extends JFrame implements ActionListener {
 
 
 
-		String[] listeAlgoGen = { "ArbreBinaire", "UniciteChemin", "MarcAlgo", "Algo4", "Algo5" };
+		String[] listeAlgoGen = { "ArbreBinaire", "UniciteChemin", "MarcAlgo", "Ilot", "Algo5" };
 		algoGen = new JComboBox<String>(listeAlgoGen);
 		algoGen.setSelectedIndex(0);
 		algoGen.setBounds(20,145,90,30);
@@ -124,7 +124,7 @@ public class FenetreParametre extends JFrame implements ActionListener {
 
 
 
-			//Generation algo = new ArbreBinaire(grille);
+			
 
 			if(algoGen.getSelectedIndex()==0) {
 				System.out.println("arbrebinaire");
@@ -139,6 +139,12 @@ public class FenetreParametre extends JFrame implements ActionListener {
 
 			if(algoGen.getSelectedIndex()==1) {
 				algo = new uniciteChemin(grille);
+
+			}
+            if(algoGen.getSelectedIndex()==3) {
+				System.out.println("arbrebinaire");
+                    algo = new Ilot(grille);
+
 
 			}
 
