@@ -23,7 +23,9 @@ public class ResolutionDroite extends Resolution{
 	}
 
 	public void resoudre() {
+		
 	  // détermination case départ
+	    long heure1 = System.nanoTime(); 
 		int xd =0;
 		int yd =0;
 		maGrille.debutReso();
@@ -40,12 +42,11 @@ public class ResolutionDroite extends Resolution{
 		  }
 
 
-
-	  System.out.println(" La case départ est : x = "+xd+" //  y = "+yd+" !!");
 		this.position = 2;
-	  f(xd,yd);
+		f(xd,yd);
+		long heure2 = System.nanoTime();
+		maGrille.ajouterTempsReso(heure2 - heure1); 
 		maGrille.finReso();
-	  System.out.println(" Algo finie");
 
 
 
@@ -61,7 +62,7 @@ public class ResolutionDroite extends Resolution{
 		do {
 			x1=this.x;
 			y1=this.y;
-			System.out.println("aaa x1 ="+x1+" / y1 ="+y1+"  /this.position =="+this.position+" !!");
+		
 		maGrille.attendreEtape();
 		
 		// AVANCEMENT
@@ -70,9 +71,7 @@ public class ResolutionDroite extends Resolution{
 
 		if(maGrille.getTableau()[x1][y1].getMurs(droite()) == true && maGrille.getTableau()[x1][y1].getMurs(gauche()) == true && maGrille.getTableau()[x1][y1].getMurs(this.position) == false ) {
 				avancement(x1,y1);
-				System.out.println("x = "+this.x+" //  y = "+this.y+"  ");
 				chemin.add(0,  maGrille.getTableau()[this.x][this.y]);
-				System.out.println("tout droit");
 		}
 		
 		// cas cul de sac faire demi tour
@@ -81,39 +80,28 @@ public class ResolutionDroite extends Resolution{
 				this.position = gauche();
 				this.position = gauche();
 				avancement(x1,y1);
-				System.out.println("x = "+this.x+" //  y = "+this.y+"  ");
 				chemin.add(0,maGrille.getTableau()[this.x][this.y]);
-				System.out.println("demi tour");
-		}
+					}
 
 		// cas chemin à droite
 		else if( maGrille.getTableau()[x1][y1].getMurs(droite()) == false && maGrille.getTableau()[x1][y1].getMurs(gauche()) == true && maGrille.getTableau()[x1][y1].getMurs(this.position) == true ) {
 				this.position= droite();
 				avancement(x1,y1);
-				System.out.println("x = "+this.x+" //  y = "+this.y+"  ");
 				chemin.add(0, maGrille.getTableau()[this.x][this.y]);
-				System.out.println("droite");
 		}
 
 		// cas chemin à gauche
 		else if(maGrille.getTableau()[x1][y1].getMurs(droite()) == true && maGrille.getTableau()[x1][y1].getMurs(gauche()) == false && maGrille.getTableau()[x1][y1].getMurs(this.position) == true ) {
 				this.position= gauche();
 				avancement(x1,y1);
-				System.out.println("x = "+this.x+" //  y = "+this.y+"  ");
 				chemin.add(0, maGrille.getTableau()[this.x][this.y]);
-				System.out.println("gauche");
-
 		}
 		
 		// cas intersection en T
 		else if(maGrille.getTableau()[x1][y1].getMurs(droite()) == false && maGrille.getTableau()[x1][y1].getMurs(gauche()) == false) {
 				this.position= droite();
 				avancement(x1,y1);
-				System.out.println("x = "+this.x+" //  y = "+this.y+"  ");
 				chemin.add(0, maGrille.getTableau()[this.x][this.y]);
-				System.out.println("on tourne à droite suite à une intersection en T");
-				
-
 		}
 		
 		//cas intersection en L(tout droit et à gauche)
@@ -215,5 +203,8 @@ public class ResolutionDroite extends Resolution{
 		}
 		
 	}
+
+
+	
 	
 }

@@ -47,6 +47,9 @@ public class uniciteChemin extends Generation implements Runnable{
     if(largeur>1 && hauteur>1){//sécurité bug
     while(continuer /*&& nbc < (hauteur)*(largeur)*/){
         //while(Case c : maZone.lesAretes){//tant que toutes les cases du tableau ne sont pas dans la liste
+
+        long h1 = System.nanoTime();
+
             dir=(int)(Math.random()*4);
 
             xa=(int)(Math.random()*(largeur));
@@ -145,7 +148,7 @@ public class uniciteChemin extends Generation implements Runnable{
                     //System.out.println("continuer = "+continuer+" car m = "+m);
 
 
-
+        maGrille.ajouterTempsGene(System.nanoTime() - h1);
         maGrille.attendreEtape();
         maGrille.finEtape();
 
@@ -157,8 +160,8 @@ public class uniciteChemin extends Generation implements Runnable{
                 tableau[k][l].setMurs((int)(Math.random()*4),false);
             }
         }}*/
-        
-        
+
+
     tableau[0][(int)(Math.random()*hauteur)].setEtat(Case.EtatCase.Depart);
     tableau[largeur-1][(int)(Math.random()*hauteur)].setEtat(Case.EtatCase.Arrivee);
     System.out.println("Labyrinthe généré ");

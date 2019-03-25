@@ -10,8 +10,8 @@ public class Grille {
 
 	private boolean nouvEtape = false;//Indique si une nouvelle étape à été effectuée par le labyrinthe.
 
-	private long tempsGeneration;
-	private long tempsResolution;
+	private double tempsGeneration;
+	private double tempsResolution;
 
 	/*
 	Booleens utilisés pour savoir où se situe le programme.
@@ -240,23 +240,25 @@ public class Grille {
 
 	public void ajouterTempsGene(long l){
 
-		tempsGeneration += l;
+		tempsGeneration += ((double) l * Math.pow(10,-6));
+
 
 	}
 
 	public void ajouterTempsReso(long l){
 
-		tempsResolution += l;
+		tempsResolution += ((double) l * Math.pow(10,-6));
+
 
 	}
 
-	public long getTempsGene(){
+	public double getTempsGene(){
 
 		return tempsGeneration;
 
 	}
 
-	public long getTempsReso(){
+	public double getTempsReso(){
 
 		return tempsResolution;
 

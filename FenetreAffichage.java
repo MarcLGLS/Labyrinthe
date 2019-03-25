@@ -8,6 +8,7 @@ import javax.swing.*;
 import javax.swing.event.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.text.DecimalFormat;
 
 
 public class FenetreAffichage extends JFrame implements ActionListener, ChangeListener{
@@ -18,6 +19,7 @@ public class FenetreAffichage extends JFrame implements ActionListener, ChangeLi
 	private PanelLabyrinthe lab;
 
 	private JLabel infoTps;
+	public DecimalFormat formatTemps = new DecimalFormat("#.###");
 
   private Timer timerEtape;
 	private int tempsEtape;
@@ -90,6 +92,7 @@ public class FenetreAffichage extends JFrame implements ActionListener, ChangeLi
 		panelControle.add(tempsAttente);
 
 		infoTps = new JLabel();
+		infoTps.setBounds(300,10,50,50);
 
 		racine.add(infoTps, BorderLayout.WEST);
 
@@ -112,9 +115,9 @@ public class FenetreAffichage extends JFrame implements ActionListener, ChangeLi
 
 		String txt = new String();
 
-		txt += ("Temps generation : " + Long.toString(grille.getTempsGene()) + "ms.");
+		txt += ("Temps generation : " + formatTemps.format(grille.getTempsGene()) + "ms.");
 
-		txt += ("Temps resolution : " + Long.toString(grille.getTempsReso()) + "ms.");
+		txt += ("Temps resolution : " + formatTemps.format(grille.getTempsReso()) + "ms.");
 
 		infoTps.setText(txt);
 

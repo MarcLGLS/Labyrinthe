@@ -8,6 +8,8 @@ public class RechercheProfondeur extends Resolution{
 
   private boolean fin = false;
 
+  private long h1;
+
   public RechercheProfondeur(Grille g){
 
     this.maGrille = g;
@@ -29,6 +31,7 @@ public class RechercheProfondeur extends Resolution{
       int[] coord = trouverDepart();
       maGrille.debutReso();
       maGrille.attendreEtape();
+      h1 = System.nanoTime();
       resoudreRec(maGrille.getTableau()[coord[0]][coord[1]]);
       maGrille.attendreEtape();
       maGrille.finReso();
@@ -39,8 +42,10 @@ public class RechercheProfondeur extends Resolution{
 
     public void resoudreRec(Case c){
 
+    maGrille.ajouterTempsReso(System.nanoTime()-h1);
     maGrille.finEtape();
     maGrille.attendreEtape();
+    h1 = System.nanoTime();
 
     //System.out.println(c.getEtat());
 

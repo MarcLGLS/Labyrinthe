@@ -36,6 +36,8 @@ public class RechercheLargeur extends Resolution{
 
       maGrille.attendreEtape();
 
+      long h1 = System.nanoTime();
+
       Case tmp = aTraiter.get(0);
       if(tmp.getEtat() == Case.EtatCase.Arrivee){
 
@@ -48,6 +50,7 @@ public class RechercheLargeur extends Resolution{
 
         }while(par.getEtat() != Case.EtatCase.Depart);
 
+        maGrille.ajouterTempsReso(System.nanoTime() - h1);
         maGrille.finEtape();
         break;
 
@@ -93,7 +96,7 @@ public class RechercheLargeur extends Resolution{
       aTraiter.remove(tmp);
 
 
-
+      maGrille.ajouterTempsReso(System.nanoTime() - h1);
       maGrille.finEtape();
 
     }
