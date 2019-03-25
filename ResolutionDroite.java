@@ -1,14 +1,18 @@
 import java.util.*;
 
 public class ResolutionDroite extends Resolution{
-	private LinkedList<Case> chemin;
+	private ArrayList<Case> chemin;
+	private ArrayList<Case> cheminASupprimer;
 	private int position;
 	private int x;
 	private int y;
 	
 	public ResolutionDroite(Grille g){
 	this.maGrille = g;
-	this.chemin = new LinkedList<Case>();
+	this.chemin = new ArrayList<Case>();
+	this.cheminASupprimer = new ArrayList<Case>();
+	
+	
 	
 	}
 
@@ -67,7 +71,7 @@ public class ResolutionDroite extends Resolution{
 		if(maGrille.getTableau()[x1][y1].getMurs(droite()) == true && maGrille.getTableau()[x1][y1].getMurs(gauche()) == true && maGrille.getTableau()[x1][y1].getMurs(this.position) == false ) {
 				avancement(x1,y1);
 				System.out.println("x = "+this.x+" //  y = "+this.y+"  ");
-				chemin.add(maGrille.getTableau()[this.x][this.y]);
+				chemin.add(0,  maGrille.getTableau()[this.x][this.y]);
 				System.out.println("tout droit");
 		}
 		
@@ -78,7 +82,7 @@ public class ResolutionDroite extends Resolution{
 				this.position = gauche();
 				avancement(x1,y1);
 				System.out.println("x = "+this.x+" //  y = "+this.y+"  ");
-				chemin.add(maGrille.getTableau()[this.x][this.y]);
+				chemin.add(0,maGrille.getTableau()[this.x][this.y]);
 				System.out.println("demi tour");
 		}
 
@@ -87,7 +91,7 @@ public class ResolutionDroite extends Resolution{
 				this.position= droite();
 				avancement(x1,y1);
 				System.out.println("x = "+this.x+" //  y = "+this.y+"  ");
-				chemin.add(maGrille.getTableau()[this.x][this.y]);
+				chemin.add(0, maGrille.getTableau()[this.x][this.y]);
 				System.out.println("droite");
 		}
 
@@ -96,7 +100,7 @@ public class ResolutionDroite extends Resolution{
 				this.position= gauche();
 				avancement(x1,y1);
 				System.out.println("x = "+this.x+" //  y = "+this.y+"  ");
-				chemin.add(maGrille.getTableau()[this.x][this.y]);
+				chemin.add(0, maGrille.getTableau()[this.x][this.y]);
 				System.out.println("gauche");
 
 		}
@@ -106,8 +110,9 @@ public class ResolutionDroite extends Resolution{
 				this.position= droite();
 				avancement(x1,y1);
 				System.out.println("x = "+this.x+" //  y = "+this.y+"  ");
-				chemin.add(maGrille.getTableau()[this.x][this.y]);
+				chemin.add(0, maGrille.getTableau()[this.x][this.y]);
 				System.out.println("on tourne à droite suite à une intersection en T");
+				
 
 		}
 		
@@ -115,8 +120,9 @@ public class ResolutionDroite extends Resolution{
 		else if(maGrille.getTableau()[x1][y1].getMurs(gauche()) == false && maGrille.getTableau()[x1][y1].getMurs(this.position) == false) {
 				avancement(x1,y1);
 				System.out.println("x = "+this.x+" //  y = "+this.y+"  ");
-				chemin.add(maGrille.getTableau()[this.x][this.y]);
+				chemin.add(0, maGrille.getTableau()[this.x][this.y]);
 				System.out.println("on tourne à droite suite à une intersection L (tout droit/ gauche)");
+				
 
 		}
 		
@@ -125,36 +131,50 @@ public class ResolutionDroite extends Resolution{
 				this.position = droite();
 				avancement(x1,y1);
 				System.out.println("x = "+this.x+" //  y = "+this.y+"  ");
-				chemin.add(maGrille.getTableau()[this.x][this.y]);
+				chemin.add(0, maGrille.getTableau()[this.x][this.y]);
 				System.out.println("on tourne à droite suite à une intersection L (tout droit/ droite)");
 
 		}
 		
-		
+		if(chemin.contains(maGrille.getTableau()[this.x][this.y])) {
+			
+		}
+	
 		
 		System.out.println("bbb"+i+" !!");
 		
 		maGrille.getTableau()[x1][y1].setEtat(Case.EtatCase.Chemin);
 		
+	
+		
+		int i1 = chemin.indexOf(maGrille.getTableau()[this.x][this.y]);
+		int i2 = chemin.lastIndexOf(maGrille.getTableau()[this.x][this.y]);
+		
+		if(i1 != i2) {
+			while(chemin.contains(maGrille.getTableau()[this.x][this.y])) {
+				cheminASupprimer.add(chemin.get(0));
+				chemin.remove(0);
+			}
+			cheminASupprimer.remove(maGrille.getTableau()[this.x][this.y]);
+			cheminASupprimer.remove(maGrille.getTableau()[this.x][this.y]);
+			chemin.add(0,maGrille.getTableau()[this.x][this.y]);
+		}
+		
 		if(maGrille.getTableau()[this.x][this.y].getEtat() != Case.EtatCase.Arrivee) {
 			maGrille.getTableau()[this.x][this.y].setEtat(Case.EtatCase.Selection);
 		}
 		maGrille.finEtape();
+		
 		i++;
 	}while(maGrille.getTableau()[this.x][this.y].getEtat() != Case.EtatCase.Arrivee);
 	
-	// création d'une LinkedList enlevant les cases non unique + cul de sac  ;
-	LinkedList<Case> cheminPur = new LinkedList<Case>(); 
-	for(Case c : this.chemin) {
-		if(cheminPur.contains(c) ==false && c.culDeSac() == false ) {
-			cheminPur.add(c);
-		
-		} else {
-		
-			c.setEtat(Case.EtatCase.Normal); 
-		} 
+	// suppresion des chemins !! 
+	for(Case c : cheminASupprimer) {
+		c.setEtat(Case.EtatCase.Normal);
 		
 	}
+	
+	
 	
 	
 
