@@ -120,9 +120,6 @@ public class ArbreBinaire extends Generation implements Runnable{
         //Fin du chrono
         h2 = System.nanoTime();
 
-        long tot = h2-h1;
-        System.out.println(tot);
-
         //On ajoute ce temps de boucle au temps total de l'algo.
         maGrille.ajouterTempsGene(h2-h1);
 

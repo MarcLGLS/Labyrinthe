@@ -47,17 +47,22 @@ public class MarcAlgo extends Generation implements Runnable{
 			int x;
 			int y;
 
-			
-			
+			long heure1 = System.nanoTime(); 		// H1 ..............................;;;
+
 			do {
-				
+
 				x = (int)(Math.random()*(maGrille.getLargeur()));
 				y = (int)(Math.random()*(maGrille.getHauteur()));
+
 			} while(this.visite[x][y] == false);
 
+			long heure2 = System.nanoTime();  // H2 ..................................
+			maGrille.ajouterTempsGene(heure2 - heure1);
 
 			int position2[] = {x,y};
 			f(position2); // création d'un nouveau chemin à partir d'une case de coordonnées déterminées précédamment
+
+
 
 		} while(finie()==false);
 
@@ -101,7 +106,7 @@ public class MarcAlgo extends Generation implements Runnable{
 
 						 maGrille.attendreEtape();
 
-				long heure1 = System.currentTimeMillis(); // H1 ..............................;;;
+						 long heure1 = System.nanoTime();
   			// choix de la case adjacente
 				int tour = 0;
 
@@ -168,8 +173,7 @@ public class MarcAlgo extends Generation implements Runnable{
 			maGrille.getTableau()[position1[0]][position1[1]].setEtat(Case.EtatCase.Selection);
   		visite[position[0]][position[1]] = true;
 
-  		long heure2 = System.currentTimeMillis();  // H2 ..................................
-			temps.add(heure2-heure1);
+
 
 
 		}
@@ -178,6 +182,9 @@ public class MarcAlgo extends Generation implements Runnable{
 
 
 			i++;
+
+			long heure2 = System.nanoTime();  // H2 ..................................
+			maGrille.ajouterTempsGene(heure2 - heure1);
 
 			maGrille.finEtape();
     }
