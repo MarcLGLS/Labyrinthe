@@ -8,18 +8,13 @@ public class ResolutionDroite extends Resolution{
 	private int y;
 	
 	public ResolutionDroite(Grille g){
-	this.maGrille = g;
-	this.chemin = new ArrayList<Case>();
-	this.cheminASupprimer = new ArrayList<Case>();
-	
-	
-	
+		this.maGrille = g;
+		this.chemin = new ArrayList<Case>();
+		this.cheminASupprimer = new ArrayList<Case>();
 	}
 
 	public void run(){
-
 		resoudre();
-
 	}
 
 	public void resoudre() {
@@ -169,38 +164,47 @@ public class ResolutionDroite extends Resolution{
 	
 
 	}
-
+/**
+ * 
+ */
+ 
 	public int droite() {
+		
 		int droite = this.position + 1;
-		if(droite >3) {
+		
+		if(droite >3) 
 			droite = 0;
-		}
-
+	
 		return droite;
+		
 	}
 
 	public int gauche() {
 		int gauche = this.position - 1;
-		if(gauche < 0) {
+		if(gauche < 0)
 			gauche = 3;
-		}
+
 
 		return gauche;
+		
 	}
-
+	
+/**
+ * Méthode modifiant les attributs x et y en fonction de la valeur de l'attribut position
+ */
 	public void avancement(int x1, int y1) {
-		if(this.position == 0) {
+		
+		if(this.position == 0)
 			this.x =x1-1;
-		}
-		if(this.position == 1) {
+			
+		if(this.position == 1)
 			this.y =y1-1;
-		}
-		if(this.position == 2) {
+			
+		if(this.position == 2) 
 			this.x =x1+1;
-		}
-		if(this.position == 3) {
+		
+		if(this.position == 3) 
 			this.y =y1+1;
-		}
 		
 	}
 

@@ -40,7 +40,7 @@ public class FenetreAffichage extends JFrame implements ActionListener, ChangeLi
 
 
 		this.setTitle("Affichage Labyrinthe");
-		this.setSize(600,600);
+		this.setSize(700,600);
 		this.setLocation(700,200);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -113,13 +113,14 @@ public class FenetreAffichage extends JFrame implements ActionListener, ChangeLi
 
 	public void paint(Graphics g){
 
-		String txt = new String();
+		String txt1 = new String();
+		String txt2 = new String();
 
-		txt += ("Temps generation : " + formatTemps.format(grille.getTempsGene()) + "ms.");
+		txt1= ("Temps generation : " + formatTemps.format(grille.getTempsGene()) + "ms.");
 
-		txt += ("Temps resolution : " + formatTemps.format(grille.getTempsReso()) + "ms.");
+		txt2= ("Temps resolution : " + formatTemps.format(grille.getTempsReso()) + "ms.");
 
-		infoTps.setText(txt);
+		infoTps.setText("<html> "+txt1+" <br> "+txt2+" </html>");
 
 		super.paint(g);
 
