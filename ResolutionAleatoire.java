@@ -26,7 +26,6 @@ public class ResolutionAleatoire extends Resolution{
 		maGrille.debutReso();
 		  for(this.x =0; this.x < maGrille.getLargeur() ; this.x++) {
 				for(y = 0; y < maGrille.getHauteur(); y++) {
-					System.out.println("x = "+x+"  /  y = "+y+" !!");
 
 					if(maGrille.getTableau()[x][y].getEtat() == Case.EtatCase.Depart){
 						xd=x;
@@ -126,10 +125,8 @@ public class ResolutionAleatoire extends Resolution{
 				}
 				
 				avancement(x1,y1);
-				System.out.println("x = "+this.x+" //  y = "+this.y+"  ");
 				chemin.add(0, maGrille.getTableau()[this.x][this.y]);
-				System.out.println("on tourne à droite suite à une intersection L (tout droit/ droite)");
-
+				
 		}
 		
 		if(chemin.contains(maGrille.getTableau()[this.x][this.y])) {
@@ -137,7 +134,7 @@ public class ResolutionAleatoire extends Resolution{
 		}
 	
 		
-		System.out.println("bbb"+i+" !!");
+		
 		
 		maGrille.getTableau()[x1][y1].setEtat(Case.EtatCase.Chemin);
 		
