@@ -105,7 +105,7 @@ public class FenetreParametre extends JFrame implements ActionListener {
 		commande.add(resoudre);
 		
 		//Initialisation du JComboBox algoRes.
-		String[] listeAlgoRes = { "ResolutionDroite", "RechercheLargeur", "AlgoEmilien"};
+		String[] listeAlgoRes = { "ResolutionAleatoire","ResolutionDroite", "RechercheLargeur", "AlgoEmilien"};
 		algoRes = new JComboBox<String>(listeAlgoRes);
 		algoRes.setSelectedIndex(0);
 		algoRes.setBounds(20,320,90,30);
@@ -173,18 +173,23 @@ public class FenetreParametre extends JFrame implements ActionListener {
 		if(e.getSource() == boutonResoudre && grille.verifGene() == true){
 
 			Resolution algo = null;
-
+			
 			if(algoRes.getSelectedIndex()==0) {
+				System.out.println("ResolutionAleatoire");
+				algo = new ResolutionAleatoire(grille);
+			}
+			
+			if(algoRes.getSelectedIndex()==1) {
 				System.out.println("ResolutionDroite");
 				algo = new ResolutionDroite(grille);
 			}
 
-			if(algoRes.getSelectedIndex()==1) {
+			if(algoRes.getSelectedIndex()==2) {
 				System.out.println("RechercheLargeur");
 				algo = new RechercheLargeur(grille);
 			}
 
-			if(algoRes.getSelectedIndex()==2) {
+			if(algoRes.getSelectedIndex()==3) {
 				System.out.println("RechercheProfondeur");
 				algo = new RechercheProfondeur(grille);
 			}
