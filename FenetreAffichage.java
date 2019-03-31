@@ -40,7 +40,7 @@ public class FenetreAffichage extends JFrame implements ActionListener, ChangeLi
 
 
 		this.setTitle("Affichage Labyrinthe");
-		this.setSize(700,600);
+		this.setSize(700,700);
 		this.setLocation(700,200);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -92,7 +92,7 @@ public class FenetreAffichage extends JFrame implements ActionListener, ChangeLi
 		panelControle.add(tempsAttente);
 
 		infoTps = new JLabel();
-		infoTps.setBounds(300,10,50,50);
+
 
 		racine.add(infoTps, BorderLayout.WEST);
 
@@ -121,6 +121,10 @@ public class FenetreAffichage extends JFrame implements ActionListener, ChangeLi
 		txt2= ("Temps resolution : " + formatTemps.format(grille.getTempsReso()) + "ms.");
 
 		infoTps.setText("<html> "+txt1+" <br> "+txt2+" </html>");
+		//infoTps.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+		infoTps.setPreferredSize(new Dimension(180,50));
+
 
 		super.paint(g);
 

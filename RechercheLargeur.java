@@ -3,22 +3,24 @@ import java.util.*;
 public class RechercheLargeur extends Resolution{
 
   private HashMap<Case, Case> parents;
-  private ArrayList<Case> aTraiter;
-  private ArrayList<Case> dejaTraite;
+  private LinkedList<Case> aTraiter;
+  private LinkedList<Case> dejaTraite;
 
   public RechercheLargeur(Grille g){
 
     this.maGrille = g;
 
-    aTraiter = new ArrayList<Case>();
-    dejaTraite = new ArrayList<Case>();
+    aTraiter = new LinkedList<Case>();
+    dejaTraite = new LinkedList<Case>();
     parents = new HashMap<Case, Case>();
 
   }
 
   public void run(){
 
+    System.out.println("d1");
     resoudre();
+    System.out.println("d2");
 
   }
 
@@ -69,6 +71,7 @@ public class RechercheLargeur extends Resolution{
 
             if(tmp.getVoisins()[i].getEtat() == Case.EtatCase.Arrivee){
 
+              tmp.setEtat(Case.EtatCase.Chemin);
               Case par = parents.get(tmp);
               par.setEtat(Case.EtatCase.Chemin);
 
@@ -79,13 +82,40 @@ public class RechercheLargeur extends Resolution{
 
               }while(par.getEtat() != Case.EtatCase.Depart);
 
-              aTraiter.clear();
+              for(Case a : aTraiter){
+
+                if(a.getEtat() != Case.EtatCase.Chemin){
+
+                  a.setEtat(Case.EtatCase.Normal);
+
+                }
+
+              }
+
+              for(Case a : dejaTraite){
+
+                if(a.getEtat() != Case.EtatCase.Chemin){
+
+                  a.setEtat(Case.EtatCase.Normal);
+
+                }
+
+              }
+
+              maGrille.finReso();
+              maGrille.finEtape();
+
+              return;
 
             }
 
-          parents.put(tmp.getVoisins()[i], tmp);
-          aTraiter.add(tmp.getVoisins()[i]);
-          tmp.getVoisins()[i].setEtat(Case.EtatCase.Selection);
+            if(aTraiter.contains(tmp.getVoisins()[i]) == false){
+
+              parents.put(tmp.getVoisins()[i], tmp);
+              aTraiter.add(tmp.getVoisins()[i]);
+              tmp.getVoisins()[i].setEtat(Case.EtatCase.Selection);
+
+            }
 
           }
 
@@ -101,9 +131,7 @@ public class RechercheLargeur extends Resolution{
 
     }
 
-    maGrille.attendreEtape();
-    maGrille.finReso();
-    maGrille.finEtape();
+
 
   }
 

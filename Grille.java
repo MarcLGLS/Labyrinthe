@@ -189,7 +189,7 @@ public class Grille {
 
 		this.geneFinie = true;
 
-		for(int i =0; i < tableau.length; i++){
+		/*for(int i =0; i < tableau.length; i++){
 
 			for(int j = 0; j < tableau[0].length; j++){
 
@@ -197,7 +197,7 @@ public class Grille {
 
 			}
 
-		}
+		} */
 
 	}
 
@@ -208,9 +208,24 @@ public class Grille {
 
 			for(int j = 0; j < tableau[0].length; j++){
 
-					tableau[i][j] = tableauSecours[i][j];
+					//tableau[i][j] = tableauSecours[i][j];
+
+					tableau[i][j].setEtat(Case.EtatCase.Normal);
+
 
 			}
+
+		}
+
+		tempsResolution = 0;
+		resoDebut = false;
+		resoFinie = false;
+
+
+		synchronized(this){
+
+			nouvEtape = true;
+			notifyAll();
 
 		}
 
