@@ -13,9 +13,13 @@ public class MarcAlgo extends Generation implements Runnable{
 	  }
 
 	 public void run(){
-
+		
+		long heure1 = System.nanoTime();  // H2 ..................................
+		
 		generer();
-
+		
+		long heure2 = System.nanoTime();  // H2 ..................................
+		maGrille.ajouterTempsGene(heure2 - heure1);
 		}
 
 	public void generer(){
@@ -44,24 +48,26 @@ public class MarcAlgo extends Generation implements Runnable{
 		// création de nouveaux chemins à partir de case déjà visitée tant que la grille n'est pas totalement visitée
 		do {
 
-			int x;
-			int y;
+			int x =0;
+			int y = 0;
 
-			long heure1 = System.nanoTime(); 		// H1 ..............................;;;
-
+			
+			
+	
 			do {
-
+				
 				x = (int)(Math.random()*(maGrille.getLargeur()));
 				y = (int)(Math.random()*(maGrille.getHauteur()));
 
 			} while(this.visite[x][y] == false);
-
-			long heure2 = System.nanoTime();  // H2 ..................................
-			maGrille.ajouterTempsGene(heure2 - heure1);
+		
+				
+			
 
 			int position2[] = {x,y};
 			f(position2); // création d'un nouveau chemin à partir d'une case de coordonnées déterminées précédamment
-
+			
+			
 
 
 		} while(finie()==false);
@@ -183,8 +189,7 @@ public class MarcAlgo extends Generation implements Runnable{
 
 			i++;
 
-			long heure2 = System.nanoTime();  // H2 ..................................
-			maGrille.ajouterTempsGene(heure2 - heure1);
+			
 
 			maGrille.finEtape();
     }

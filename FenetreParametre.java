@@ -83,7 +83,7 @@ public class FenetreParametre extends JFrame implements ActionListener {
 		String[] listeAlgoGen = { "ArbreBinaire", "UniciteChemin", "MarcAlgo", "Ilot"};
 		algoGen = new JComboBox<String>(listeAlgoGen);
 		algoGen.setSelectedIndex(0);
-		algoGen.setBounds(20,145,90,30);
+		algoGen.setBounds(20,145,130,30);
 		algoGen.addActionListener(this);
 		commande.add(algoGen);
 
@@ -108,7 +108,7 @@ public class FenetreParametre extends JFrame implements ActionListener {
 		String[] listeAlgoRes = { "ResolutionAleatoire","ResolutionDroite", "RechercheLargeur", "AlgoEmilien"};
 		algoRes = new JComboBox<String>(listeAlgoRes);
 		algoRes.setSelectedIndex(0);
-		algoRes.setBounds(20,320,90,30);
+		algoRes.setBounds(20,320,130,30);
 		algoRes.addActionListener(this);
 		commande.add(algoRes);
 		
@@ -164,40 +164,36 @@ public class FenetreParametre extends JFrame implements ActionListener {
 
 			affichage = new FenetreAffichage(grille); // Lancement de la fenêtre d'affichage du labyrinthe.
 
-			algoGene = new Thread(algo); // Instanciation du fil d'exécution 
-			algoGene.start(); // Démarage du fil d'exécution.
+			algoGene = new Thread(algo); // Instanciation du fil de génération. 
+			algoGene.start(); // Démarage du fil d'exécution de la génération.
 
 
 		}
-
+		// Gestion de la partie résolution
 		if(e.getSource() == boutonResoudre && grille.verifGene() == true){
 
 			Resolution algo = null;
 			
 			if(algoRes.getSelectedIndex()==0) {
-				System.out.println("ResolutionAleatoire");
-				algo = new ResolutionAleatoire(grille);
+				algo = new ResolutionAleatoire(grille); // Lancement de l'algorithme resolution aléatoire.
 			}
 			
 			if(algoRes.getSelectedIndex()==1) {
-				System.out.println("ResolutionDroite");
-				algo = new ResolutionDroite(grille);
+				algo = new ResolutionDroite(grille); // Lancement de l'algorithme resolution droite.
 			}
 
 			if(algoRes.getSelectedIndex()==2) {
-				System.out.println("RechercheLargeur");
-				algo = new RechercheLargeur(grille);
+				algo = new RechercheLargeur(grille); // Lancement de l'algorithme recherche largeur.
 			}
 
 			if(algoRes.getSelectedIndex()==3) {
-				System.out.println("RechercheProfondeur");
-				algo = new RechercheProfondeur(grille);
+				algo = new RechercheProfondeur(grille); // Lancement de l'algorithme recherche profondeur.
 			}
 
 
-			grille.reinitialiser();
-			algoReso = new Thread(algo);
-			algoReso.start();
+			grille.reinitialiser(); // ??????????????????????????????????????????????,
+			algoReso = new Thread(algo); // Instanciation du fil de résolution.
+			algoReso.start(); // Démarage du fil d'exécution de la résolution.
 
 		}
 

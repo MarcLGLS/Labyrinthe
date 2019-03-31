@@ -139,7 +139,8 @@ public class ResolutionAleatoire extends Resolution{
 		maGrille.getTableau()[x1][y1].setEtat(Case.EtatCase.Chemin);
 		
 	
-		
+		/*
+		 * 	
 		int i1 = chemin.indexOf(maGrille.getTableau()[this.x][this.y]);
 		int i2 = chemin.lastIndexOf(maGrille.getTableau()[this.x][this.y]);
 		
@@ -152,6 +153,7 @@ public class ResolutionAleatoire extends Resolution{
 			cheminASupprimer.remove(maGrille.getTableau()[this.x][this.y]);
 			chemin.add(0,maGrille.getTableau()[this.x][this.y]);
 		}
+		*/
 		
 		if(maGrille.getTableau()[this.x][this.y].getEtat() != Case.EtatCase.Arrivee) {
 			maGrille.getTableau()[this.x][this.y].setEtat(Case.EtatCase.Selection);
@@ -161,13 +163,14 @@ public class ResolutionAleatoire extends Resolution{
 		i++;
 	}while(maGrille.getTableau()[this.x][this.y].getEtat() != Case.EtatCase.Arrivee);
 	
+	/*
 	// suppresion des chemins !! 
 	for(Case c : cheminASupprimer) {
 		c.setEtat(Case.EtatCase.Normal);
 		
 	}
 	
-	
+	*/
 	
 	
 
