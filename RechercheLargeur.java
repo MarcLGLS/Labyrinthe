@@ -43,18 +43,8 @@ public class RechercheLargeur extends Resolution{
       Case tmp = aTraiter.get(0);
       if(tmp.getEtat() == Case.EtatCase.Arrivee){
 
-        Case par;
-
-        do{
-
-          par = parents.get(tmp);
-          par.setEtat(Case.EtatCase.Chemin);
-
-        }while(par.getEtat() != Case.EtatCase.Depart);
-
-        maGrille.ajouterTempsReso(System.nanoTime() - h1);
-        maGrille.finEtape();
-        break;
+        peindreChemin(tmp);
+        return;
 
       }else{
 
@@ -68,14 +58,6 @@ public class RechercheLargeur extends Resolution{
         if(tmp.getMurs()[i] == false){
 
           if(dejaTraite.contains(tmp.getVoisins()[i]) == false && tmp.getVoisins()[i] != null){
-
-            if(tmp.getVoisins()[i].getEtat() == Case.EtatCase.Arrivee){
-
-              peindreChemin(tmp.getVoisins()[i]);
-
-              return;
-
-            }
 
             if(aTraiter.contains(tmp.getVoisins()[i]) == false){
 
