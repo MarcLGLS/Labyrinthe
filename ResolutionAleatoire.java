@@ -2,7 +2,6 @@ import java.util.*;
 
 public class ResolutionAleatoire extends Resolution{
 	private ArrayList<Case> chemin;
-	private ArrayList<Case> cheminASupprimer;
 	private int position;
 	private int x;
 	private int y;
@@ -10,7 +9,6 @@ public class ResolutionAleatoire extends Resolution{
 	public ResolutionAleatoire(Grille g){
 		this.maGrille = g;
 		this.chemin = new ArrayList<Case>();
-		this.cheminASupprimer = new ArrayList<Case>();
 	}
 
 	public void run(){

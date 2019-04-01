@@ -14,16 +14,15 @@ public class RecursiviteAleatoire extends Generation implements Runnable{
 
 	 public void run(){
 		
-		long heure1 = System.nanoTime();  // H2 ..................................
+
 		
 		generer();
 		
-		long heure2 = System.nanoTime();  // H2 ..................................
-		maGrille.ajouterTempsGene(heure2 - heure1);
+		
 		}
 
 	public void generer(){
-
+		long heure1 = System.nanoTime();  // H1 ..................................
   		maGrille.remplir(true); // remplissage de la grille entierement par des murs
     	Case[][] tableau = maGrille.getTableau(); // création d'un tableau de case associée à grille
 
@@ -33,21 +32,27 @@ public class RecursiviteAleatoire extends Generation implements Runnable{
   		int position1[] = {0,a};
   		visite[0][a] = true;
   		boolean depart[] = {false,true,true,true};// tableau représentant l'état de la case départ
-
+		long heure2 = System.nanoTime();  // H2 ..................................
+		maGrille.ajouterTempsGene(heure2 - heure1);
+		 
 		maGrille.attendreEtape();
-
+		
+		long heure3 = System.nanoTime();  // H2 
   		tableau[0][a].setMurs(depart);// affectation des murs de la case départ
 		tableau[0][a].setEtat(Case.EtatCase.Depart);// affectation de l'état Depart de la case
-
+		long heure4 = System.nanoTime();  // H2 ..................................
+		maGrille.ajouterTempsGene(heure4 - heure3);
 
 
 		maGrille.finEtape();
-
+		long heure5 = System.nanoTime();  // H2 
 		f(position1);// réalisation du premier chemin à partir de la case départ
-
+		long heure6 = System.nanoTime();  // H2 ..................................
+		maGrille.ajouterTempsGene(heure6 - heure5);
+		
 		// création de nouveaux chemins à partir de case déjà visitée tant que la grille n'est pas totalement visitée
 		do {
-
+			long heure7 = System.nanoTime();  // H2 ..................................
 			int x =0;
 			int y = 0;
 
@@ -65,6 +70,9 @@ public class RecursiviteAleatoire extends Generation implements Runnable{
 			
 
 			int position2[] = {x,y};
+			long heure8 = System.nanoTime();  // H2 ..................................
+			maGrille.ajouterTempsGene(heure4 - heure3);
+			
 			f(position2); // création d'un nouveau chemin à partir d'une case de coordonnées déterminées précédamment
 			
 			
@@ -73,7 +81,7 @@ public class RecursiviteAleatoire extends Generation implements Runnable{
 		} while(finie()==false);
 
 		arrivee(); // création de la case arrivée du labyrinthe
-
+		
 		maGrille.attendreEtape();
 		maGrille.geneEstFinie();
 		maGrille.finEtape();
@@ -97,6 +105,7 @@ public class RecursiviteAleatoire extends Generation implements Runnable{
 
 
   public void f(int a[]) {
+		long heure1 = System.nanoTime();  // H2 ..................................
 	    int largeur = maGrille.getLargeur();
 		int hauteur = maGrille.getHauteur();
 	  	// début remplissage de la grille
@@ -106,13 +115,14 @@ public class RecursiviteAleatoire extends Generation implements Runnable{
 		boolean bloque = false;
 
 		maGrille.getTableau()[position[0]][position[1]].setEtat(Case.EtatCase.Normal);
-
+		long heure2 = System.nanoTime();  // H2 ..................................
+		maGrille.ajouterTempsGene(heure2 - heure1);
   		while( bloque == false) {
              // initialisation
 
 						 maGrille.attendreEtape();
 
-						 long heure1 = System.nanoTime();
+						 long heure3 = System.nanoTime();
   			// choix de la case adjacente
 				int tour = 0;
 
@@ -137,11 +147,12 @@ public class RecursiviteAleatoire extends Generation implements Runnable{
 						break;
 					}
 
-
+					long heure4 = System.nanoTime();  // H2 ..................................
+					maGrille.ajouterTempsGene(heure4 - heure3);
 
   				}while(position1[0]<0 || position1[0]>= largeur ||position1[1]<0 || position1[1]>= hauteur || visite[position1[0]][ position1[1]] == true);
 
-
+			long heure5 = System.nanoTime();  // H2 ..................................
 			// Destruction des murs
 			if(bloque == false) {
 
@@ -178,18 +189,14 @@ public class RecursiviteAleatoire extends Generation implements Runnable{
 
 			maGrille.getTableau()[position1[0]][position1[1]].setEtat(Case.EtatCase.Selection);
   		visite[position[0]][position[1]] = true;
+			
 
 
-
-
+		long heure6 = System.nanoTime();  // H2 ..................................
+		maGrille.ajouterTempsGene(heure6 - heure5);
 		}
 
 
-
-
-			i++;
-
-			
 
 			maGrille.finEtape();
     }

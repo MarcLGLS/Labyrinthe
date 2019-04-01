@@ -150,7 +150,7 @@ public class FenetreParametre extends JFrame implements ActionListener {
 			}
 			
 			if(algoGen.getSelectedIndex()==2) {
-				algo = new MarcAlgo(grille); // Lancement de l'algorithme récursivité aléatoire.
+				algo = new RecursiviteAleatoire(grille); // Lancement de l'algorithme récursivité aléatoire.
 			}
 
 			if(algoGen.getSelectedIndex()==1) {
