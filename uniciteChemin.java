@@ -22,8 +22,8 @@ public class uniciteChemin extends Generation implements Runnable{
     int hauteur = maGrille.getHauteur();
 
     Case[][] tableau = maGrille.getTableau();
-    ArrayList<Arete> al = new ArrayList<Arete>();
-    ArrayList<Case> zone = new ArrayList<Case>();
+    /*ArrayList<Arete> al = new ArrayList<Arete>();
+    ArrayList<Case> zone = new ArrayList<Case>();*/
     for(int i = 0; i<tableau.length; i++){
     for(int j = 0; j<tableau[i].length; j++){
         tableau[i][j].z = i*tableau.length+j;
@@ -84,21 +84,21 @@ public class uniciteChemin extends Generation implements Runnable{
 
                         if(dir==0 && xa>0){
                             tableau[xa][ya].z=tableau[xa-1][ya].z;
-                            al.add(new Arete(tableau[xa][ya], tableau[xa-1][ya]));
+                            //al.add(new Arete(tableau[xa][ya], tableau[xa-1][ya]));
                         }
                         if(dir==2 && xa<tableau[xa].length-1){
                             tableau[xa][ya].z=tableau[xa+1][ya].z;
-                            al.add(new Arete(tableau[xa][ya], tableau[xa+1][ya]));
+                            //al.add(new Arete(tableau[xa][ya], tableau[xa+1][ya]));
 
                         }
                         if(dir==1 && ya>0){
                             tableau[xa][ya].z=tableau[xa][ya-1].z;
-                            al.add(new Arete(tableau[xa][ya], tableau[xa][ya-1]));
+                            //al.add(new Arete(tableau[xa][ya], tableau[xa][ya-1]));
 
                         }
                         if(dir==3 && ya<tableau.length-1){
                             tableau[xa][ya].z=tableau[xa][ya+1].z;
-                            al.add(new Arete(tableau[xa][ya], tableau[xa][ya+1]));
+                            //al.add(new Arete(tableau[xa][ya], tableau[xa][ya+1]));
 
                         }
 
