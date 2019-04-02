@@ -51,8 +51,12 @@ public class Ilot extends Generation implements Runnable{
         
         int r=(int)(Math.random()*(c-2*(i+1)))+1;
         System.out.println("r = "+r);
+        if(i%2==0){
         tableau[r+i][i].setMurs(3,false);
-        //tableau[(int)(Math.random()*(c-i))][c-i-1].setMurs(1,false);
+        }
+        if(i%2==1){
+        tableau[r+i][c-i-1].setMurs(1,false);
+        }
         
         /*if(i%2==0){//ouverture en haut
             tableau[i][(int)(Math.random()*(c-i))].setMurs(1,false);
@@ -70,7 +74,7 @@ public class Ilot extends Generation implements Runnable{
     }
     tableau[0][0].setEtat(Case.EtatCase.Depart);
     tableau[i][i].setEtat(Case.EtatCase.Arrivee);
-    System.out.println("Le labyrinthe imparfait à ilots est généré ");
+    System.out.println("Le labyrinthe imparfait à ilots est généré (la méthode résolutionDroite est incapable de résoudre ce labyrinthe imparfait)");
     maGrille.geneEstFinie();
     
     
