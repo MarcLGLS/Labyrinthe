@@ -43,18 +43,8 @@ public class RechercheLargeur extends Resolution{
       Case tmp = aTraiter.get(0);
       if(tmp.getEtat() == Case.EtatCase.Arrivee){
 
-        Case par;
-
-        do{
-
-          par = parents.get(tmp);
-          par.setEtat(Case.EtatCase.Chemin);
-
-        }while(par.getEtat() != Case.EtatCase.Depart);
-
-        maGrille.ajouterTempsReso(System.nanoTime() - h1);
-        maGrille.finEtape();
-        break;
+        peindreChemin(tmp);
+        return;
 
       }else{
 
@@ -68,46 +58,6 @@ public class RechercheLargeur extends Resolution{
         if(tmp.getMurs()[i] == false){
 
           if(dejaTraite.contains(tmp.getVoisins()[i]) == false && tmp.getVoisins()[i] != null){
-
-            if(tmp.getVoisins()[i].getEtat() == Case.EtatCase.Arrivee){
-
-              tmp.setEtat(Case.EtatCase.Chemin);
-              Case par = parents.get(tmp);
-              par.setEtat(Case.EtatCase.Chemin);
-
-              do{
-
-                par = parents.get(par);
-                par.setEtat(Case.EtatCase.Chemin);
-
-              }while(par.getEtat() != Case.EtatCase.Depart);
-
-              for(Case a : aTraiter){
-
-                if(a.getEtat() != Case.EtatCase.Chemin){
-
-                  a.setEtat(Case.EtatCase.Normal);
-
-                }
-
-              }
-
-              for(Case a : dejaTraite){
-
-                if(a.getEtat() != Case.EtatCase.Chemin){
-
-                  a.setEtat(Case.EtatCase.Normal);
-
-                }
-
-              }
-
-              maGrille.finReso();
-              maGrille.finEtape();
-
-              return;
-
-            }
 
             if(aTraiter.contains(tmp.getVoisins()[i]) == false){
 
@@ -158,6 +108,44 @@ public class RechercheLargeur extends Resolution{
     }
 
     return ret;
+
+  }
+
+  public void peindreChemin(Case c){
+
+    Case par = c;
+
+    do{
+
+      par = parents.get(par);
+      if(par != null)
+      par.setEtat(Case.EtatCase.Chemin);
+
+    }while(par.getEtat() != Case.EtatCase.Depart);
+
+    for(Case a : aTraiter){
+
+      if(a.getEtat() != Case.EtatCase.Chemin){
+
+        a.setEtat(Case.EtatCase.Normal);
+
+      }
+
+    }
+
+    for(Case a : dejaTraite){
+
+      if(a.getEtat() != Case.EtatCase.Chemin){
+
+        a.setEtat(Case.EtatCase.Normal);
+
+      }
+
+    }
+
+    maGrille.finReso();
+    maGrille.finEtape();
+
 
   }
 

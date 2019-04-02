@@ -47,28 +47,20 @@ public class RechercheProfondeur extends Resolution{
     maGrille.attendreEtape();
     h1 = System.nanoTime();
 
+    dejaTraite.add(c);
     //System.out.println(c.getEtat());
 
     if(fin == true) return;
 
     if(c.getEtat() == Case.EtatCase.Arrivee){
 
-      Case par = c;
-
-      do{
-
-        par = parents.get(par);
-        par.setEtat(Case.EtatCase.Chemin);
-
-      }while(par.getEtat() != Case.EtatCase.Depart);
-
+      peindreChemin(c);
       fin = true;
       return;
 
     }else{
 
       c.setEtat(Case.EtatCase.Selection);
-      dejaTraite.add(c);
 
     }
 
@@ -154,6 +146,34 @@ public class RechercheProfondeur extends Resolution{
     }
 
     return ret;
+
+  }
+
+  public void peindreChemin(Case c){
+
+    Case par = c;
+
+    do{
+
+      par = parents.get(par);
+      if(par != null)
+      par.setEtat(Case.EtatCase.Chemin);
+
+    }while(par.getEtat() != Case.EtatCase.Depart);
+
+    for(Case a : dejaTraite){
+
+      if(a.getEtat() != Case.EtatCase.Chemin){
+
+        a.setEtat(Case.EtatCase.Normal);
+
+      }
+
+    }
+
+    maGrille.finReso();
+    maGrille.finEtape();
+
 
   }
 

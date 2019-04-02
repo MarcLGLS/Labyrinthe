@@ -123,7 +123,7 @@ public class FenetreAffichage extends JFrame implements ActionListener, ChangeLi
 		infoTps.setText("<html> "+txt1+" <br> "+txt2+" </html>");
 		//infoTps.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-		infoTps.setPreferredSize(new Dimension(180,50));
+		infoTps.setPreferredSize(new Dimension(200,50));
 
 
 		super.paint(g);
