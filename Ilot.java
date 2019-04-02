@@ -28,28 +28,29 @@ public class Ilot extends Generation implements Runnable{
         
         //int dir = (int)(Math.random()*2);
         
-            for(int j=i; j<c-i; j++){
+            for(int j=i; j<c-i-1; j++){
                 tableau[j][i].setMurs(2,false);
                 //tableau[i][j].setMurs(0,false);
             }
-            for(int j=i; j<c-i; j++){
+            for(int j=i; j<c-i-1; j++){
                 tableau[i][j].setMurs(3,false);
                 //tableau[j][i].setMurs(1,false);
             }
-            for(int j=i; j<c-i;j++){
+            for(int j=i; j<c-i-1;j++){
                 System.out.println("j="+j+" c="+c+" et i="+i);
-                tableau[j][c-i-1].setMurs(0,false);
+                tableau[j+1][c-i-1].setMurs(0,false);
                 
                 //tableau[c-i][j].setMurs(0,false);
             }
             for(int j=i; j<c-i-1; j++){
-                tableau[c-i-1][j].setMurs(2,false);
+                tableau[c-i-1][j+1].setMurs(1,false);
                 //tableau[j][c-i].setMurs(0,false);
             }
         
-        
-        tableau[(int)(Math.random()*(c-i))][i].setMurs(1,false);
-        tableau[(int)(Math.random()*(c-i))][c-i-1].setMurs(3,false);
+        int r=(int)(Math.random()*(c-i));
+        System.out.println("r = "+r);
+        tableau[r+i][i].setMurs(3,false);
+        //tableau[(int)(Math.random()*(c-i))][c-i-1].setMurs(1,false);
         
         /*if(i%2==0){//ouverture en haut
             tableau[i][(int)(Math.random()*(c-i))].setMurs(1,false);
