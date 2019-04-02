@@ -25,6 +25,8 @@ public class Ilot extends Generation implements Runnable{
     int i=0;
     
     while(i<(int)(c/2)){
+        maGrille.attendreEtape();
+        long h1 = System.nanoTime();
         
         //int dir = (int)(Math.random()*2);
         
@@ -47,7 +49,7 @@ public class Ilot extends Generation implements Runnable{
                 //tableau[j][c-i].setMurs(0,false);
             }
         
-        int r=(int)(Math.random()*(c-i));
+        int r=(int)(Math.random()*(c-2*(i+1)))+1;
         System.out.println("r = "+r);
         tableau[r+i][i].setMurs(3,false);
         //tableau[(int)(Math.random()*(c-i))][c-i-1].setMurs(1,false);
@@ -63,6 +65,8 @@ public class Ilot extends Generation implements Runnable{
         
         
       i++;  
+      maGrille.ajouterTempsGene(System.nanoTime() - h1);
+      maGrille.finEtape();
     }
     tableau[0][0].setEtat(Case.EtatCase.Depart);
     tableau[i][i].setEtat(Case.EtatCase.Arrivee);
