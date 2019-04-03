@@ -11,6 +11,7 @@ import java.awt.event.*;
 public class FenetreParametre extends JFrame implements ActionListener {
 	private JButton boutonGenerer;
 	private JButton boutonResoudre;
+	private JCheckBox passerGene;
 	private JTextField tailleX;
 	private JTextField tailleY;
 	private JComboBox<String> algoGen;
@@ -93,6 +94,10 @@ public class FenetreParametre extends JFrame implements ActionListener {
 		boutonGenerer.addActionListener(this);
 		commande.add(boutonGenerer);
 
+		passerGene = new JCheckBox("Passer la génération");
+		passerGene.setBounds(200,190,30,30);
+		commande.add(passerGene);
+
 
 
 		//Initialisation de la partie résolution de la fenêtre de paramétrage.
@@ -162,10 +167,17 @@ public class FenetreParametre extends JFrame implements ActionListener {
 			}
 
 
-			affichage = new FenetreAffichage(grille); // Lancement de la fenêtre d'affichage du labyrinthe.
+			if(passerGene.isSelected() == false){
+				affichage = new FenetreAffichage(grille); // Lancement de la fenêtre d'affichage du labyrinthe.
+				algoGene = new Thread(algo); // Instanciation du fil de génération.
+				algoGene.start(); // Démarage du fil d'exécution de la génération.
+			}else{
 
-			algoGene = new Thread(algo); // Instanciation du fil de génération.
-			algoGene.start(); // Démarage du fil d'exécution de la génération.
+				grille.passerGene();
+				algo.generer();
+				affichage = new FenetreAffichage(grille);
+
+			}
 
 
 		}

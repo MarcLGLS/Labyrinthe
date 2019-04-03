@@ -20,6 +20,8 @@ public class Grille {
 	private boolean resoDebut = false;
 	private boolean resoFinie = false;
 
+	private boolean passerGeneration = false;
+
 	public Grille(int l, int h) {
 
 		largeur = l;
@@ -134,21 +136,25 @@ public class Grille {
 	//méthode utilisée dans les algorithmes pour attendre une étape
 	public synchronized void attendreEtape(){
 
-		/*
-		A ce moment précis, c'est l'algorithme qui a le lock sur la grille, il est le seul à pouvoir y accéder
-		*/
+		if(passerGeneration == false){
 
-		try{
-		/*
-		Le thread de l'algorithme relâche le lock et se met en attente. Il est encapsulé dans une boucle while pour éviter tout réveil intempestif.
-		*/
+			/*
+			A ce moment précis, c'est l'algorithme qui a le lock sur la grille, il est le seul à pouvoir y accéder
+			*/
 
-			while(nouvEtape == false) wait();
+			try{
+			/*
+			Le thread de l'algorithme relâche le lock et se met en attente. Il est encapsulé dans une boucle while pour éviter tout réveil intempestif.
+			*/
 
-		}catch(InterruptedException e) {e.printStackTrace();}
+				while(nouvEtape == false) wait();
+
+			}catch(InterruptedException e) {e.printStackTrace();}
 
 
-		nouvEtape = false; //On signale que l'étape a été commencée.
+			nouvEtape = false; //On signale que l'étape a été commencée.
+
+		}
 
 	}
 
@@ -188,6 +194,8 @@ public class Grille {
 	public void geneEstFinie(){
 
 		this.geneFinie = true;
+
+		this.passerGeneration = false;
 
 		/*for(int i =0; i < tableau.length; i++){
 
@@ -276,6 +284,12 @@ public class Grille {
 	public double getTempsReso(){
 
 		return tempsResolution;
+
+	}
+
+	public void passerGene(){
+
+		passerGeneration = true;
 
 	}
 
