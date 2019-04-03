@@ -72,7 +72,7 @@ public class Ilot extends Generation implements Runnable{
       maGrille.ajouterTempsGene(System.nanoTime() - h1);
       maGrille.finEtape();
     }
-    tableau[0][0].setEtat(Case.EtatCase.Depart);
+    tableau[(int)(Math.random()*c)][0].setEtat(Case.EtatCase.Depart);
     tableau[i][i].setEtat(Case.EtatCase.Arrivee);
     System.out.println("Le labyrinthe imparfait à ilots est généré (la méthode résolutionDroite est incapable de résoudre ce labyrinthe imparfait)");
     maGrille.geneEstFinie();
