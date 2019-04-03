@@ -18,9 +18,7 @@ public class RechercheLargeur extends Resolution{
 
   public void run(){
 
-    System.out.println("d1");
     resoudre();
-    System.out.println("d2");
 
   }
 

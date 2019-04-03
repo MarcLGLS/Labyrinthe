@@ -33,14 +33,12 @@ public class RechercheProfondeur extends Resolution{
       maGrille.attendreEtape();
       h1 = System.nanoTime();
       resoudreRec(maGrille.getTableau()[coord[0]][coord[1]]);
-      maGrille.attendreEtape();
-      maGrille.finReso();
-      maGrille.finEtape();
-
 
     }
 
     public void resoudreRec(Case c){
+
+    if(fin == true) return;
 
     maGrille.ajouterTempsReso(System.nanoTime()-h1);
     maGrille.finEtape();
@@ -50,7 +48,7 @@ public class RechercheProfondeur extends Resolution{
     dejaTraite.add(c);
     //System.out.println(c.getEtat());
 
-    if(fin == true) return;
+
 
     if(c.getEtat() == Case.EtatCase.Arrivee){
 
