@@ -259,6 +259,8 @@ public class Grille {
 
 		resoFinie = true;
 
+		this.passerGeneration = false;
+
 	}
 
 	public void ajouterTempsGene(long l){

@@ -177,4 +177,13 @@ public class FenetreAffichage extends JFrame implements ActionListener, ChangeLi
 
 	}
 
+	public void desactiverTimer(){
+
+		if(timerEtape != null){
+			timerEtape.stop();
+			timerEtape = null;
+		}
+
+	}
+
 }

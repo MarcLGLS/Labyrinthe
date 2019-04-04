@@ -12,6 +12,7 @@ public class FenetreParametre extends JFrame implements ActionListener {
 	private JButton boutonGenerer;
 	private JButton boutonResoudre;
 	private JCheckBox passerGene;
+	private JCheckBox passerReso;
 	private JTextField tailleX;
 	private JTextField tailleY;
 	private JComboBox<String> algoGen;
@@ -95,7 +96,7 @@ public class FenetreParametre extends JFrame implements ActionListener {
 		commande.add(boutonGenerer);
 
 		passerGene = new JCheckBox("Passer la génération");
-		passerGene.setBounds(200,190,30,30);
+		passerGene.setBounds(200,190,200,30);
 		commande.add(passerGene);
 
 
@@ -110,7 +111,7 @@ public class FenetreParametre extends JFrame implements ActionListener {
 		commande.add(resoudre);
 
 		//Initialisation du JComboBox algoRes.
-		String[] listeAlgoRes = { "ResolutionAleatoire","ResolutionDroite", "RechercheLargeur", "AlgoEmilien"};
+		String[] listeAlgoRes = { "ResolutionAleatoire","ResolutionDroite", "RechercheLargeur", "RechercheProfondeur"};
 		algoRes = new JComboBox<String>(listeAlgoRes);
 		algoRes.setSelectedIndex(0);
 		algoRes.setBounds(20,320,130,30);
@@ -122,6 +123,10 @@ public class FenetreParametre extends JFrame implements ActionListener {
 		boutonResoudre.setBounds(90,370,100,50);
 		boutonResoudre.addActionListener(this);
 		commande.add(boutonResoudre);
+
+		passerReso = new JCheckBox("Passer la résolution");
+		passerReso.setBounds(200,370,200,30);
+		commande.add(passerReso);
 
 
 
@@ -205,9 +210,20 @@ public class FenetreParametre extends JFrame implements ActionListener {
 			if(algoReso == null || algoReso.getState() == Thread.State.TERMINATED){ //On vérifie qu'aucune résolution n'est en cours
 
 				grille.reinitialiser(); // On réinitialise la grille à son état avant résolution
-				algoReso = new Thread(algo); // Instanciation du fil de résolution.
-				System.out.println(algoReso.getState());
-				algoReso.start(); // Démarage du fil d'exécution de la résolution.
+
+				if(passerReso.isSelected() == false){
+
+					algoReso = new Thread(algo); // Instanciation du fil de résolution.
+					algoReso.start(); // Démarage du fil d'exécution de la résolution.
+
+				}else{
+
+					grille.passerGene();
+					algo.resoudre();
+					affichage.desactiverTimer();
+					affichage.repaint();
+
+				}
 
 			}
 
