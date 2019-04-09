@@ -46,7 +46,7 @@ public class ResolutionDroite extends Resolution{
 
 	}
 
-	public void f(int x, int y) {
+	public void chemin(int x, int y) {
 		
 		int x1 = x;
 		int y1 = y;
