@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 public class uniciteChemin extends Generation implements Runnable{
 
   public uniciteChemin(Grille g){
