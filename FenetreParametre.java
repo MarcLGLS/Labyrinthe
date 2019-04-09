@@ -19,6 +19,8 @@ public class FenetreParametre extends JFrame implements ActionListener {
 	private JComboBox<String> algoRes;
 	public Generation algo;
 
+	private static Color COULEUR_FOND;
+
 	private Generation[] gen = new Generation[5];
 
 	// Déclaration de fils d'éxécutions pour les algorithmes de générations et de résolutions afin de pouvoir les séquencer.
@@ -32,9 +34,11 @@ public class FenetreParametre extends JFrame implements ActionListener {
 
 	public FenetreParametre() {
 
+		COULEUR_FOND = new Color(83,109,254);
+
 		// Initialisation de FenetreParametre.
 		this.setTitle("Commande Labyrinthe");
-		this.setSize(300,500);
+		this.setSize(400,500);
 		this.setLocation(200,200);
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -44,7 +48,7 @@ public class FenetreParametre extends JFrame implements ActionListener {
 		JPanel commande = new JPanel();
 		commande.setBounds(50,50,200,500);
 		commande.setLayout(null);
-		commande.setBackground(new Color(83,109,254));
+		commande.setBackground(COULEUR_FOND);
 
 
 
@@ -96,7 +100,8 @@ public class FenetreParametre extends JFrame implements ActionListener {
 		commande.add(boutonGenerer);
 
 		passerGene = new JCheckBox("Passer la génération");
-		passerGene.setBounds(200,190,200,30);
+		passerGene.setBounds(200,190,170,30);
+		passerGene.setBackground(COULEUR_FOND);
 		commande.add(passerGene);
 
 
@@ -125,7 +130,8 @@ public class FenetreParametre extends JFrame implements ActionListener {
 		commande.add(boutonResoudre);
 
 		passerReso = new JCheckBox("Passer la résolution");
-		passerReso.setBounds(200,370,200,30);
+		passerReso.setBounds(200,370,170,30);
+		passerReso.setBackground(COULEUR_FOND);
 		commande.add(passerReso);
 
 
@@ -146,8 +152,8 @@ public class FenetreParametre extends JFrame implements ActionListener {
 		if(e.getSource() == boutonGenerer) {
 
 			//Récupération des dimensions de la grille.
-			int x = Integer.parseInt(tailleX.getText().trim());
-			int y = Integer.parseInt(tailleY.getText().trim());
+			int x = Math.abs(Integer.parseInt(tailleX.getText().trim()));
+			int y = Math.abs(Integer.parseInt(tailleY.getText().trim()));
 
 			grille = new Grille(x,y); //Création de la grille.
 
