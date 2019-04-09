@@ -21,7 +21,7 @@ public class Ilot extends Generation implements Runnable{
     int hauteur = maGrille.getHauteur();
 
     Case[][] tableau = maGrille.getTableau();
-    int c = (int)(Math.min(largeur, hauteur));
+    int c = (int)(Math.min(largeur, hauteur)); //c est le coté du carré inscrit dans le rectangle définit par l'utilisateur
     
     int i=0;
     
