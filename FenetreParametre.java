@@ -86,7 +86,7 @@ public class FenetreParametre extends JFrame implements ActionListener {
 
 
 		//Initialisation du JComboBox listeAlgoGen
-		String[] listeAlgoGen = { "ArbreBinaire", "UniciteChemin", "MarcAlgo", "Ilot"};
+		String[] listeAlgoGen = { "ArbreBinaire", "UniciteChemin", "Récursivité aléatoire", "Ilot"};
 		algoGen = new JComboBox<String>(listeAlgoGen);
 		algoGen.setSelectedIndex(0);
 		algoGen.setBounds(20,145,130,30);
