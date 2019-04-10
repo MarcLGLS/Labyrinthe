@@ -20,14 +20,14 @@ public class FenetreAffichage extends JFrame implements ActionListener, ChangeLi
 
 	private JLabel infoTps;
 	public DecimalFormat formatTemps = new DecimalFormat("#.###");
-
-  private Timer timerEtape;
+	
+	private Timer timerEtape;
 	private int tempsEtape;
 
 	private JSlider tempsAttente;
 
-  private JButton play;
-  private JButton pause;
+	private JButton play;
+	private JButton pause;
 
 
 	public FenetreAffichage(Grille grille) {

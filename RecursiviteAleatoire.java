@@ -113,59 +113,55 @@ public class RecursiviteAleatoire extends Generation implements Runnable{
   }
 
 
-
+// Méthode générant un chemin à partir d'une case départ définie en paramètre. 
   public void chemin(int a[]) {
 		long heure1 = System.nanoTime();  // Début chronomètre.
 	    
 	    int largeur = maGrille.getLargeur();
 		int hauteur = maGrille.getHauteur();
 		
-	  	// début remplissage de la grille
+	  	// Création du début du chemin
 		int position[] = {a[0],a[1]};
 		int position1[] = {a[0],a[1]};
-		int i =0;
 		boolean bloque = false;
-
 		maGrille.getTableau()[position[0]][position[1]].setEtat(Case.EtatCase.Normal);
-		long heure2 = System.nanoTime();  // H2 ..................................
-		maGrille.ajouterTempsGene(heure2 - heure1);
+		long heure2 = System.nanoTime();  // Fin chronomètre.
+		maGrille.ajouterTempsGene(heure2 - heure1); //Enregistrement du temps d'éxécution. 
+  		
+  		// On continue d'agrandir le chemin tant que ça est toujours possible.
+  		
   		while( bloque == false) {
-             // initialisation
 
-						 maGrille.attendreEtape();
+			maGrille.attendreEtape();
+			//Ajout d'une nouvelle case au chemin.
+			long heure3 = System.nanoTime(); // Début du chronomètre.
+			int tour = 0;
+		
+			// Recherche d'une case vierge aux abords de la dernière case du chemin	
+  			do{
+				position1[0] = position[0];
+				position1[1] = position[1];
+				
+				//Détermination aléatoire des coordonnées d'une case adjacente
+  				if((int)(2*Math.random())==0) {
+  					position1[0]= position[0] +(int)(3*Math.random())-1;
+  				} else {
+  					position1[1] = position[1] + (int)(3*Math.random())-1;
+  				}
 
-						 long heure3 = System.nanoTime();
-  			// choix de la case adjacente
-				int tour = 0;
+				// Si au bout de 11 exècutions de la boucle sans trouver de case compatible, on considère que le chemin est bloqué.
+  				if(tour >10) {
+					bloque = true;
+					break;
+				}
+				
+				tour ++;
+
+  			}while(position1[0]<0 || position1[0]>= largeur ||position1[1]<0 || position1[1]>= hauteur || visite[position1[0]][ position1[1]] == true);
 
 
-  				do{
 
-
-
-					position1[0] = position[0];
-					position1[1] = position[1];
-
-  					if((int)(2*Math.random())==0) {
-  						position1[0]= position[0] +(int)(3*Math.random())-1;
-  					} else {
-  						position1[1] = position[1] + (int)(3*Math.random())-1;
-  					}
-
-  					tour ++;
-
-  					if(tour >10) {
-						bloque = true;
-						break;
-					}
-
-					long heure4 = System.nanoTime();  // H2 ..................................
-					maGrille.ajouterTempsGene(heure4 - heure3);
-
-  				}while(position1[0]<0 || position1[0]>= largeur ||position1[1]<0 || position1[1]>= hauteur || visite[position1[0]][ position1[1]] == true);
-
-			long heure5 = System.nanoTime();  // H2 ..................................
-			// Destruction des murs
+			// Destruction des murs entre la nouvelle case et l'ancienne case dans le cas où me chemin n'est pas bloqué.
 			if(bloque == false) {
 
 			if( position[0] > position1[0] ) {
@@ -197,24 +193,26 @@ public class RecursiviteAleatoire extends Generation implements Runnable{
 
 
 			position[0] = position1[0];
-  		position[1] = position1[1];
+			position[1] = position1[1];
 
-			maGrille.getTableau()[position1[0]][position1[1]].setEtat(Case.EtatCase.Selection);
-  		visite[position[0]][position[1]] = true;
+			maGrille.getTableau()[position1[0]][position1[1]].setEtat(Case.EtatCase.Selection);// Affectation de l'état de la case pour l'affichage dynamique.
+			visite[position[0]][position[1]] = true; // La nouvelle case est enregistré comme visitée.
 			
 
 
-		long heure6 = System.nanoTime();  // H2 ..................................
-		maGrille.ajouterTempsGene(heure6 - heure5);
+		
 		}
+		long heure4 = System.nanoTime();  // Fin chronomètre.
+		maGrille.ajouterTempsGene(heure4 - heure3); // Enregistrement du temps d'éxécution. 
 
-
-
-			maGrille.finEtape();
+		maGrille.finEtape();
+		
     }
 
 
   }
+  
+	// Méthode créant la case arrivée.
 	public void arrivee() {
 		int y = (int)(Math.random()*maGrille.getHauteur());
 		maGrille.getTableau()[maGrille.getLargeur()-1][y].setMurs(2,false);

@@ -35,7 +35,7 @@ public class ResolutionAleatoire extends Resolution{
 
 
 		this.position = 2;
-		f(xd,yd);
+		cheminement(xd,yd);
 		long heure2 = System.nanoTime();
 		maGrille.ajouterTempsReso(heure2 - heure1); 
 		maGrille.finReso();
@@ -44,7 +44,7 @@ public class ResolutionAleatoire extends Resolution{
 
 	}
 
-	public void f(int x, int y) {
+	public void cheminement(int x, int y) {
 		
 		int x1 = x;
 		int y1 = y;

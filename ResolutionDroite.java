@@ -19,8 +19,8 @@ public class ResolutionDroite extends Resolution{
 
 	public void resoudre() {
 		
-	  // détermination case départ
-	    long heure1 = System.nanoTime(); 
+	  // Détermination de la case départ.
+	    long heure1 = System.nanoTime(); // Début du chronomètre.
 		int xd =0;
 		int yd =0;
 		maGrille.debutReso();
@@ -37,7 +37,7 @@ public class ResolutionDroite extends Resolution{
 
 
 		this.position = 2;
-		f(xd,yd);
+		chemin(xd,yd);
 		long heure2 = System.nanoTime();
 		maGrille.ajouterTempsReso(heure2 - heure1); 
 		maGrille.finReso();
