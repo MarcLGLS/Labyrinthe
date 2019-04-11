@@ -10,8 +10,8 @@ public class Grille {
 
 	private boolean nouvEtape = false;//Indique si une nouvelle étape à été effectuée par le labyrinthe.
 
-	private double tempsGeneration;
-	private double tempsResolution;
+	private double tempsGeneration; //Le temps total de génération
+	private double tempsResolution; //Le temps total de résolution
 
 	/*
 	Booleens utilisés pour savoir où se situe le programme.
@@ -20,7 +20,7 @@ public class Grille {
 	private boolean resoDebut = false;
 	private boolean resoFinie = false;
 
-	private boolean passerGeneration = false;
+	private boolean passerGeneration = false; //Booléen utilisé pour savoir si on passe la génération (ou la résolution une fois la génération terminée).
 
 	public Grille(int l, int h) {
 
@@ -136,7 +136,7 @@ public class Grille {
 	//méthode utilisée dans les algorithmes pour attendre une étape
 	public synchronized void attendreEtape(){
 
-		if(passerGeneration == false){
+		if(passerGeneration == false){ //Si on passe la génération (ou la résolution) on ne s'inquiète pas de ça : l'algorithme doit tourner jusqu'à ce qu'il ait fini.
 
 			/*
 			A ce moment précis, c'est l'algorithme qui a le lock sur la grille, il est le seul à pouvoir y accéder
@@ -197,40 +197,30 @@ public class Grille {
 
 		this.passerGeneration = false;
 
-		/*for(int i =0; i < tableau.length; i++){
 
-			for(int j = 0; j < tableau[0].length; j++){
-
-					tableauSecours[i][j] = tableau[i][j];
-
-			}
-
-		} */
 
 	}
 
-	//Si on veut reinitialiser le tableau
+	//Si on veut reinitialiser le tableau pour une nouvelle résolution
 	public void reinitialiser(){
 
 		for(int i =0; i < tableau.length; i++){
 
 			for(int j = 0; j < tableau[0].length; j++){
 
-					//tableau[i][j] = tableauSecours[i][j];
-
 					tableau[i][j].setEtat(Case.EtatCase.Normal);
-
 
 			}
 
 		}
 
+		//On remet les temps à 0 et les booléens qui marque le début et la fin de la résolution en false
 		tempsResolution = 0;
 		resoDebut = false;
 		resoFinie = false;
 
 
-		synchronized(this){
+		synchronized(this){ //On re-enclenche le processus de communication entre la fenetre la grille et l'algorithme
 
 			nouvEtape = true;
 			notifyAll();
@@ -263,6 +253,7 @@ public class Grille {
 
 	}
 
+	//Ajouter du temps au temps total de génération (on envoie le temps en nano secondes et on le convertit en milli secondes)
 	public void ajouterTempsGene(long l){
 
 		tempsGeneration += ((double) l * Math.pow(10,-6));
@@ -270,6 +261,7 @@ public class Grille {
 
 	}
 
+	//Ajouter du temps au temps total de résolution (on envoie le temps en nano secondes et on le convertit en milli secondes)
 	public void ajouterTempsReso(long l){
 
 		tempsResolution += ((double) l * Math.pow(10,-6));
@@ -277,18 +269,21 @@ public class Grille {
 
 	}
 
+	//renvoie le temps de génération
 	public double getTempsGene(){
 
 		return tempsGeneration;
 
 	}
 
+	//renvoie le temps de résolution
 	public double getTempsReso(){
 
 		return tempsResolution;
 
 	}
 
+	//Signal qu'on doit ignorer l'attente de la fenêtre (ne pas attendre que la fenêtre se redessine entre chaque étape)
 	public void passerGene(){
 
 		passerGeneration = true;

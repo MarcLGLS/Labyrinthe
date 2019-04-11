@@ -9,6 +9,8 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class FenetreParametre extends JFrame implements ActionListener {
+
+	//Déclaration des différents composants graphiques
 	private JButton boutonGenerer;
 	private JButton boutonResoudre;
 	private JCheckBox passerGene;
@@ -17,7 +19,6 @@ public class FenetreParametre extends JFrame implements ActionListener {
 	private JTextField tailleY;
 	private JComboBox<String> algoGen;
 	private JComboBox<String> algoRes;
-	public Generation algo;
 
 	private static Color COULEUR_FOND;
 
@@ -99,6 +100,7 @@ public class FenetreParametre extends JFrame implements ActionListener {
 		boutonGenerer.addActionListener(this);
 		commande.add(boutonGenerer);
 
+		//Initialisation de la checkbox pour passer la génération
 		passerGene = new JCheckBox("Passer la génération");
 		passerGene.setBounds(200,190,170,30);
 		passerGene.setBackground(COULEUR_FOND);
@@ -129,6 +131,7 @@ public class FenetreParametre extends JFrame implements ActionListener {
 		boutonResoudre.addActionListener(this);
 		commande.add(boutonResoudre);
 
+		//Initialisation de la checkbox pour passer la résolution
 		passerReso = new JCheckBox("Passer la résolution");
 		passerReso.setBounds(200,370,170,30);
 		passerReso.setBackground(COULEUR_FOND);
@@ -157,9 +160,9 @@ public class FenetreParametre extends JFrame implements ActionListener {
 
 			grille = new Grille(x,y); //Création de la grille.
 
-			Generation algo = null; //?????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????
+			Generation algo = null; //Instanciation de l'algorithme de génération qui est null pour le moment
 
-			// Lancement de l'algorithme de résolution en fonction de celui-choisi dans le JComboBox.
+			// Lancement de l'algorithme de génération en fonction de celui-choisi dans le JComboBox.
 
 			if(algoGen.getSelectedIndex()==0) {
 				algo = new ArbreBinaire(grille); // Lancement de l'algorithme arbre binaire.
@@ -173,8 +176,8 @@ public class FenetreParametre extends JFrame implements ActionListener {
 				algo = new uniciteChemin(grille); // Lancement de l'algorithme unicité chemin.
 			}
 
-            if(algoGen.getSelectedIndex()==3) {
-                    algo = new Ilot(grille); // Lancement de l'algorithme ilot.
+      if(algoGen.getSelectedIndex()==3) {
+              algo = new Ilot(grille); // Lancement de l'algorithme ilot.
 			}
 
 
@@ -182,11 +185,12 @@ public class FenetreParametre extends JFrame implements ActionListener {
 				affichage = new FenetreAffichage(grille); // Lancement de la fenêtre d'affichage du labyrinthe.
 				algoGene = new Thread(algo); // Instanciation du fil de génération.
 				algoGene.start(); // Démarage du fil d'exécution de la génération.
+
 			}else{
 
-				grille.passerGene();
-				algo.generer();
-				affichage = new FenetreAffichage(grille);
+				grille.passerGene(); //On signale à la grille que la génération doit être passée : ne pas suspendre le thread de génération pour repeindre la fenêtre
+				algo.generer(); //Méthode bloquante qui génère le labyrinthe, la fenêtre n'est pas lancée tant que cette méthode n'est pas terminée
+				affichage = new FenetreAffichage(grille);//Affichage de la grille
 
 			}
 
@@ -195,7 +199,7 @@ public class FenetreParametre extends JFrame implements ActionListener {
 		// Gestion de la partie résolution
 		if(e.getSource() == boutonResoudre && grille.verifGene() == true){
 
-			Resolution algo = null;
+			Resolution algo = null; //Instanciation de l'algorithme de résolution qui est null pour le moment
 
 			if(algoRes.getSelectedIndex()==0) {
 				algo = new ResolutionAleatoire(grille); // Lancement de l'algorithme resolution aléatoire.
@@ -224,18 +228,16 @@ public class FenetreParametre extends JFrame implements ActionListener {
 
 				}else{
 
-					grille.passerGene();
-					algo.resoudre();
-					affichage.desactiverTimer();
-					affichage.repaint();
+					grille.passerGene(); //On signale à la grille que la résolution doit être passée : ne pas suspendre le thread de résolution pour repeindre la fenêtre
+					algo.resoudre(); //Méthode bloquante qui résoud le labyrinthe, la fenêtre n'est pas lancée tant que cette méthode n'est pas terminée
+					affichage.desactiverTimer(); //On s'assure qu'aucun Timer lancé en fond dans la fenêtre d'affichage ne tourne encore
+					affichage.repaint(); //On repeint enfin la fenêtre une fois le labyrinthe résolu
 
 				}
 
 			}
 
 		}
-
-
 
 	}
 
