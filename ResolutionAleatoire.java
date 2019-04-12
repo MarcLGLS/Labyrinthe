@@ -61,6 +61,7 @@ public class ResolutionAleatoire extends Resolution{
 		
 		// Choix aléatoire de la case suivante selon l'état des murs. 
 		
+		
 		// cas continuer tout droit
 		if(maGrille.getTableau()[x1][y1].getMurs(droite()) == true && maGrille.getTableau()[x1][y1].getMurs(gauche()) == true && maGrille.getTableau()[x1][y1].getMurs(this.position) == false ) {
 				avancement(x1,y1);
@@ -115,7 +116,7 @@ public class ResolutionAleatoire extends Resolution{
 
 		}
 		
-				//cas intersection en L(tout droit et à droite), ici choix aléatoire du coté
+		//cas intersection en L(tout droit et à droite), ici choix aléatoire du coté
 		else if(maGrille.getTableau()[x1][y1].getMurs(droite()) == false && maGrille.getTableau()[x1][y1].getMurs(this.position) == false) {
 				if((int)(2*Math.random())==0) {
 					this.position= this.position;
@@ -128,9 +129,7 @@ public class ResolutionAleatoire extends Resolution{
 				
 		}
 		
-		if(chemin.contains(maGrille.getTableau()[this.x][this.y])) {
-			
-		}
+		
 	
 		
 		

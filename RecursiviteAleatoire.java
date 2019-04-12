@@ -35,7 +35,7 @@ public class RecursiviteAleatoire extends Generation implements Runnable{
 
   		// Définition de la case départ
   		visite[0][a] = true; // Définition de l'état visité de la case départ.
-  		boolean depart[] = {false,true,true,true};// Tableau représentant l'état de la case départ.
+  		boolean depart[] = {true,true,true,true};// Tableau représentant l'état de la case départ.
 
 		long heure2 = System.nanoTime();  // Fin du chronomètre
 		maGrille.ajouterTempsGene(heure2 - heure1); // Enregistrement du temps d'éxécution.
