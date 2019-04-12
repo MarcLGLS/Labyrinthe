@@ -45,7 +45,7 @@ public class ResolutionDroite extends Resolution{
 
 
 	}
-	// Méthode créant un chemin suivant le mur de droite.
+	// Méthode créant un chemin suivant le mur de droite dans le labyrinthe.
 	public void chemin(int x, int y) {
 		
 		int x1 = x;

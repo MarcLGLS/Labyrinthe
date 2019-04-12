@@ -17,15 +17,16 @@ public class ResolutionAleatoire extends Resolution{
 
 	public void resoudre() {
 		
-	  // détermination case départ
-	    long heure1 = System.nanoTime(); 
+	  // Détermination de la case départ.
+	    long heure1 = System.nanoTime(); // Début du chronomètre.
 		int xd =0;
 		int yd =0;
-		maGrille.debutReso();
+		maGrille.debutReso(); // On indique que la résolution a déja commencé.
+		//Parcours du tableau afin de trouver la case départ.
 		  for(this.x =0; this.x < maGrille.getLargeur() ; this.x++) {
 				for(y = 0; y < maGrille.getHauteur(); y++) {
 
-					if(maGrille.getTableau()[x][y].getEtat() == Case.EtatCase.Depart){
+					if(maGrille.getTableau()[x][y].getEtat() == Case.EtatCase.Depart){// Mémorisation des coordonnées de la case départ.
 						xd=x;
 						yd=y;
 					}
@@ -34,16 +35,16 @@ public class ResolutionAleatoire extends Resolution{
 		  }
 
 
-		this.position = 2;
-		cheminement(xd,yd);
-		long heure2 = System.nanoTime();
-		maGrille.ajouterTempsReso(heure2 - heure1); 
-		maGrille.finReso();
+		this.position = 2; 
+		cheminement(xd,yd);// Création du chemin ayant pour départ la case départ du labyrinthe.
+		long heure2 = System.nanoTime();// Fin du chronomètre;
+		maGrille.ajouterTempsReso(heure2 - heure1); // Enregistrement du temps d'éxécution.
+		maGrille.finReso(); // On indique la fin de la résolution pour l'affichage dynamique.
 
 
 
 	}
-
+	//Méthode générant un chemin aléatoire à travers le labyrinthe. 
 	public void cheminement(int x, int y) {
 		
 		int x1 = x;
@@ -51,16 +52,16 @@ public class ResolutionAleatoire extends Resolution{
 		this.x=x;
 		this.y = y;
 		int i =0;
+		// On parcourt le labyrinthe tant que l'on ne rencontre pas la case arrivée. 
 		do {
 			x1=this.x;
 			y1=this.y;
 		
-		maGrille.attendreEtape();
+		maGrille.attendreEtape(); //On indique une pause dans la résolution afin d'obtenir un affichage dynamique. 
 		
-		// AVANCEMENT
+		// Choix aléatoire de la case suivante selon l'état des murs. 
 		
 		// cas continuer tout droit
-
 		if(maGrille.getTableau()[x1][y1].getMurs(droite()) == true && maGrille.getTableau()[x1][y1].getMurs(gauche()) == true && maGrille.getTableau()[x1][y1].getMurs(this.position) == false ) {
 				avancement(x1,y1);
 				chemin.add(0,  maGrille.getTableau()[this.x][this.y]);
@@ -114,7 +115,7 @@ public class ResolutionAleatoire extends Resolution{
 
 		}
 		
-				//cas intersection en L(tout droit et à droite), icic choix aléatoire du coté
+				//cas intersection en L(tout droit et à droite), ici choix aléatoire du coté
 		else if(maGrille.getTableau()[x1][y1].getMurs(droite()) == false && maGrille.getTableau()[x1][y1].getMurs(this.position) == false) {
 				if((int)(2*Math.random())==0) {
 					this.position= this.position;
@@ -136,23 +137,7 @@ public class ResolutionAleatoire extends Resolution{
 		
 		maGrille.getTableau()[x1][y1].setEtat(Case.EtatCase.Chemin);
 		
-	
-		/*
-		 * 	
-		int i1 = chemin.indexOf(maGrille.getTableau()[this.x][this.y]);
-		int i2 = chemin.lastIndexOf(maGrille.getTableau()[this.x][this.y]);
-		
-		if(i1 != i2) {
-			while(chemin.contains(maGrille.getTableau()[this.x][this.y])) {
-				cheminASupprimer.add(chemin.get(0));
-				chemin.remove(0);
-			}
-			cheminASupprimer.remove(maGrille.getTableau()[this.x][this.y]);
-			cheminASupprimer.remove(maGrille.getTableau()[this.x][this.y]);
-			chemin.add(0,maGrille.getTableau()[this.x][this.y]);
-		}
-		*/
-		
+
 		if(maGrille.getTableau()[this.x][this.y].getEtat() != Case.EtatCase.Arrivee) {
 			maGrille.getTableau()[this.x][this.y].setEtat(Case.EtatCase.Selection);
 		}
@@ -161,24 +146,10 @@ public class ResolutionAleatoire extends Resolution{
 		i++;
 	}while(maGrille.getTableau()[this.x][this.y].getEtat() != Case.EtatCase.Arrivee);
 	
-	/*
-	// suppresion des chemins !! 
-	for(Case c : cheminASupprimer) {
-		c.setEtat(Case.EtatCase.Normal);
-		
-	}
-	
-	*/
-	
-	
-
 	
 
 	}
-/**
- * 
- */
- 
+	// Méthode faisant varier l'attribut position si on doit tourner à droite.
 	public int droite() {
 		
 		int droite = this.position + 1;
@@ -189,7 +160,8 @@ public class ResolutionAleatoire extends Resolution{
 		return droite;
 		
 	}
-
+	
+	// Méthode faisant varier l'attribut position si on doit tourner à gauche.
 	public int gauche() {
 		int gauche = this.position - 1;
 		if(gauche < 0)
@@ -200,9 +172,7 @@ public class ResolutionAleatoire extends Resolution{
 		
 	}
 	
-/**
- * Méthode modifiant les attributs x et y en fonction de la valeur de l'attribut position
- */
+	//Méthode modifiant les attributs x et y selon l'attribut position.
 	public void avancement(int x1, int y1) {
 		
 		if(this.position == 0)

@@ -4,7 +4,7 @@ public class Main {
 
 	public static void main(String[] args) {
 
-	FenetreParametre a = new FenetreParametre();
+		FenetreParametre a = new FenetreParametre();
 
 	}
 
